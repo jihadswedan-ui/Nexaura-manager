@@ -24,6 +24,7 @@ small{color:#aab7bf}
 </style>
 </head>
 <body>
+  <div id="dashboard" hidden>
 <header>
 <h1>NEXAURA</h1>
 <p>Manager | نظام الإدارة التعليمية</p>
@@ -53,6 +54,7 @@ small{color:#aab7bf}
 <section id="reports" hidden><h2>التقارير</h2><p>سيتم إضافة التقارير قريبًا.</p></section>
 <p><small>نسخة تجريبية أولية — البيانات لا تُحفظ بعد.</small></p>
 </main>
+  </div>
 <script>
 let students=[];
 function show(id){
@@ -73,7 +75,7 @@ document.getElementById("studentList").appendChild(li);
 </script>
   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -88,6 +90,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+    const loginButton = document.getElementById("loginButton");
+const loginMessage = document.getElementById("loginMessage");
+
+loginButton.addEventListener("click", async () => {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  loginMessage.textContent = "جارٍ تسجيل الدخول...";
+  loginButton.disabled = true;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    loginMessage.textContent = "تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.";
+  } finally {
+    loginButton.disabled = false;
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  const authorized = user && user.uid === "3ER6MuYqWtb7Nyawz6bLUiPXWJx1";
+  document.getElementById("dashboard").hidden = !authorized;
+  document.getElementById("loginBox").hidden = !!authorized;
+  if (user && !authorized) {
+    loginMessage.textContent = "هذا الحساب غير مخوّل بالدخول.";
+    signOut(auth);
+  }
+});
 </script>
+  <div id="loginBox" dir="rtl" style="padding:20px;text-align:center">
+  <h2>تسجيل الدخول إلى NEXAURA</h2>
+  <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" autocomplete="username">
+  <input id="loginPassword" type="password" placeholder="كلمة المرور" autocomplete="current-password">
+  <button id="loginButton" type="button">تسجيل الدخول</button>
+  <p id="loginMessage"></p>
+</div>
 </body>
 </html>
