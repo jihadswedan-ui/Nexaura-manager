@@ -3,616 +3,1171 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NEXAURA Manager</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090E16">
+<title>NEXAURA | Manager</title>
 <style>
-:root {
-  --bg: #0B1017;
-  --surface: #16232E;
-  --surface2: #111C25;
-  --gold: #E8C27A;
-  --teal: #48D1C5;
-  --text: #F1F5F7;
-  --muted: #9EB1BB;
-  --border: #30424D;
-  --red: #D65C66;
+:root{
+ --bg:#090E16;--panel:#131F2B;--panel2:#192A37;
+ --gold:#E8C27A;--teal:#47D9CB;--purple:#A899FF;
+ --text:#F2F6F8;--muted:#9FB0BC;--line:#304351;
+ --red:#FF7B88;--green:#7CE3B2;
 }
-* { box-sizing: border-box; }
-[hidden] { display: none !important; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, sans-serif;
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Arial,"Segoe UI",sans-serif;
 }
-header {
-  padding: 28px 20px;
-  text-align: center;
-  background: var(--surface2);
-  border-bottom: 1px solid var(--gold);
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:wait}
+button:focus-visible,input:focus-visible,
+select:focus-visible,textarea:focus-visible{
+ outline:2px solid var(--gold);outline-offset:2px
 }
-h1 {
-  margin: 0;
-  color: var(--gold);
-  letter-spacing: 3px;
-  font-size: 32px;
+h1,h2,h3,p{margin-top:0}
+h2{color:var(--gold);font-size:24px}
+h3{color:var(--teal)}
+small,.muted{color:var(--muted)}
+#app{min-height:100vh}
+.sidebar{
+ position:fixed;right:0;top:0;bottom:0;width:245px;
+ background:#101A25;border-left:1px solid var(--line);
+ padding:25px 14px;overflow:auto;z-index:5;
 }
-header p { color: var(--teal); }
-main { max-width: 1100px; margin: auto; padding: 22px; }
-h2 { color: var(--gold); }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 14px;
+.brand{
+ padding:15px 12px 26px;border-bottom:1px solid var(--line);
+ margin-bottom:22px;text-align:center
 }
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 22px;
-  color: var(--muted);
+.brand h1{
+ color:var(--gold);letter-spacing:3px;font-size:27px;
+ text-shadow:0 0 22px #E8C27A25;margin:0
 }
-.card strong {
-  display: block;
-  font-size: 30px;
-  margin-top: 12px;
-  color: var(--gold);
+.brand p{color:var(--teal);font-size:11px;margin:9px 0 0}
+.nav-btn{
+ width:100%;border:1px solid transparent;background:transparent;
+ color:var(--muted);text-align:right;padding:13px;
+ border-radius:11px;margin:3px 0;display:flex;
+ align-items:center;gap:10px
 }
-nav {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 12px;
-  margin-top: 22px;
+.nav-btn:hover,.nav-btn.active{
+ background:#19323A;color:var(--teal);
+ border-color:#31565D
 }
-button {
-  padding: 13px 18px;
-  border: 1px solid var(--teal);
-  border-radius: 10px;
-  background: #15363B;
-  color: var(--text);
-  font-size: 15px;
-  cursor: pointer;
-  font-family: inherit;
+.nav-btn .symbol{width:23px;text-align:center;font-size:19px}
+.content{margin-right:245px;padding:30px;max-width:1700px}
+.topbar{
+ display:flex;justify-content:space-between;align-items:center;
+ flex-wrap:wrap;gap:14px;margin-bottom:28px
 }
-button:hover { filter: brightness(1.12); }
-button:disabled { opacity: .5; cursor: wait; }
-button:focus-visible, input:focus-visible,
-select:focus-visible, textarea:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
+.topbar h2{margin:0}
+.topbar p{margin:8px 0 0;color:var(--muted)}
+.owner{
+ padding:10px 14px;background:var(--panel);
+ border:1px solid var(--line);border-radius:30px;
+ color:var(--teal);font-size:13px
 }
-section {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-  margin-top: 20px;
+.panel{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:17px;padding:22px;margin-bottom:20px;
+ box-shadow:0 10px 35px #00000018
 }
-input, select, textarea {
-  width: 100%;
-  min-width: 0;
-  padding: 13px;
-  background: #0C151C;
-  color: var(--text);
-  border: 1px solid #405660;
-  border-radius: 9px;
-  font: inherit;
+.stats{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:15px;margin-bottom:22px
 }
-input::placeholder, textarea::placeholder {
-  color: var(--muted);
+.stat{
+ padding:22px;border-radius:17px;
+ background:linear-gradient(145deg,#1B2D3A,#111B27);
+ border:1px solid var(--line);min-width:0
 }
-.student-form {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 12px;
-  margin: 18px 0;
+.stat .label{font-size:13px;color:var(--muted)}
+.stat .value{
+ display:block;font-size:30px;font-weight:bold;
+ color:var(--gold);margin-top:13px;overflow-wrap:anywhere
 }
-.full-width { grid-column: 1/-1; }
-textarea { min-height: 100px; resize: vertical; }
-#studentList {
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 15px;
-  margin-top: 22px;
+.stat:nth-child(2) .value{color:var(--teal)}
+.stat:nth-child(3) .value{color:var(--purple)}
+.stat:nth-child(4) .value{color:var(--green)}
+.form-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:13px;margin:18px 0
 }
-#studentList li {
-  padding: 20px;
-  border-radius: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field label{color:var(--muted);font-size:13px}
+input,select,textarea{
+ width:100%;min-width:0;padding:13px;
+ background:#0C1620;border:1px solid #3A5160;
+ border-radius:10px;color:var(--text)
 }
-.student-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+textarea{min-height:90px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#8194A1}
+.full{grid-column:1/-1}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.btn{
+ border:1px solid #3B6267;background:#19383D;
+ color:var(--teal);padding:11px 17px;border-radius:10px;
+ font-weight:bold
 }
-.student-name {
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--teal);
+.btn:hover{filter:brightness(1.14)}
+.btn.gold{
+ background:var(--gold);border-color:var(--gold);color:#18212A
 }
-.status {
-  border-radius: 20px;
-  padding: 6px 12px;
-  background: #163B35;
-  color: #72E1BD;
-  font-size: 13px;
+.btn.danger{
+ background:#44232D;border-color:#78414B;color:#FFABB4
 }
-.status.inactive {
-  background: #47312A;
-  color: #F1B38C;
+.btn.ghost{
+ background:transparent;border-color:var(--line);color:var(--muted)
 }
-.student-details {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 10px;
-  margin: 18px 0;
+.btn.small{padding:8px 11px;font-size:12px}
+.toolbar{
+ display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+ margin:15px 0
 }
-.student-detail {
-  background: var(--surface2);
-  padding: 12px;
-  border: 1px solid #273943;
-  border-radius: 9px;
-  overflow-wrap: anywhere;
+.toolbar input,.toolbar select{flex:1;min-width:170px}
+.records{display:grid;gap:13px}
+.record{
+ background:var(--panel2);border:1px solid var(--line);
+ border-radius:14px;padding:18px;min-width:0
 }
-.student-detail small {
-  display: block;
-  color: var(--muted);
-  margin-bottom: 7px;
+.record-head{
+ display:flex;justify-content:space-between;gap:10px;
+ align-items:center;flex-wrap:wrap;margin-bottom:12px
 }
-.student-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.record-title{color:var(--teal);font-size:19px;font-weight:bold}
+.tag{
+ background:#153C35;color:var(--green);
+ padding:6px 11px;border-radius:30px;font-size:12px
 }
-.student-actions button {
-  padding: 10px 16px;
+.tag.off{background:#47322D;color:#F2B58C}
+.tag.purple{background:#302A4C;color:#C4B7FF}
+.details{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:9px
 }
-.student-actions .edit {
-  background: var(--gold);
-  color: #17202A;
-  border-color: var(--gold);
-  font-weight: bold;
+.detail{
+ background:#101C27;border:1px solid #293C48;
+ border-radius:9px;padding:11px;overflow-wrap:anywhere;
+ white-space:pre-wrap
 }
-.student-actions .delete {
-  background: #48242D;
-  color: #FF9AA1;
-  border-color: #8A424C;
+.detail small{display:block;margin-bottom:6px}
+.empty{
+ color:var(--muted);text-align:center;padding:28px;
+ border:1px dashed var(--line);border-radius:12px
 }
-#formTitle { color: var(--gold); }
-#formMessage { color: var(--teal); min-height: 20px; }
-#loginBox {
-  max-width: 440px;
-  margin: 8vh auto;
-  padding: 30px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  text-align: center;
+.section{display:none}
+.section.active{display:block}
+.section-heading{
+ display:flex;align-items:center;justify-content:space-between;
+ flex-wrap:wrap;gap:12px;margin-bottom:16px
 }
-#loginBox h2 { margin-top: 0; }
-#loginBox input { margin: 8px 0; }
-#loginButton { width: 100%; margin-top: 12px; }
-footer { color: var(--muted); font-size: 12px; margin: 20px 0; }
-@media (max-width:600px) {
-  .student-form, .student-details { grid-template-columns: 1fr; }
-  main { padding: 12px; }
-  .card { padding: 15px; }
-  .card strong { font-size: 24px; }
+.section-heading h2{margin:0}
+#notice{
+ position:fixed;bottom:20px;left:20px;z-index:20;
+ background:#153B38;color:#D8FFF2;border:1px solid #3A7B70;
+ border-radius:12px;padding:14px 20px;max-width:360px;
+ box-shadow:0 10px 35px #0008
+}
+#notice.error{
+ background:#45242D;color:#FFD8DC;border-color:#9C4B57
+}
+#loginScreen{
+ min-height:100vh;display:grid;place-items:center;
+ padding:20px;
+ background:radial-gradient(ellipse at 30% 15%,#143B43,transparent 55%),
+ radial-gradient(ellipse at 80% 85%,#30213F,transparent 45%),var(--bg)
+}
+.login-card{
+ width:100%;max-width:430px;background:#131F2BEF;
+ border:1px solid #3B5360;border-radius:24px;
+ padding:35px;box-shadow:0 30px 90px #0008
+}
+.login-card h1{
+ text-align:center;color:var(--gold);
+ letter-spacing:4px;font-size:36px
+}
+.login-card .subtitle{
+ text-align:center;color:var(--teal);
+ margin-bottom:30px;font-size:13px
+}
+.login-card .field{margin-bottom:17px}
+.login-card .btn{width:100%;margin-top:8px}
+#loginError{color:var(--red);margin-top:15px;text-align:center}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th,td{
+ padding:13px;text-align:right;border-bottom:1px solid var(--line)
+}
+th{color:var(--gold);font-size:13px}
+td{color:var(--text);font-size:14px}
+.metric-row{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:15px
+}
+.highlight{color:var(--teal);font-weight:bold}
+footer{
+ margin:35px 0;text-align:center;color:var(--muted);
+ font-size:12px
+}
+@media(max-width:1100px){
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+ .sidebar{
+  position:static;width:100%;height:auto;padding:10px;
+  border-left:0;border-bottom:1px solid var(--line);
+ }
+ .brand{padding:10px;margin-bottom:8px}
+ .brand h1{font-size:23px}
+ .sidebar nav{
+  display:flex;overflow-x:auto;gap:5px;padding-bottom:5px
+ }
+ .nav-btn{
+  flex:0 0 auto;width:auto;white-space:nowrap;
+  padding:10px;font-size:12px
+ }
+ .nav-btn .symbol{font-size:15px;width:auto}
+ .content{margin-right:0;padding:15px}
+ .panel{padding:15px}
+ .form-grid,.details,.metric-row{grid-template-columns:1fr}
+ .stat{padding:16px}
+ .stat .value{font-size:24px}
 }
 </style>
 </head>
 <body>
 
-<div id="dashboard" hidden>
-<header>
+<div id="loginScreen">
+ <div class="login-card">
   <h1>NEXAURA</h1>
-  <p>Manager | نظام الإدارة التعليمية</p>
-</header>
-
-<main>
-<h2>لوحة التحكم</h2>
-<div class="grid">
-  <div class="card">الطلاب المسجلون<strong id="studentsCount">0</strong></div>
-  <div class="card">الدروس اليوم<strong>0</strong></div>
-  <div class="card">الدخل الشهري<strong>₪0</strong></div>
-  <div class="card">المدفوعات المستحقة<strong>₪0</strong></div>
-</div>
-
-<nav>
-  <button type="button" onclick="show('students')">إدارة الطلاب</button>
-  <button type="button" onclick="show('lessons')">جدول الدروس</button>
-  <button type="button" onclick="show('payments')">المدفوعات</button>
-  <button type="button" onclick="show('reports')">التقارير</button>
-</nav>
-
-<section id="students" hidden>
-  <h2>إدارة الطلاب</h2>
-  <h3 id="formTitle">إضافة طالب جديد</h3>
-  <p id="formMessage" role="status" aria-live="polite"></p>
-
-  <form id="studentForm" class="student-form">
-    <input id="studentName" placeholder="اسم الطالب" required>
-    <select id="studentGrade">
-      <option value="">اختر الصف الدراسي</option>
-      <option value="1">الصف الأول</option>
-      <option value="2">الصف الثاني</option>
-      <option value="3">الصف الثالث</option>
-      <option value="4">الصف الرابع</option>
-      <option value="5">الصف الخامس</option>
-      <option value="6">الصف السادس</option>
-      <option value="7">الصف السابع</option>
-      <option value="8">الصف الثامن</option>
-      <option value="9">الصف التاسع</option>
-      <option value="10">الصف العاشر</option>
-      <option value="11">الصف الحادي عشر</option>
-      <option value="12">الصف الثاني عشر</option>
-    </select>
-    <input id="studentSubject" placeholder="المادة التعليمية">
-    <input id="parentPhone" type="tel" placeholder="هاتف ولي الأمر">
-    <select id="lessonType">
-      <option value="group">تعليم جماعي</option>
-      <option value="individual">تعليم فردي</option>
-    </select>
-    <input id="lessonPrice" type="number" min="0" step="0.01" placeholder="سعر الحصة ₪">
-    <select id="studentStatus">
-      <option value="active">طالب نشط</option>
-      <option value="inactive">طالب غير نشط</option>
-    </select>
-    <select id="academicRating">
-      <option value="">التقييم الأكاديمي</option>
-      <option value="excellent">ممتاز</option>
-      <option value="very-good">جيد جدًا</option>
-      <option value="good">جيد</option>
-      <option value="needs-support">يحتاج إلى متابعة</option>
-    </select>
-    <textarea id="studentStrengths" class="full-width" placeholder="نقاط القوة"></textarea>
-    <textarea id="studentImprovements" class="full-width" placeholder="نقاط تحتاج إلى تحسين"></textarea>
-    <textarea id="studentNotes" class="full-width" placeholder="ملاحظات المعلم"></textarea>
-
-    <div class="full-width">
-      <button id="saveStudentButton" type="submit">إضافة طالب</button>
-      <button id="cancelEditButton" type="button" onclick="cancelEdit()" hidden>إلغاء التعديل</button>
-    </div>
-  </form>
-
-  <ul id="studentList"></ul>
-</section>
-
-<section id="lessons" hidden>
-  <h2>جدول الدروس</h2>
-  <p>سيتم إضافة الجدول في المرحلة القادمة.</p>
-</section>
-<section id="payments" hidden>
-  <h2>المدفوعات</h2>
-  <p>سيتم إضافة إدارة المدفوعات قريبًا.</p>
-</section>
-<section id="reports" hidden>
-  <h2>التقارير</h2>
-  <p>سيتم إضافة التقارير قريبًا.</p>
-</section>
-
-<footer>بيانات الطلاب محفوظة في Firebase وتتم مزامنتها بين الأجهزة.</footer>
-</main>
-</div>
-
-<div id="loginBox">
-  <h2>تسجيل الدخول إلى NEXAURA</h2>
+  <p class="subtitle">NEXT × AURA | MANAGEMENT SYSTEM</p>
   <form id="loginForm">
-    <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" autocomplete="username" required>
-    <input id="loginPassword" type="password" placeholder="كلمة المرور" autocomplete="current-password" required>
-    <button id="loginButton" type="submit">تسجيل الدخول</button>
+   <div class="field">
+    <label for="loginEmail">البريد الإلكتروني</label>
+    <input id="loginEmail" type="email" autocomplete="username" required>
+   </div>
+   <div class="field">
+    <label for="loginPassword">كلمة المرور</label>
+    <input id="loginPassword" type="password" autocomplete="current-password" required>
+   </div>
+   <button class="btn gold" id="loginButton" type="submit">تسجيل الدخول</button>
   </form>
-  <p id="loginMessage" role="status"></p>
+  <p id="loginError" role="alert"></p>
+ </div>
 </div>
 
-<script>
-let students = [];
-let editingStudentId = null;
+<div id="app" hidden>
+ <aside class="sidebar">
+  <div class="brand">
+   <h1>NEXAURA</h1>
+   <p>EDUCATION MANAGEMENT</p>
+  </div>
+  <nav id="navigation">
+   <button class="nav-btn active" data-page="dashboard"><span class="symbol">◈</span> لوحة التحكم</button>
+   <button class="nav-btn" data-page="students"><span class="symbol">♙</span> الطلاب</button>
+   <button class="nav-btn" data-page="lessons"><span class="symbol">▦</span> الدروس</button>
+   <button class="nav-btn" data-page="attendance"><span class="symbol">✓</span> الحضور</button>
+   <button class="nav-btn" data-page="payments"><span class="symbol">₪</span> المدفوعات</button>
+   <button class="nav-btn" data-page="expenses"><span class="symbol">↘</span> المصاريف</button>
+   <button class="nav-btn" data-page="teachers"><span class="symbol">♧</span> المعلمون</button>
+   <button class="nav-btn" data-page="reports"><span class="symbol">▥</span> التقارير</button>
+   <button class="nav-btn" data-page="settings"><span class="symbol">⚙</span> الإعدادات</button>
+  </nav>
+ </aside>
 
-const studentFields = {
-  name: 'studentName',
-  grade: 'studentGrade',
-  subject: 'studentSubject',
-  parentPhone: 'parentPhone',
-  lessonType: 'lessonType',
-  lessonPrice: 'lessonPrice',
-  status: 'studentStatus',
-  academicRating: 'academicRating',
-  strengths: 'studentStrengths',
-  improvements: 'studentImprovements',
-  notes: 'studentNotes'
-};
+ <main class="content">
+  <div class="topbar">
+   <div>
+    <h2 id="pageTitle">لوحة التحكم</h2>
+    <p id="pageSubtitle">نظرة شاملة على أعمال NEXAURA</p>
+   </div>
+   <span class="owner">● OWNER ACCESS</span>
+  </div>
 
-function show(id) {
-  document.querySelectorAll('main section').forEach(s => s.hidden = true);
-  document.getElementById(id).hidden = false;
-}
+  <section id="dashboard" class="section active">
+   <div class="stats">
+    <div class="stat"><span class="label">إجمالي الطلاب</span><strong class="value" id="statStudents">0</strong></div>
+    <div class="stat"><span class="label">الطلاب النشطون</span><strong class="value" id="statActive">0</strong></div>
+    <div class="stat"><span class="label">دروس اليوم</span><strong class="value" id="statToday">0</strong></div>
+    <div class="stat"><span class="label">صافي الشهر</span><strong class="value" id="statProfit">₪0</strong></div>
+   </div>
+   <div class="stats">
+    <div class="stat"><span class="label">إيرادات الشهر المسجلة</span><strong class="value" id="statIncome">₪0</strong></div>
+    <div class="stat"><span class="label">مصاريف الشهر</span><strong class="value" id="statExpenses">₪0</strong></div>
+    <div class="stat"><span class="label">المدفوعات المستحقة</span><strong class="value" id="statDue">₪0</strong></div>
+    <div class="stat"><span class="label">إجمالي المعلمين</span><strong class="value" id="statTeachers">0</strong></div>
+   </div>
+   <div class="panel">
+    <h3>الدروس القادمة</h3>
+    <div id="upcomingLessons" class="records"></div>
+   </div>
+  </section>
 
-function collectStudentData() {
-  const data = {};
-  for (const [key, elementId] of Object.entries(studentFields)) {
-    data[key] = document.getElementById(elementId).value.trim();
-  }
-  data.lessonPrice = data.lessonPrice === '' ? null : Number(data.lessonPrice);
-  return data;
-}
+  <section id="students" class="section">
+   <div class="section-heading"><h2>إدارة الطلاب</h2></div>
+   <div class="panel">
+    <h3 id="studentFormTitle">إضافة طالب جديد</h3>
+    <form id="studentForm" class="form-grid">
+     <div class="field"><label>اسم الطالب *</label><input name="name" required></div>
+     <div class="field"><label>الصف</label>
+      <select name="grade">
+       <option value="">اختر الصف</option>
+       <option value="1">الأول</option><option value="2">الثاني</option>
+       <option value="3">الثالث</option><option value="4">الرابع</option>
+       <option value="5">الخامس</option><option value="6">السادس</option>
+       <option value="7">السابع</option><option value="8">الثامن</option>
+       <option value="9">التاسع</option><option value="10">العاشر</option>
+       <option value="11">الحادي عشر</option><option value="12">الثاني عشر</option>
+      </select>
+     </div>
+     <div class="field"><label>المادة</label><input name="subject"></div>
+     <div class="field"><label>هاتف ولي الأمر</label><input name="parentPhone" type="tel"></div>
+     <div class="field"><label>نوع التعليم</label>
+      <select name="lessonType"><option value="group">جماعي</option><option value="individual">فردي</option></select>
+     </div>
+     <div class="field"><label>سعر الحصة ₪</label><input name="lessonPrice" type="number" min="0" step=".01"></div>
+     <div class="field"><label>الحالة</label>
+      <select name="status"><option value="active">نشط</option><option value="inactive">غير نشط</option></select>
+     </div>
+     <div class="field"><label>التقييم الأكاديمي</label>
+      <select name="academicRating">
+       <option value="">غير محدد</option>
+       <option value="excellent">ممتاز</option>
+       <option value="very-good">جيد جدًا</option>
+       <option value="good">جيد</option>
+       <option value="needs-support">يحتاج إلى متابعة</option>
+      </select>
+     </div>
+     <div class="field full"><label>نقاط القوة</label><textarea name="strengths"></textarea></div>
+     <div class="field full"><label>نقاط تحتاج إلى تحسين</label><textarea name="improvements"></textarea></div>
+     <div class="field full"><label>ملاحظات المعلم</label><textarea name="notes"></textarea></div>
+     <div class="actions full">
+      <button class="btn gold" type="submit" id="studentSave">إضافة الطالب</button>
+      <button class="btn ghost" type="button" id="studentCancel" hidden>إلغاء التعديل</button>
+     </div>
+    </form>
+   </div>
+   <div class="panel">
+    <h3>سجل الطلاب</h3>
+    <div class="toolbar">
+     <input id="studentSearch" placeholder="ابحث باسم الطالب أو المادة أو الهاتف...">
+     <select id="studentFilter">
+      <option value="all">جميع الطلاب</option>
+      <option value="active">النشطون</option>
+      <option value="inactive">غير النشطين</option>
+     </select>
+    </div>
+    <div id="studentRecords" class="records"></div>
+   </div>
+  </section>
 
-function populateStudentForm(student) {
-  for (const [key, elementId] of Object.entries(studentFields)) {
-    const el = document.getElementById(elementId);
-    const value = student[key];
-    if (value !== undefined && value !== null) {
-      el.value = String(value);
-    } else if (el.tagName === 'SELECT') {
-      el.selectedIndex = 0;
-    } else {
-      el.value = '';
-    }
-  }
-}
+  <section id="lessons" class="section">
+   <div class="panel">
+    <h3 id="lessonFormTitle">جدولة درس</h3>
+    <form id="lessonForm" class="form-grid">
+     <div class="field"><label>عنوان الدرس *</label><input name="title" required placeholder="مثال: English Group A"></div>
+     <div class="field"><label>التاريخ *</label><input name="date" type="date" required></div>
+     <div class="field"><label>وقت البداية *</label><input name="time" type="time" required></div>
+     <div class="field"><label>المدة بالدقائق</label><input name="duration" type="number" min="15" value="60" required></div>
+     <div class="field"><label>نوع الدرس</label>
+      <select name="type"><option value="group">جماعي</option><option value="individual">فردي</option></select>
+     </div>
+     <div class="field"><label>المعلم</label><select name="teacherId" id="lessonTeacher"></select></div>
+     <div class="field full"><label>الطلاب (يمكن اختيار أكثر من طالب)</label>
+      <select name="studentIds" id="lessonStudents" multiple size="6"></select>
+      <small>على الكمبيوتر: Ctrl أو Command لتحديد عدة طلاب.</small>
+     </div>
+     <div class="field"><label>الحالة</label>
+      <select name="status">
+       <option value="scheduled">مجدول</option>
+       <option value="completed">مكتمل</option>
+       <option value="cancelled">ملغي</option>
+      </select>
+     </div>
+     <div class="field"><label>ملاحظات</label><input name="notes"></div>
+     <div class="actions full">
+      <button class="btn gold" type="submit" id="lessonSave">حفظ الدرس</button>
+      <button class="btn ghost" type="button" id="lessonCancel" hidden>إلغاء التعديل</button>
+     </div>
+    </form>
+   </div>
+   <div class="panel">
+    <h3>جدول الدروس</h3>
+    <div class="toolbar">
+     <input type="date" id="lessonDateFilter">
+     <button class="btn ghost" id="clearLessonDate">عرض الكل</button>
+    </div>
+    <div id="lessonRecords" class="records"></div>
+   </div>
+  </section>
 
-function cancelEdit() {
-  editingStudentId = null;
-  document.getElementById('studentForm').reset();
-  document.getElementById('formTitle').textContent = 'إضافة طالب جديد';
-  document.getElementById('saveStudentButton').textContent = 'إضافة طالب';
-  document.getElementById('cancelEditButton').hidden = true;
-  document.getElementById('formMessage').textContent = '';
-}
+  <section id="attendance" class="section">
+   <div class="panel">
+    <h3>تسجيل الحضور والغياب</h3>
+    <p class="muted">اختر درسًا ثم سجّل حالة كل طالب. يتم حفظ الحضور داخل سجل الدرس في Firebase.</p>
+    <div class="field">
+     <label>اختر الدرس</label>
+     <select id="attendanceLesson"></select>
+    </div>
+    <div id="attendanceEditor" style="margin-top:18px"></div>
+   </div>
+  </section>
 
-function editStudent(studentId) {
-  const student = students.find(s => s.id === studentId);
-  if (!student) return;
-  editingStudentId = studentId;
-  populateStudentForm(student);
-  document.getElementById('formTitle').textContent = 'تعديل بيانات: ' + (student.name || 'طالب');
-  document.getElementById('saveStudentButton').textContent = 'حفظ التغييرات';
-  document.getElementById('cancelEditButton').hidden = false;
-  document.getElementById('formMessage').textContent = 'عدّل المعلومات ثم اضغط حفظ التغييرات.';
-  document.getElementById('formTitle').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+  <section id="payments" class="section">
+   <div class="panel">
+    <h3 id="paymentFormTitle">تسجيل دفعة أو مستحقات</h3>
+    <form id="paymentForm" class="form-grid">
+     <div class="field"><label>الطالب *</label><select name="studentId" id="paymentStudent" required></select></div>
+     <div class="field"><label>التاريخ *</label><input name="date" type="date" required></div>
+     <div class="field"><label>المبلغ المطلوب ₪ *</label><input name="amount" type="number" min="0" step=".01" required></div>
+     <div class="field"><label>المبلغ المدفوع ₪ *</label><input name="paid" type="number" min="0" step=".01" required></div>
+     <div class="field full"><label>الوصف</label><input name="description" placeholder="مثال: رسوم شهر نوفمبر"></div>
+     <div class="actions full">
+      <button class="btn gold" type="submit" id="paymentSave">حفظ المدفوعات</button>
+      <button class="btn ghost" type="button" id="paymentCancel" hidden>إلغاء التعديل</button>
+     </div>
+    </form>
+   </div>
+   <div class="panel">
+    <h3>سجل المدفوعات والمستحقات</h3>
+    <div id="paymentRecords" class="records"></div>
+   </div>
+  </section>
 
-async function saveStudent() {
-  const data = collectStudentData();
-  if (!data.name) {
-    alert('الرجاء إدخال اسم الطالب');
-    return;
-  }
-  if (data.lessonPrice !== null && (!Number.isFinite(data.lessonPrice) || data.lessonPrice < 0)) {
-    alert('يرجى إدخال سعر حصة صحيح');
-    return;
-  }
+  <section id="expenses" class="section">
+   <div class="panel">
+    <h3 id="expenseFormTitle">تسجيل مصروف</h3>
+    <form id="expenseForm" class="form-grid">
+     <div class="field"><label>عنوان المصروف *</label><input name="title" required></div>
+     <div class="field"><label>التاريخ *</label><input name="date" type="date" required></div>
+     <div class="field"><label>المبلغ ₪ *</label><input name="amount" type="number" min="0" step=".01" required></div>
+     <div class="field"><label>التصنيف</label>
+      <select name="category">
+       <option value="rent">إيجار</option>
+       <option value="supplies">مستلزمات</option>
+       <option value="utilities">فواتير</option>
+       <option value="salary">أجور المعلمين</option>
+       <option value="marketing">تسويق</option>
+       <option value="other">أخرى</option>
+      </select>
+     </div>
+     <div class="field full"><label>ملاحظات</label><textarea name="notes"></textarea></div>
+     <div class="actions full">
+      <button class="btn gold" type="submit" id="expenseSave">حفظ المصروف</button>
+      <button class="btn ghost" type="button" id="expenseCancel" hidden>إلغاء التعديل</button>
+     </div>
+    </form>
+   </div>
+   <div class="panel">
+    <h3>سجل المصاريف</h3>
+    <div id="expenseRecords" class="records"></div>
+   </div>
+  </section>
 
-  const button = document.getElementById('saveStudentButton');
-  button.disabled = true;
-  try {
-    if (editingStudentId) {
-      const id = editingStudentId;
-      await window.updateStudentInFirebase(id, data);
-      students = students.map(s => s.id === id ? { ...s, ...data } : s);
-    } else {
-      const saved = await window.saveStudentToFirebase(data);
-      students.push(saved);
-    }
-    renderStudents();
-    cancelEdit();
-    document.getElementById('formMessage').textContent = 'تم حفظ بيانات الطالب بنجاح.';
-  } catch (error) {
-    console.error('Error saving student:', error);
-    alert('تعذر حفظ بيانات الطالب. تحقق من الاتصال والصلاحيات وحاول مجددًا.');
-  } finally {
-    button.disabled = false;
-  }
-}
+  <section id="teachers" class="section">
+   <div class="panel">
+    <h3 id="teacherFormTitle">إضافة معلم</h3>
+    <form id="teacherForm" class="form-grid">
+     <div class="field"><label>اسم المعلم *</label><input name="name" required></div>
+     <div class="field"><label>المادة</label><input name="subject"></div>
+     <div class="field"><label>الهاتف</label><input name="phone" type="tel"></div>
+     <div class="field"><label>أجر الحصة ₪</label><input name="rate" type="number" min="0" step=".01"></div>
+     <div class="field"><label>الحالة</label>
+      <select name="status"><option value="active">نشط</option><option value="inactive">غير نشط</option></select>
+     </div>
+     <div class="field"><label>ملاحظات</label><input name="notes"></div>
+     <div class="actions full">
+      <button class="btn gold" type="submit" id="teacherSave">حفظ المعلم</button>
+      <button class="btn ghost" type="button" id="teacherCancel" hidden>إلغاء التعديل</button>
+     </div>
+    </form>
+   </div>
+   <div class="panel">
+    <h3>سجل المعلمين</h3>
+    <div id="teacherRecords" class="records"></div>
+   </div>
+  </section>
 
-async function deleteStudent(studentId) {
-  const student = students.find(s => s.id === studentId);
-  if (!student || !confirm('هل تريد حذف الطالب "' + student.name + '" نهائيًا؟')) return;
-  try {
-    await window.deleteStudentFromFirebase(studentId);
-    students = students.filter(s => s.id !== studentId);
-    if (editingStudentId === studentId) cancelEdit();
-    renderStudents();
-  } catch (error) {
-    console.error('Error deleting student:', error);
-    alert('تعذر حذف الطالب. حاول مرة أخرى.');
-  }
-}
+  <section id="reports" class="section">
+   <div class="panel">
+    <h3>التقرير المالي الشهري</h3>
+    <div class="field" style="max-width:250px">
+     <label>الشهر</label><input type="month" id="reportMonth">
+    </div>
+    <div class="stats" style="margin-top:20px">
+     <div class="stat"><span class="label">المبالغ المطلوبة</span><strong id="reportBilled" class="value">₪0</strong></div>
+     <div class="stat"><span class="label">المبالغ المدفوعة</span><strong id="reportPaid" class="value">₪0</strong></div>
+     <div class="stat"><span class="label">المصاريف</span><strong id="reportExpenses" class="value">₪0</strong></div>
+     <div class="stat"><span class="label">صافي التدفق النقدي</span><strong id="reportNet" class="value">₪0</strong></div>
+    </div>
+    <div class="metric-row">
+     <div class="record">الدروس المكتملة: <span class="highlight" id="reportCompleted">0</span></div>
+     <div class="record">الدروس الملغاة: <span class="highlight" id="reportCancelled">0</span></div>
+    </div>
+    <p class="muted" style="margin-top:15px">
+     تُحسب الإيرادات من المدفوعات المسجلة بتاريخها، والمصاريف من سجل المصاريف.
+     لا تُحسب أجور المعلمين تلقائيًا؛ سجّل المبلغ المدفوع لهم ضمن المصاريف.
+    </p>
+   </div>
+  </section>
 
-const gradeNames = ['', 'الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس', 'السادس', 'السابع', 'الثامن', 'التاسع', 'العاشر', 'الحادي عشر', 'الثاني عشر'];
-const ratings = {
-  excellent: 'ممتاز',
-  'very-good': 'جيد جدًا',
-  good: 'جيد',
-  'needs-support': 'يحتاج إلى متابعة'
-};
+  <section id="settings" class="section">
+   <div class="panel">
+    <h3>إعدادات المؤسسة</h3>
+    <form id="settingsForm" class="form-grid">
+     <div class="field"><label>اسم المؤسسة</label><input name="instituteName" value="NEXAURA"></div>
+     <div class="field"><label>الموقع</label><input name="location" value="الناصرة"></div>
+     <div class="field"><label>رقم الهاتف</label><input name="phone" type="tel"></div>
+     <div class="field"><label>العملة</label><input value="ILS — ₪" disabled></div>
+     <div class="actions full">
+      <button class="btn gold" type="submit" id="settingsSave">حفظ الإعدادات</button>
+     </div>
+    </form>
+   </div>
+   <div class="panel">
+    <h3>الحساب والأمان</h3>
+    <p class="muted" id="accountEmail"></p>
+    <button class="btn danger" id="logoutButton">تسجيل الخروج</button>
+   </div>
+  </section>
 
-function detail(container, label, value) {
-  const box = document.createElement('div');
-  box.className = 'student-detail';
-  const caption = document.createElement('small');
-  caption.textContent = label;
-  const content = document.createElement('span');
-  content.textContent = value === undefined || value === null || value === '' ? 'غير محدد' : String(value);
-  box.append(caption, content);
-  container.appendChild(box);
-}
+  <footer>NEXAURA MANAGER · NEXT × AURA · الناصرة</footer>
+ </main>
+</div>
 
-function renderStudents() {
-  const list = document.getElementById('studentList');
-  list.replaceChildren();
-  document.getElementById('studentsCount').textContent = students.length;
-
-  for (const student of students) {
-    const li = document.createElement('li');
-    li.dataset.studentId = student.id;
-
-    const head = document.createElement('div');
-    head.className = 'student-head';
-
-    const name = document.createElement('span');
-    name.className = 'student-name';
-    name.textContent = student.name || 'طالب بدون اسم';
-
-    const status = document.createElement('span');
-    status.className = 'status' + (student.status === 'inactive' ? ' inactive' : '');
-    status.textContent = student.status === 'inactive' ? 'غير نشط' : 'نشط';
-    head.append(name, status);
-
-    const details = document.createElement('div');
-    details.className = 'student-details';
-    const grade = Number(student.grade);
-
-    detail(details, 'الصف الدراسي', gradeNames[grade] ? 'الصف ' + gradeNames[grade] : 'غير محدد');
-    detail(details, 'المادة التعليمية', student.subject);
-    detail(details, 'هاتف ولي الأمر', student.parentPhone);
-    detail(details, 'نوع التعليم', student.lessonType === 'individual' ? 'فردي' : student.lessonType === 'group' ? 'جماعي' : 'غير محدد');
-    detail(details, 'سعر الحصة', student.lessonPrice === null || student.lessonPrice === undefined || student.lessonPrice === '' ? '' : '₪' + student.lessonPrice);
-    detail(details, 'التقييم الأكاديمي', ratings[student.academicRating] || 'غير محدد');
-    detail(details, 'نقاط القوة', student.strengths);
-    detail(details, 'نقاط تحتاج إلى تحسين', student.improvements);
-    detail(details, 'ملاحظات المعلم', student.notes);
-
-    const actions = document.createElement('div');
-    actions.className = 'student-actions';
-
-    const edit = document.createElement('button');
-    edit.type = 'button';
-    edit.className = 'edit';
-    edit.textContent = 'تعديل البيانات';
-    edit.onclick = () => editStudent(student.id);
-
-    const remove = document.createElement('button');
-    remove.type = 'button';
-    remove.className = 'delete';
-    remove.textContent = 'حذف الطالب';
-    remove.onclick = () => deleteStudent(student.id);
-
-    actions.append(edit, remove);
-    li.append(head, details, actions);
-    list.appendChild(li);
-  }
-}
-
-document.getElementById('studentForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  await saveStudent();
-});
-
-document.getElementById('studentForm').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && !e.isComposing) {
-    e.preventDefault();
-    if (!document.getElementById('saveStudentButton').disabled) {
-      document.getElementById('studentForm').requestSubmit();
-    }
-  }
-});
-</script>
+<div id="notice" hidden role="status" aria-live="polite"></div>
 
 <script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, updateDoc, doc } from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
+import {initializeApp} from
+"https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import {
+ getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import {
+ getFirestore,collection,doc,addDoc,updateDoc,deleteDoc,
+ onSnapshot,setDoc
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
-  authDomain: "nexaura-management.firebaseapp.com",
-  projectId: "nexaura-management",
-  storageBucket: "nexaura-management.firebasestorage.app",
-  messagingSenderId: "320853910043",
-  appId: "1:320853910043:web:96764e1becd3c466f08ebe"
+const firebaseConfig={
+ apiKey:"AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
+ authDomain:"nexaura-management.firebaseapp.com",
+ projectId:"nexaura-management",
+ storageBucket:"nexaura-management.firebasestorage.app",
+ messagingSenderId:"320853910043",
+ appId:"1:320853910043:web:96764e1becd3c466f08ebe"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const OWNER_UID = '3ER6MuYqWtb7Nyawz6bLUiPXWJx1';
+const OWNER_UID="3ER6MuYqWtb7Nyawz6bLUiPXWJx1";
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
-function assertOwner() {
-  if (!auth.currentUser || auth.currentUser.uid !== OWNER_UID) {
-    throw new Error('Unauthorized');
+const $=id=>document.getElementById(id);
+const collections=["students","lessons","payments","expenses","teachers"];
+const store={
+ students:[],lessons:[],payments:[],expenses:[],teachers:[]
+};
+const editIds={};
+let subscriptions=[];
+let sessionVersion=0;
+let noticeTimer;
+
+const money=n=>"₪"+Number(n||0).toLocaleString("en-US",{
+ maximumFractionDigits:2
+});
+const num=n=>Number(n)||0;
+const dateNow=()=>{
+ const d=new Date();
+ return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),
+ String(d.getDate()).padStart(2,"0")].join("-");
+};
+const monthNow=()=>dateNow().slice(0,7);
+const text=(v,fallback="غير محدد")=>
+ v===null||v===undefined||v===""?fallback:String(v);
+const nameOf=(kind,id)=>
+ store[kind].find(x=>x.id===id)?.name||"غير محدد";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",
+ '"':"&quot;","'":"&#39;"
+}[c]));
+
+function notify(message,error=false){
+ const el=$("notice");
+ el.textContent=message;
+ el.classList.toggle("error",error);
+ el.hidden=false;
+ clearTimeout(noticeTimer);
+ noticeTimer=setTimeout(()=>el.hidden=true,4500);
+}
+function authorized(){
+ return auth.currentUser?.uid===OWNER_UID;
+}
+function requireOwner(){
+ if(!authorized())throw Error("غير مخوّل بتنفيذ العملية");
+}
+function errorMessage(e){
+ console.error(e);
+ if(e.code==="permission-denied"){
+  return "رفض Firebase العملية. راجع قواعد Firestore.";
+ }
+ return e.message||"حدث خطأ. حاول مجددًا.";
+}
+function showPage(page){
+ document.querySelectorAll(".section").forEach(s=>
+  s.classList.toggle("active",s.id===page)
+ );
+ document.querySelectorAll(".nav-btn").forEach(b=>
+  b.classList.toggle("active",b.dataset.page===page)
+ );
+ const names={
+  dashboard:"لوحة التحكم",students:"إدارة الطلاب",
+  lessons:"جدول الدروس",attendance:"الحضور والغياب",
+  payments:"المدفوعات",expenses:"المصاريف",
+  teachers:"إدارة المعلمين",reports:"التقارير",
+  settings:"الإعدادات"
+ };
+ $("pageTitle").textContent=names[page]||"NEXAURA";
+ $("pageSubtitle").textContent="NEXAURA Management System";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll(".nav-btn").forEach(b=>
+ b.addEventListener("click",()=>showPage(b.dataset.page))
+);
+
+function getData(form){
+ const result={};
+ new FormData(form).forEach((v,k)=>{
+  if(k!=="studentIds")result[k]=String(v).trim();
+ });
+ return result;
+}
+function setData(form,data){
+ for(const el of form.elements){
+  if(!el.name||el.name==="studentIds")continue;
+  if(Object.hasOwn(data,el.name)){
+   el.value=data[el.name]??"";
   }
+ }
+}
+function detail(label,value){
+ return `<div class="detail"><small>${esc(label)}</small>${esc(text(value))}</div>`;
+}
+function record(title,tag,details,buttons,tagClass=""){
+ return `<article class="record">
+  <div class="record-head">
+   <span class="record-title">${esc(title)}</span>
+   <span class="tag ${tagClass}">${esc(tag)}</span>
+  </div>
+  <div class="details">${details}</div>
+  <div class="actions">${buttons}</div>
+ </article>`;
+}
+function buttons(kind,id){
+ const safe=esc(id);
+ return `<button type="button" class="btn small" data-action="edit"
+ data-kind="${kind}" data-id="${safe}">تعديل</button>
+ <button type="button" class="btn danger small" data-action="delete"
+ data-kind="${kind}" data-id="${safe}">حذف</button>`;
+}
+function empty(message="لا توجد سجلات بعد"){
+ return `<div class="empty">${esc(message)}</div>`;
 }
 
-window.saveStudentToFirebase = async studentData => {
-  assertOwner();
-  const ref = await addDoc(collection(db, 'students'), {
-    ...studentData,
-    createdAt: new Date().toISOString()
+async function saveRecord(kind,data,id=null){
+ requireOwner();
+ if(id){
+  await updateDoc(doc(db,kind,id),{
+   ...data,updatedAt:new Date().toISOString()
   });
-  return { id: ref.id, ...studentData };
-};
-
-window.updateStudentInFirebase = async (id, studentData) => {
-  assertOwner();
-  await updateDoc(doc(db, 'students', id), {
-    ...studentData,
-    updatedAt: new Date().toISOString()
+ }else{
+  await addDoc(collection(db,kind),{
+   ...data,createdAt:new Date().toISOString()
   });
-};
-
-window.deleteStudentFromFirebase = async id => {
-  assertOwner();
-  await deleteDoc(doc(db, 'students', id));
-};
-
-window.loadStudentsFromFirebase = async () => {
-  assertOwner();
-  const snapshot = await getDocs(collection(db, 'students'));
-  return snapshot.docs.map(item => ({ ...item.data(), id: item.id }));
-};
-
-const loginButton = document.getElementById('loginButton');
-const loginMessage = document.getElementById('loginMessage');
-
-document.getElementById('loginForm').addEventListener('submit', async e => {
+ }
+}
+async function removeRecord(kind,id){
+ requireOwner();
+ await deleteDoc(doc(db,kind,id));
+}
+function resetForm(kind){
+ const form=$(kind+"Form");
+ form.reset();
+ editIds[kind]=null;
+ const cancel=$(kind+"Cancel");
+ if(cancel)cancel.hidden=true;
+ const title=$(kind+"FormTitle");
+ if(title){
+  const titles={
+   student:"إضافة طالب جديد",lesson:"جدولة درس",
+   payment:"تسجيل دفعة أو مستحقات",
+   expense:"تسجيل مصروف",teacher:"إضافة معلم"
+  };
+  title.textContent=titles[kind];
+ }
+ if(kind==="lesson")$("lessonStudents").selectedIndex=-1;
+ if(kind==="lesson"||kind==="payment"||kind==="expense"){
+  form.elements.date.value=dateNow();
+ }
+}
+function startEdit(kind,id){
+ const collectionName=kind==="student"?"students":
+ kind==="lesson"?"lessons":kind==="payment"?"payments":
+ kind==="expense"?"expenses":"teachers";
+ const item=store[collectionName].find(x=>x.id===id);
+ if(!item)return;
+ const form=$(kind+"Form");
+ resetForm(kind);
+ editIds[kind]=id;
+ setData(form,item);
+ if(kind==="lesson"){
+  const selected=item.studentIds||[];
+  [...$("lessonStudents").options].forEach(o=>
+   o.selected=selected.includes(o.value)
+  );
+ }
+ $(kind+"Cancel").hidden=false;
+ $(kind+"FormTitle").textContent="تعديل السجل";
+ showPage(collectionName);
+ form.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function registerForm(kind,collectionName,validate,transform){
+ const form=$(kind+"Form");
+ form.addEventListener("submit",async e=>{
   e.preventDefault();
-  if (loginButton.disabled) return;
-  loginButton.disabled = true;
-  loginMessage.textContent = 'جارٍ تسجيل الدخول...';
-  try {
-    await signInWithEmailAndPassword(
-      auth,
-      document.getElementById('loginEmail').value.trim(),
-      document.getElementById('loginPassword').value
-    );
-  } catch (error) {
-    console.error('Login failed:', error.code);
-    loginMessage.textContent = 'تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.';
-  } finally {
-    loginButton.disabled = false;
+  if(!authorized())return;
+  const button=$(kind+"Save");
+  const data=getData(form);
+  const result=transform?transform(data,form):data;
+  const issue=validate?validate(result):null;
+  if(issue){notify(issue,true);return;}
+  button.disabled=true;
+  try{
+   await saveRecord(collectionName,result,editIds[kind]);
+   resetForm(kind);
+   notify("تم حفظ البيانات بنجاح");
+  }catch(err){notify(errorMessage(err),true);}
+  finally{button.disabled=false;}
+ });
+ $(kind+"Cancel").addEventListener("click",()=>resetForm(kind));
+ form.addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&!e.isComposing&&
+     e.target.tagName!=="TEXTAREA"&&
+     !(e.target.tagName==="SELECT"&&e.target.multiple)){
+   e.preventDefault();
+   if(!buttonDisabled(form))form.requestSubmit();
   }
+ });
+}
+function buttonDisabled(form){
+ return !!form.querySelector('button[type="submit"]:disabled');
+}
+
+registerForm("student","students",
+ d=>!d.name?"اسم الطالب مطلوب":null,
+ d=>({...d,lessonPrice:d.lessonPrice===""?null:num(d.lessonPrice)})
+);
+registerForm("teacher","teachers",
+ d=>!d.name?"اسم المعلم مطلوب":null,
+ d=>({...d,rate:d.rate===""?null:num(d.rate)})
+);
+registerForm("lesson","lessons",
+ d=>!d.title||!d.date||!d.time?"عنوان الدرس وتاريخه ووقته مطلوبة":null,
+ (d,form)=>({
+  ...d,duration:num(d.duration),
+  studentIds:[...form.elements.studentIds.selectedOptions].map(o=>o.value),
+  attendance:editIds.lesson?
+   (store.lessons.find(x=>x.id===editIds.lesson)?.attendance||{}):{}
+ })
+);
+registerForm("payment","payments",
+ d=>{
+  if(!d.studentId||!d.date)return "اختر الطالب والتاريخ";
+  if(d.amount<0||d.paid<0||d.paid>d.amount)
+   return "المبلغ المدفوع يجب أن يكون بين صفر والمبلغ المطلوب";
+  return null;
+ },
+ d=>({...d,amount:num(d.amount),paid:num(d.paid)})
+);
+registerForm("expense","expenses",
+ d=>!d.title||!d.date?"العنوان والتاريخ مطلوبان":null,
+ d=>({...d,amount:num(d.amount)})
+);
+
+document.addEventListener("click",async e=>{
+ const btn=e.target.closest("[data-action]");
+ if(!btn)return;
+ const {action,kind,id}=btn.dataset;
+ if(action==="edit"){
+  startEdit(kind,id);
+  return;
+ }
+ if(action==="delete"){
+  if(!confirm("هل تريد حذف هذا السجل نهائيًا؟"))return;
+  btn.disabled=true;
+  try{
+   await removeRecord(kind,id);
+   const singular={
+    students:"student",lessons:"lesson",
+    payments:"payment",expenses:"expense",teachers:"teacher"
+   }[kind];
+   if(editIds[singular]===id)resetForm(singular);
+   notify("تم حذف السجل");
+  }catch(err){
+   notify(errorMessage(err),true);
+   btn.disabled=false;
+  }
+ }
 });
 
-onAuthStateChanged(auth, async user => {
-  const authorized = !!user && user.uid === OWNER_UID;
-  document.getElementById('dashboard').hidden = !authorized;
-  document.getElementById('loginBox').hidden = authorized;
-
-  if (!authorized) {
-    students = [];
-    renderStudents();
-    cancelEdit();
-    if (user) {
-      loginMessage.textContent = 'هذا الحساب غير مخوّل بالدخول.';
-      await signOut(auth);
-    }
-    return;
+function refreshSelects(){
+ const configs=[
+  ["paymentStudent",store.students,"اختر الطالب"],
+  ["lessonTeacher",store.teachers,"بدون معلم محدد"],
+  ["lessonStudents",store.students,null]
+ ];
+ configs.forEach(([id,items,placeholder])=>{
+  const el=$(id);
+  const previous=el.multiple?
+   [...el.selectedOptions].map(o=>o.value):el.value;
+  el.replaceChildren();
+  if(placeholder!==null){
+   el.add(new Option(placeholder,""));
   }
-
-  try {
-    students = await window.loadStudentsFromFirebase();
-    if (auth.currentUser?.uid !== OWNER_UID) return;
-    renderStudents();
-  } catch (error) {
-    console.error('Error loading students:', error);
-    alert('تعذر تحميل الطلاب من Firebase');
+  items.forEach(item=>el.add(new Option(item.name||"بدون اسم",item.id)));
+  if(el.multiple){
+   [...el.options].forEach(o=>o.selected=previous.includes(o.value));
+  }else{
+   el.value=previous;
   }
+ });
+ const attendance=$("attendanceLesson");
+ const previous=attendance.value;
+ attendance.replaceChildren(new Option("اختر الدرس",""));
+ [...store.lessons].sort((a,b)=>
+  (b.date+b.time).localeCompare(a.date+a.time)
+ ).forEach(l=>attendance.add(
+  new Option(`${l.date} | ${l.time} | ${l.title}`,l.id)
+ ));
+ attendance.value=previous;
+}
+
+const ratingNames={
+ excellent:"ممتاز","very-good":"جيد جدًا",
+ good:"جيد","needs-support":"يحتاج إلى متابعة"
+};
+function renderStudents(){
+ const q=$("studentSearch").value.trim().toLowerCase();
+ const filter=$("studentFilter").value;
+ const list=store.students.filter(s=>{
+  const matches=[s.name,s.subject,s.parentPhone].some(v=>
+   String(v||"").toLowerCase().includes(q)
+  );
+  return matches&&(filter==="all"||s.status===filter);
+ });
+ $("studentRecords").innerHTML=list.length?list.map(s=>record(
+  s.name||"بدون اسم",s.status==="inactive"?"غير نشط":"نشط",
+  detail("الصف",s.grade?`الصف ${s.grade}`:"")+
+  detail("المادة",s.subject)+
+  detail("هاتف ولي الأمر",s.parentPhone)+
+  detail("نوع التعليم",s.lessonType==="individual"?"فردي":"جماعي")+
+  detail("سعر الحصة",s.lessonPrice==null?"":money(s.lessonPrice))+
+  detail("التقييم",ratingNames[s.academicRating]||"")+
+  detail("نقاط القوة",s.strengths)+
+  detail("نقاط التحسين",s.improvements)+
+  detail("ملاحظات",s.notes),
+  buttons("students",s.id),
+  s.status==="inactive"?"off":""
+ )).join(""):empty("لا يوجد طلاب مطابقون");
+}
+$("studentSearch").addEventListener("input",renderStudents);
+$("studentFilter").addEventListener("change",renderStudents);
+
+const lessonStatus={
+ scheduled:"مجدول",completed:"مكتمل",cancelled:"ملغي"
+};
+function renderLessons(){
+ const filter=$("lessonDateFilter").value;
+ const list=[...store.lessons].filter(l=>!filter||l.date===filter)
+ .sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+ $("lessonRecords").innerHTML=list.length?list.map(l=>record(
+  l.title,lessonStatus[l.status]||"مجدول",
+  detail("التاريخ",l.date)+detail("الوقت",l.time)+
+  detail("المدة",`${l.duration||60} دقيقة`)+
+  detail("النوع",l.type==="individual"?"فردي":"جماعي")+
+  detail("المعلم",nameOf("teachers",l.teacherId))+
+  detail("الطلاب",(l.studentIds||[]).map(id=>nameOf("students",id)).join("، "))+
+  detail("ملاحظات",l.notes),
+  buttons("lessons",l.id),
+  l.status==="cancelled"?"off":l.status==="completed"?"purple":""
+ )).join(""):empty("لا توجد دروس في هذا النطاق");
+}
+$("lessonDateFilter").addEventListener("change",renderLessons);
+$("clearLessonDate").addEventListener("click",()=>{
+ $("lessonDateFilter").value="";
+ renderLessons();
 });
+
+function renderPayments(){
+ const list=[...store.payments].sort((a,b)=>
+  String(b.date).localeCompare(String(a.date))
+ );
+ $("paymentRecords").innerHTML=list.length?list.map(p=>{
+  const due=Math.max(0,num(p.amount)-num(p.paid));
+  return record(
+   nameOf("students",p.studentId),
+   due?"مستحق "+money(due):"مدفوع بالكامل",
+   detail("التاريخ",p.date)+
+   detail("المطلوب",money(p.amount))+
+   detail("المدفوع",money(p.paid))+
+   detail("المتبقي",money(due))+
+   detail("الوصف",p.description),
+   buttons("payments",p.id),
+   due?"off":""
+  );
+ }).join(""):empty();
+}
+const categories={
+ rent:"إيجار",supplies:"مستلزمات",utilities:"فواتير",
+ salary:"أجور المعلمين",marketing:"تسويق",other:"أخرى"
+};
+function renderExpenses(){
+ const list=[...store.expenses].sort((a,b)=>
+  String(b.date).localeCompare(String(a.date))
+ );
+ $("expenseRecords").innerHTML=list.length?list.map(x=>record(
+  x.title,money(x.amount),
+  detail("التاريخ",x.date)+
+  detail("التصنيف",categories[x.category]||x.category)+
+  detail("ملاحظات",x.notes),
+  buttons("expenses",x.id),"off"
+ )).join(""):empty();
+}
+function renderTeachers(){
+ $("teacherRecords").innerHTML=store.teachers.length?
+ store.teachers.map(t=>record(
+  t.name,t.status==="inactive"?"غير نشط":"نشط",
+  detail("المادة",t.subject)+
+  detail("الهاتف",t.phone)+
+  detail("أجر الحصة",t.rate==null?"":money(t.rate))+
+  detail("ملاحظات",t.notes),
+  buttons("teachers",t.id),
+  t.status==="inactive"?"off":""
+ )).join(""):empty();
+}
+
+function renderAttendance(){
+ const lesson=store.lessons.find(x=>x.id===$("attendanceLesson").value);
+ if(!lesson){
+  $("attendanceEditor").innerHTML=empty("اختر درسًا لتسجيل الحضور");
+  return;
+ }
+ const ids=lesson.studentIds||[];
+ if(!ids.length){
+  $("attendanceEditor").innerHTML=empty("لا يوجد طلاب مرتبطون بهذا الدرس");
+  return;
+ }
+ const wrap=$("attendanceEditor");
+ wrap.replaceChildren();
+ const form=document.createElement("form");
+ form.className="records";
+ ids.forEach(id=>{
+  const row=document.createElement("div");
+  row.className="record";
+  const label=document.createElement("label");
+  label.className="field";
+  label.textContent=nameOf("students",id);
+  const select=document.createElement("select");
+  select.name=id;
+  [
+   ["","لم يتم التسجيل"],["present","حاضر"],
+   ["absent","غائب"],["late","متأخر"],
+   ["excused","غياب بعذر"]
+  ].forEach(([v,t])=>select.add(new Option(t,v)));
+  select.value=lesson.attendance?.[id]||"";
+  label.append(select);
+  row.append(label);
+  form.append(row);
+ });
+ const save=document.createElement("button");
+ save.type="submit";save.className="btn gold";
+ save.textContent="حفظ الحضور";
+ form.append(save);
+ form.addEventListener("submit",async e=>{
+  e.preventDefault();
+  save.disabled=true;
+  const attendance={...(lesson.attendance||{})};
+  for(const id of ids)attendance[id]=form.elements.namedItem(id).value;
+  try{
+   requireOwner();
+   await updateDoc(doc(db,"lessons",lesson.id),{
+    attendance,updatedAt:new Date().toISOString()
+   });
+   notify("تم حفظ الحضور");
+  }catch(err){notify(errorMessage(err),true);}
+  finally{save.disabled=false;}
+ });
+ wrap.append(form);
+}
+$("attendanceLesson").addEventListener("change",renderAttendance);
+
+function monthSum(items,field,month){
+ return items.filter(x=>String(x.date||"").startsWith(month))
+ .reduce((sum,x)=>sum+num(x[field]),0);
+}
+function renderDashboard(){
+ const month=monthNow();
+ const income=monthSum(store.payments,"paid",month);
+ const expenses=monthSum(store.expenses,"amount",month);
+ const due=store.payments.reduce((s,p)=>
+  s+Math.max(0,num(p.amount)-num(p.paid)),0);
+ const today=dateNow();
+ const todays=store.lessons.filter(l=>l.date===today&&l.status!=="cancelled");
+ $("statStudents").textContent=store.students.length;
+ $("statActive").textContent=store.students.filter(s=>s.status!=="inactive").length;
+ $("statToday").textContent=todays.length;
+ $("statProfit").textContent=money(income-expenses);
+ $("statIncome").textContent=money(income);
+ $("statExpenses").textContent=money(expenses);
+ $("statDue").textContent=money(due);
+ $("statTeachers").textContent=store.teachers.length;
+
+ const upcoming=[...store.lessons].filter(l=>
+  l.status==="scheduled"&&`${l.date}T${l.time}`>=
+  `${today}T${new Date().toTimeString().slice(0,5)}`
+ ).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))
+ .slice(0,5);
+ $("upcomingLessons").innerHTML=upcoming.length?
+ upcoming.map(l=>record(l.title,l.date,
+  detail("الوقت",l.time)+
+  detail("عدد الطلاب",(l.studentIds||[]).length),
+  ""
+ )).join(""):empty("لا توجد دروس قادمة");
+}
+function renderReports(){
+ const month=$("reportMonth").value||monthNow();
+ const billed=monthSum(store.payments,"amount",month);
+ const paid=monthSum(store.payments,"paid",month);
+ const expenses=monthSum(store.expenses,"amount",month);
+ $("reportBilled").textContent=money(billed);
+ $("reportPaid").textContent=money(paid);
+ $("reportExpenses").textContent=money(expenses);
+ $("reportNet").textContent=money(paid-expenses);
+ const monthly=store.lessons.filter(l=>
+  String(l.date||"").startsWith(month)
+ );
+ $("reportCompleted").textContent=monthly.filter(l=>
+  l.status==="completed").length;
+ $("reportCancelled").textContent=monthly.filter(l=>
+  l.status==="cancelled").length;
+}
+$("reportMonth").addEventListener("change",renderReports);
+
+const settingsRef=doc(db,"settings","institute");
+$("settingsForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const button=$("settingsSave");
+ button.disabled=true;
+ try{
+  requireOwner();
+  await setDoc(settingsRef,{
+   ...getData($("settingsForm")),
+   updatedAt:new Date().toISOString()
+  },{merge:true});
+  notify("تم حفظ الإعدادات");
+ }catch(err){notify(errorMessage(err),true);}
+ finally{button.disabled=false;}
+});
+
+function renderAll(){
+ refreshSelects();
+ renderStudents();
+ renderLessons();
+ renderPayments();
+ renderExpenses();
+ renderTeachers();
+ renderAttendance();
+ renderDashboard();
+ renderReports();
+}
+
+function stopListening(){
+ subscriptions.forEach(unsub=>unsub());
+ subscriptions=[];
+}
+function listenToData(){
+ const version=sessionVersion;
+ collections.forEach(kind=>{
+  const unsub=onSnapshot(collection(db,kind),snapshot=>{
+   if(version!==sessionVersion||!authorized())return;
+   store[kind]=snapshot.docs.map(d=>({...d.data(),id:d.id}));
+   renderAll();
+  },err=>{
+   if(version===sessionVersion)notify(
+    `تعذر تحميل ${kind}: ${errorMessage(err)}`,true
+   );
+  });
+  subscriptions.push(unsub);
+ });
+ const unsub=onSnapshot(settingsRef,snapshot=>{
+  if(version!==sessionVersion||!authorized())return;
+  if(snapshot.exists())setData($("settingsForm"),snapshot.data());
+ },err=>{
+  if(version===sessionVersion)notify(errorMessage(err),true);
+ });
+ subscriptions.push(unsub);
+}
+
+$("loginForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const button=$("loginButton");
+ button.disabled=true;
+ $("loginError").textContent="";
+ try{
+  await signInWithEmailAndPassword(
+   auth,$("loginEmail").value.trim(),$("loginPassword").value
+  );
+ }catch(err){
+  console.error(err);
+  $("loginError").textContent="تعذر تسجيل الدخول. تحقق من البيانات.";
+ }finally{button.disabled=false;}
+});
+$("logoutButton").addEventListener("click",async()=>{
+ try{await signOut(auth);}
+ catch(err){notify(errorMessage(err),true);}
+});
+
+onAuthStateChanged(auth,async user=>{
+ sessionVersion++;
+ stopListening();
+ const owner=user?.uid===OWNER_UID;
+ $("app").hidden=!owner;
+ $("loginScreen").hidden=owner;
+ if(!owner){
+  collections.forEach(k=>store[k]=[]);
+  renderAll();
+  if(user){
+   $("loginError").textContent="هذا الحساب غير مخوّل بالدخول.";
+   await signOut(auth);
+  }
+  return;
+ }
+ $("accountEmail").textContent=user.email||"";
+ $("loginPassword").value="";
+ $("reportMonth").value=monthNow();
+ resetForm("student");
+ resetForm("lesson");
+ resetForm("payment");
+ resetForm("expense");
+ resetForm("teacher");
+ listenToData();
+});
+
+$("reportMonth").value=monthNow();
+resetForm("lesson");
+resetForm("payment");
+resetForm("expense");
+renderAll();
 </script>
 </body>
 </html>
