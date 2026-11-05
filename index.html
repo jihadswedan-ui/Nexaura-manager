@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -21,81 +22,32 @@ section{background:#17232c;border-radius:12px;padding:18px;margin-top:18px}
 input{padding:12px;width:100%;margin:8px 0;background:#0c151c;color:white;border:1px solid #64747d;border-radius:8px}
 li{padding:8px}
 small{color:#aab7bf}
-  #studentList {
-  list-style: none;
-  padding: 0;
-}
-
-#studentList li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 8px;
-  color: #45d6cf;
-  font-size: 20px;
-  font-weight: bold;
-  border-bottom: 1px solid #34444d;
-}
-
-#studentList button {
-  background: #9f2535;
-  color: #ffffff;
-  border: 1px solid #e04b5f;
-  border-radius: 7px;
-  padding: 5px 10px;
-  font-size: 12px;
-  font-weight: normal;
-  width: auto;
-  flex-shrink: 0;
-}
-  /* NEXAURA Student Form */
-.student-form {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 18px 0;
-}
-
-.student-form input,
-.student-form select,
-.student-form textarea {
-  width: 100%;
-  min-width: 0;
-  padding: 13px;
-  background: #0c151c;
-  color: #ffffff;
-  border: 1px solid #405660;
-  border-radius: 9px;
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.student-form input:focus,
-.student-form select:focus,
-.student-form textarea:focus {
-  outline: none;
-  border-color: #45d6cf;
-}
-
-.student-form .full-width {
-  grid-column: 1 / -1;
-}
-
-.student-form textarea {
-  min-height: 95px;
-  resize: vertical;
-}
-
-@media (max-width: 600px) {
-  .student-form {
-    grid-template-columns: 1fr;
-  }
+#studentList{list-style:none;padding:0;display:grid;gap:14px;margin-top:18px}
+.student-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.student-form input,.student-form select,.student-form textarea{width:100%;min-width:0;padding:13px;background:#0c151c;color:#fff;border:1px solid #405660;border-radius:9px;font:inherit}
+.student-form input:focus,.student-form select:focus,.student-form textarea:focus{outline:none;border-color:#45d6cf}
+.student-form .full-width{grid-column:1/-1}
+.student-form textarea{min-height:95px;resize:vertical}
+#studentList li{display:block;background:#0c151c;border:1px solid #34444d;border-radius:12px;padding:18px;font-size:16px;color:#fff}
+.student-card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.student-card-name{color:#45d6cf;font-size:22px;font-weight:700}
+.student-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0;font-weight:normal}
+.student-detail{background:#17232c;border-radius:8px;padding:10px;overflow-wrap:anywhere}
+.student-detail small{display:block;margin-bottom:6px}
+.student-actions{display:flex;flex-wrap:wrap;gap:8px}
+#studentList .student-actions button{font-size:14px;padding:9px 16px;border-radius:8px;background:#123c42;border:1px solid #45d6cf}
+#studentList .student-actions button.danger{background:#9f2535;border-color:#e04b5f}
+#studentList .student-actions button:disabled{opacity:.5;cursor:wait}
+#formTitle{color:#e5bb64}
+#formMessage{min-height:20px;color:#45d6cf}
+@media(max-width:600px){
+.student-form,.student-details{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-  <div id="dashboard" hidden>
+
+<div id="dashboard" hidden>
 <header>
 <h1>NEXAURA</h1>
 <p>Manager | نظام الإدارة التعليمية</p>
@@ -108,266 +60,380 @@ small{color:#aab7bf}
 <div class="card">الدخل الشهري<strong>₪0</strong></div>
 <div class="card">المدفوعات المستحقة<strong>₪0</strong></div>
 </div>
+
 <nav>
 <button onclick="show('students')">إدارة الطلاب</button>
 <button onclick="show('lessons')">جدول الدروس</button>
 <button onclick="show('payments')">المدفوعات</button>
 <button onclick="show('reports')">التقارير</button>
 </nav>
+
 <section id="students" hidden>
 <h2>إدارة الطلاب</h2>
+<h3 id="formTitle">إضافة طالب جديد</h3>
+<p id="formMessage" role="status" aria-live="polite"></p>
+
 <div class="student-form">
-  <input id="studentName" placeholder="اسم الطالب" required>
+<input id="studentName" placeholder="اسم الطالب" required>
 
-  <select id="studentGrade">
-    <option value="">اختر الصف الدراسي</option>
-    <option value="1">الصف الأول</option>
-    <option value="2">الصف الثاني</option>
-    <option value="3">الصف الثالث</option>
-    <option value="4">الصف الرابع</option>
-    <option value="5">الصف الخامس</option>
-    <option value="6">الصف السادس</option>
-    <option value="7">الصف السابع</option>
-    <option value="8">الصف الثامن</option>
-    <option value="9">الصف التاسع</option>
-    <option value="10">الصف العاشر</option>
-    <option value="11">الصف الحادي عشر</option>
-    <option value="12">الصف الثاني عشر</option>
-  </select>
+<select id="studentGrade">
+<option value="">اختر الصف الدراسي</option>
+<option value="1">الصف الأول</option>
+<option value="2">الصف الثاني</option>
+<option value="3">الصف الثالث</option>
+<option value="4">الصف الرابع</option>
+<option value="5">الصف الخامس</option>
+<option value="6">الصف السادس</option>
+<option value="7">الصف السابع</option>
+<option value="8">الصف الثامن</option>
+<option value="9">الصف التاسع</option>
+<option value="10">الصف العاشر</option>
+<option value="11">الصف الحادي عشر</option>
+<option value="12">الصف الثاني عشر</option>
+</select>
 
-  <input id="studentSubject" placeholder="المادة التعليمية">
-  <input id="parentPhone" type="tel" placeholder="هاتف ولي الأمر">
+<input id="studentSubject" placeholder="المادة التعليمية">
+<input id="parentPhone" type="tel" placeholder="هاتف ولي الأمر">
 
-  <select id="lessonType">
-    <option value="group">تعليم جماعي</option>
-    <option value="individual">تعليم فردي</option>
-  </select>
+<select id="lessonType">
+<option value="group">تعليم جماعي</option>
+<option value="individual">تعليم فردي</option>
+</select>
 
-  <input id="lessonPrice" type="number" min="0" step="0.01" placeholder="سعر الحصة ₪">
+<input id="lessonPrice" type="number" min="0" step="0.01" placeholder="سعر الحصة ₪">
 
-  <select id="studentStatus">
-    <option value="active">طالب نشط</option>
-    <option value="inactive">طالب غير نشط</option>
-  </select>
+<select id="studentStatus">
+<option value="active">طالب نشط</option>
+<option value="inactive">طالب غير نشط</option>
+</select>
 
-  <select id="academicRating">
-    <option value="">التقييم الأكاديمي</option>
-    <option value="excellent">ممتاز</option>
-    <option value="very-good">جيد جدًا</option>
-    <option value="good">جيد</option>
-    <option value="needs-support">يحتاج إلى متابعة</option>
-  </select>
+<select id="academicRating">
+<option value="">التقييم الأكاديمي</option>
+<option value="excellent">ممتاز</option>
+<option value="very-good">جيد جدًا</option>
+<option value="good">جيد</option>
+<option value="needs-support">يحتاج إلى متابعة</option>
+</select>
 
-  <textarea id="studentStrengths" class="full-width" placeholder="نقاط القوة"></textarea>
-  <textarea id="studentImprovements" class="full-width" placeholder="نقاط تحتاج إلى تحسين"></textarea>
-  <textarea id="studentNotes" class="full-width" placeholder="ملاحظات المعلم"></textarea>
+<textarea id="studentStrengths" class="full-width" placeholder="نقاط القوة"></textarea>
+<textarea id="studentImprovements" class="full-width" placeholder="نقاط تحتاج إلى تحسين"></textarea>
+<textarea id="studentNotes" class="full-width" placeholder="ملاحظات المعلم"></textarea>
 </div>
-<button onclick="addStudent()">إضافة طالب</button>
+
+<button id="saveStudentButton" type="button" onclick="saveStudent()">إضافة طالب</button>
+<button id="cancelEditButton" type="button" onclick="cancelEdit()" hidden>إلغاء التعديل</button>
 <ul id="studentList"></ul>
 </section>
-<section id="lessons" hidden><h2>جدول الدروس</h2><p>سيتم إضافة الجدول في المرحلة القادمة.</p></section>
-<section id="payments" hidden><h2>المدفوعات</h2><p>سيتم إضافة إدارة المدفوعات قريبًا.</p></section>
-<section id="reports" hidden><h2>التقارير</h2><p>سيتم إضافة التقارير قريبًا.</p></section>
+
+<section id="lessons" hidden>
+<h2>جدول الدروس</h2>
+<p>سيتم إضافة الجدول في المرحلة القادمة.</p>
+</section>
+<section id="payments" hidden>
+<h2>المدفوعات</h2>
+<p>سيتم إضافة إدارة المدفوعات قريبًا.</p>
+</section>
+<section id="reports" hidden>
+<h2>التقارير</h2>
+<p>سيتم إضافة التقارير قريبًا.</p>
+</section>
 <p><small>بيانات الطلاب محفوظة في Firebase وتتم مزامنتها بين الأجهزة. ميزات الدروس والمدفوعات والتقارير قيد التطوير.</small></p>
 </main>
-  </div>
+</div>
+
 <script>
-let students=[];
+let students = [];
+let editingStudentId = null;
+
+const studentFields = {
+name:'studentName',
+grade:'studentGrade',
+subject:'studentSubject',
+parentPhone:'parentPhone',
+lessonType:'lessonType',
+lessonPrice:'lessonPrice',
+status:'studentStatus',
+academicRating:'academicRating',
+strengths:'studentStrengths',
+improvements:'studentImprovements',
+notes:'studentNotes'
+};
+
 function show(id){
-document.querySelectorAll("section").forEach(s=>s.hidden=true);
+document.querySelectorAll('main section').forEach(s=>s.hidden=true);
 document.getElementById(id).hidden=false;
-document.getElementById("students").hidden = false;
 }
-async function addStudent() {
-  const input = document.getElementById("studentName");
-  const name = input.value.trim();
-  const grade = document.getElementById("studentGrade").value;
-const subject = document.getElementById("studentSubject").value.trim();
-const parentPhone = document.getElementById("parentPhone").value.trim();
-const lessonType = document.getElementById("lessonType").value;
-const lessonPrice = document.getElementById("lessonPrice").value;
-const status = document.getElementById("studentStatus").value;
-const academicRating = document.getElementById("academicRating").value;
-const strengths = document.getElementById("studentStrengths").value.trim();
-const improvements = document.getElementById("studentImprovements").value.trim();
-const notes = document.getElementById("studentNotes").value.trim();
-  const addButton = document.querySelector("#students button");
 
-  if (!name) {
-    alert("الرجاء إدخال اسم الطالب");
-    return;
-  }
+function collectStudentData(){
+const data={};
+for(const [key,elementId] of Object.entries(studentFields)){
+data[key]=document.getElementById(elementId).value.trim();
+}
+data.lessonPrice=data.lessonPrice===''?null:Number(data.lessonPrice);
+return data;
+}
 
-  addButton.disabled = true;
+function populateStudentForm(student){
+for(const [key,elementId] of Object.entries(studentFields)){
+const el=document.getElementById(elementId);
+const value=student[key];
+if(value!==undefined && value!==null) el.value=String(value);
+else if(el.tagName==='SELECT') el.selectedIndex=0;
+else el.value='';
+}
+}
 
-  try {
-const studentData = {
-  name,
-  grade,
-  subject,
-  parentPhone,
-  lessonType,
-  lessonPrice: lessonPrice === "" ? null : Number(lessonPrice),
-  status,
-  academicRating,
-  strengths,
-  improvements,
-  notes
+function cancelEdit(){
+editingStudentId=null;
+for(const elementId of Object.values(studentFields)){
+const el=document.getElementById(elementId);
+if(el.tagName==='SELECT') el.selectedIndex=0;
+else el.value='';
+}
+document.getElementById('formTitle').textContent='إضافة طالب جديد';
+document.getElementById('saveStudentButton').textContent='إضافة طالب';
+document.getElementById('cancelEditButton').hidden=true;
+document.getElementById('formMessage').textContent='';
+}
+
+function editStudent(studentId){
+const student=students.find(s=>s.id===studentId);
+if(!student)return;
+editingStudentId=studentId;
+populateStudentForm(student);
+document.getElementById('formTitle').textContent='تعديل بيانات: '+(student.name||'طالب');
+document.getElementById('saveStudentButton').textContent='حفظ التغييرات';
+document.getElementById('cancelEditButton').hidden=false;
+document.getElementById('formMessage').textContent='عدّل المعلومات ثم اضغط حفظ التغييرات.';
+document.getElementById('formTitle').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+async function saveStudent(){
+const data=collectStudentData();
+if(!data.name){
+alert('الرجاء إدخال اسم الطالب');
+return;
+}
+if(data.lessonPrice!==null && (!Number.isFinite(data.lessonPrice)||data.lessonPrice<0)){
+alert('يرجى إدخال سعر حصة صحيح');
+return;
+}
+const button=document.getElementById('saveStudentButton');
+button.disabled=true;
+try{
+if(editingStudentId){
+const id=editingStudentId;
+await window.updateStudentInFirebase(id,data);
+students=students.map(s=>s.id===id?{...s,...data}:s);
+}else{
+const saved=await window.saveStudentToFirebase(data);
+students.push(saved);
+}
+renderStudents();
+cancelEdit();
+document.getElementById('formMessage').textContent='تم حفظ بيانات الطالب بنجاح.';
+}catch(error){
+console.error('Error saving student:',error);
+alert('تعذر حفظ بيانات الطالب. تحقق من الاتصال والصلاحيات وحاول مجددًا.');
+}finally{
+button.disabled=false;
+}
+}
+
+async function deleteStudent(studentId){
+const student=students.find(s=>s.id===studentId);
+if(!student||!confirm('هل تريد حذف الطالب "'+student.name+'" نهائيًا؟'))return;
+try{
+await window.deleteStudentFromFirebase(studentId);
+students=students.filter(s=>s.id!==studentId);
+if(editingStudentId===studentId)cancelEdit();
+renderStudents();
+}catch(error){
+console.error('Error deleting student:',error);
+alert('تعذر حذف الطالب. حاول مرة أخرى.');
+}
+}
+
+const gradeNames=['','الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر','الحادي عشر','الثاني عشر'];
+const ratings={
+excellent:'ممتاز',
+'very-good':'جيد جدًا',
+good:'جيد',
+'needs-support':'يحتاج إلى متابعة'
 };
 
-const student = await window.saveStudentToFirebase(studentData);
-
-    students.push(student);
-
-    const li = document.createElement("li");
-    li.dataset.studentId = student.id;
-
-    const nameSpan = document.createElement("span");
-    nameSpan.textContent = student.name;
-    li.appendChild(nameSpan);
-
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "حذف";
-    deleteButton.onclick = () => deleteStudent(student.id);
-    li.appendChild(deleteButton);
-
-    document.getElementById("studentList").appendChild(li);
-    document.getElementById("studentsCount").textContent = students.length;
-
-    input.value = "";
-  } catch (error) {
-    console.error("Error adding student:", error);
-    alert("تعذر إضافة الطالب. حاول مرة أخرى.");
-  } finally {
-    addButton.disabled = false;
-  }
+function detail(container,label,value){
+const box=document.createElement('div');
+box.className='student-detail';
+const caption=document.createElement('small');
+caption.textContent=label;
+const content=document.createElement('span');
+content.textContent=value===undefined||value===null||value===''?'غير محدد':String(value);
+box.append(caption,content);
+container.appendChild(box);
 }
-  async function deleteStudent(studentId) {
-  const student = students.find(s => s.id === studentId);
-  if (!student) return;
 
-if (!confirm(`هل تريد حذف الطالب "${student.name}"؟`)) return;
+function renderStudents(){
+const list=document.getElementById('studentList');
+list.replaceChildren();
+document.getElementById('studentsCount').textContent=students.length;
 
-  try {
-    await window.deleteStudentFromFirebase(studentId);
+for(const student of students){
+const li=document.createElement('li');
+li.dataset.studentId=student.id;
 
-    students = students.filter(s => s.id !== studentId);
+const head=document.createElement('div');
+head.className='student-card-head';
 
-    const li = Array.from(document.querySelectorAll("#studentList li"))
-      .find(item => item.dataset.studentId === studentId);
+const name=document.createElement('span');
+name.className='student-card-name';
+name.textContent=student.name||'طالب بدون اسم';
 
-    if (li) li.remove();
+const status=document.createElement('span');
+status.textContent=student.status==='inactive'?'غير نشط':'نشط';
+head.append(name,status);
 
-    document.getElementById("studentsCount").textContent = students.length;
-  } catch (error) {
-    console.error("Error deleting student:", error);
-    alert("تعذر حذف الطالب. حاول مرة أخرى.");
-  }
+const details=document.createElement('div');
+details.className='student-details';
+const grade=Number(student.grade);
+
+detail(details,'الصف الدراسي',gradeNames[grade]?'الصف '+gradeNames[grade]:'غير محدد');
+detail(details,'المادة التعليمية',student.subject);
+detail(details,'هاتف ولي الأمر',student.parentPhone);
+detail(details,'نوع التعليم',student.lessonType==='individual'?'فردي':student.lessonType==='group'?'جماعي':'غير محدد');
+detail(details,'سعر الحصة',student.lessonPrice===null||student.lessonPrice===undefined||student.lessonPrice===''?'':'₪'+student.lessonPrice);
+detail(details,'التقييم الأكاديمي',ratings[student.academicRating]||'غير محدد');
+detail(details,'نقاط القوة',student.strengths);
+detail(details,'نقاط تحتاج إلى تحسين',student.improvements);
+detail(details,'ملاحظات المعلم',student.notes);
+
+const actions=document.createElement('div');
+actions.className='student-actions';
+
+const edit=document.createElement('button');
+edit.type='button';
+edit.textContent='تعديل البيانات';
+edit.onclick=()=>editStudent(student.id);
+
+const remove=document.createElement('button');
+remove.type='button';
+remove.textContent='حذف الطالب';
+remove.className='danger';
+remove.onclick=()=>deleteStudent(student.id);
+
+actions.append(edit,remove);
+li.append(head,details,actions);
+list.appendChild(li);
 }
-  </script>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+}
+</script>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
-  authDomain: "nexaura-management.firebaseapp.com",
-  projectId: "nexaura-management",
-  storageBucket: "nexaura-management.firebasestorage.app",
-  messagingSenderId: "320853910043",
-  appId: "1:320853910043:web:96764e1becd3c466f08ebe"
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js';
+import {getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js';
+import {getFirestore,collection,addDoc,getDocs,deleteDoc,updateDoc,doc} from 'https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js';
+
+const firebaseConfig={
+apiKey:"AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
+authDomain:"nexaura-management.firebaseapp.com",
+projectId:"nexaura-management",
+storageBucket:"nexaura-management.firebasestorage.app",
+messagingSenderId:"320853910043",
+appId:"1:320853910043:web:96764e1becd3c466f08ebe"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-window.db = db;
-window.saveStudentToFirebase = async (studentData) => {
-  if (!auth.currentUser || auth.currentUser.uid !== "3ER6MuYqWtb7Nyawz6bLUiPXWJx1") {
-  throw new Error("Unauthorized");
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const OWNER_UID='3ER6MuYqWtb7Nyawz6bLUiPXWJx1';
+
+function assertOwner(){
+if(!auth.currentUser||auth.currentUser.uid!==OWNER_UID){
+throw new Error('Unauthorized');
 }
-const studentRef = await addDoc(collection(db, "students"), {
-  ...studentData,
-  createdAt: new Date().toISOString()
+}
+
+window.saveStudentToFirebase=async studentData=>{
+assertOwner();
+const ref=await addDoc(collection(db,'students'),{
+...studentData,
+createdAt:new Date().toISOString()
+});
+return{id:ref.id,...studentData};
+};
+
+window.updateStudentInFirebase=async(id,studentData)=>{
+assertOwner();
+await updateDoc(doc(db,'students',id),{
+...studentData,
+updatedAt:new Date().toISOString()
+});
+};
+
+window.deleteStudentFromFirebase=async id=>{
+assertOwner();
+await deleteDoc(doc(db,'students',id));
+};
+
+window.loadStudentsFromFirebase=async()=>{
+assertOwner();
+const snapshot=await getDocs(collection(db,'students'));
+return snapshot.docs.map(item=>({...item.data(),id:item.id}));
+};
+
+const loginButton=document.getElementById('loginButton');
+const loginMessage=document.getElementById('loginMessage');
+
+loginButton.addEventListener('click',async()=>{
+loginButton.disabled=true;
+loginMessage.textContent='جارٍ تسجيل الدخول...';
+try{
+await signInWithEmailAndPassword(
+auth,
+document.getElementById('loginEmail').value.trim(),
+document.getElementById('loginPassword').value
+);
+}catch(error){
+console.error('Login failed:',error.code);
+loginMessage.textContent='تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.';
+}finally{
+loginButton.disabled=false;
+}
 });
 
-return {
-  id: studentRef.id,
-  ...studentData
-};
-};
-window.deleteStudentFromFirebase = async (studentId) => {
-  if (!auth.currentUser || auth.currentUser.uid !== "3ER6MuYqWtb7Nyawz6bLUiPXWJx1") {
-    throw new Error("Unauthorized");
-  }
+onAuthStateChanged(auth,async user=>{
+const authorized=!!user&&user.uid===OWNER_UID;
+document.getElementById('dashboard').hidden=!authorized;
+document.getElementById('loginBox').hidden=authorized;
 
-  await deleteDoc(doc(db, "students", studentId));
-};
-    window.loadStudentsFromFirebase = async () => {
-  const snapshot = await getDocs(collection(db, "students"));
-return snapshot.docs.map(studentDoc => ({
-  ...studentDoc.data(),
-  id: studentDoc.id
-}));
-};
-    const loginButton = document.getElementById("loginButton");
-const loginMessage = document.getElementById("loginMessage");
-
-loginButton.addEventListener("click", async () => {
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value;
-  loginMessage.textContent = "جارٍ تسجيل الدخول...";
-  loginButton.disabled = true;
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-    loginMessage.textContent = "تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.";
-  } finally {
-    loginButton.disabled = false;
-  }
-});
-
-onAuthStateChanged(auth, (user) => {
-  const authorized = user && user.uid === "3ER6MuYqWtb7Nyawz6bLUiPXWJx1";
-  document.getElementById("dashboard").hidden = !authorized;
-  document.getElementById("loginBox").hidden = !!authorized;
-if (authorized) {
-  window.loadStudentsFromFirebase()
-    .then(names => {
-students = names;
-      document.getElementById("studentsCount").textContent = students.length;
-      const list = document.getElementById("studentList");
-      list.innerHTML = "";
-students.forEach(student => {
-  const li = document.createElement("li");
-  li.textContent = student.name;
-  li.dataset.studentId = student.id;
-  const deleteButton = document.createElement("button");
-deleteButton.textContent = "حذف";
-deleteButton.onclick = () => deleteStudent(student.id);
-li.appendChild(deleteButton);
-  list.appendChild(li);
-});
-    })
-    .catch(error => {
-      console.error("Error loading students:", error);
-      alert("تعذر تحميل الطلاب من Firebase");
-    });
+if(!authorized){
+students=[];
+renderStudents();
+cancelEdit();
+if(user){
+loginMessage.textContent='هذا الحساب غير مخوّل بالدخول.';
+await signOut(auth);
 }
-  if (user && !authorized) {
-    loginMessage.textContent = "هذا الحساب غير مخوّل بالدخول.";
-    signOut(auth);
-  }
+return;
+}
+
+try{
+students=await window.loadStudentsFromFirebase();
+if(auth.currentUser?.uid!==OWNER_UID)return;
+renderStudents();
+}catch(error){
+console.error('Error loading students:',error);
+alert('تعذر تحميل الطلاب من Firebase');
+}
 });
 </script>
-  <div id="loginBox" dir="rtl" style="padding:20px;text-align:center">
-  <h2>تسجيل الدخول إلى NEXAURA</h2>
-  <input id="loginEmail" type="email" placeholder="البريد الإلكتروني" autocomplete="username">
-  <input id="loginPassword" type="password" placeholder="كلمة المرور" autocomplete="current-password">
-  <button id="loginButton" type="button">تسجيل الدخول</button>
-  <p id="loginMessage"></p>
+
+<div id="loginBox" dir="rtl" style="padding:20px;text-align:center">
+<h2>تسجيل الدخول إلى NEXAURA</h2>
+<input id="loginEmail" type="email" placeholder="البريد الإلكتروني" autocomplete="username">
+<input id="loginPassword" type="password" placeholder="كلمة المرور" autocomplete="current-password">
+<button id="loginButton" type="button">تسجيل الدخول</button>
+<p id="loginMessage"></p>
 </div>
 </body>
 </html>
