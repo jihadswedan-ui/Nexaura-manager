@@ -5,6 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090E16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NEXAURA">
+<meta name="description" content="NEXAURA Manager — إدارة الطلاب والدروس والمدفوعات">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="./icon.svg">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <title>NEXAURA | Manager</title>
 <style>
 :root{
@@ -235,6 +242,51 @@ footer{
  .stat{padding:16px}
  .stat .value{font-size:24px}
 }
+
+/* NEXAURA premium interface — responsive enhancement */
+:root{--bg:#070c13;--panel:#101d29;--panel2:#172735;--gold:#e9c77f;--teal:#49e2d0;--line:#2b4350}
+body{background:radial-gradient(ellipse 70% 35% at 70% -10%,#12323a66,transparent),var(--bg);-webkit-font-smoothing:antialiased}
+.sidebar{background:linear-gradient(165deg,#101e2a,#080e16);box-shadow:-12px 0 40px #0003}
+.brand-mark,.login-emblem{display:grid;place-items:center;margin:0 auto 12px;border:1px solid #d9b96f88;border-radius:25%;background:radial-gradient(circle at 70% 25%,#235e64,#0b1621 68%);box-shadow:0 0 0 6px #49e2d00b,0 0 30px #49e2d035;color:var(--gold);font-weight:900;text-shadow:2px 2px 0 #266b70}
+.brand-mark{width:50px;height:50px;font-size:33px;transform:rotate(-7deg)}
+.login-emblem{width:88px;height:88px;font-size:62px;transform:rotate(-7deg);margin-bottom:22px}
+.login-emblem span{transform:rotate(7deg)}
+.login-card{border:1px solid #bda36a66;background:linear-gradient(155deg,#182b36f5,#0d1521f9);box-shadow:0 35px 100px #000a,0 0 60px #35bfbf16}
+.login-card h1{background:linear-gradient(120deg,#fff0b9,#c69849,#f4dca2);background-clip:text;-webkit-background-clip:text;color:transparent}
+.nav-btn{transition:background .2s,color .2s,transform .2s}
+.nav-btn:hover{transform:translateX(-2px)}
+.stat{position:relative;overflow:hidden;box-shadow:0 8px 28px #0002}
+.stat:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(var(--gold),var(--teal));opacity:.75}
+.panel{box-shadow:0 12px 38px #0002}
+.btn{min-height:43px;transition:filter .2s,transform .2s}
+.btn:active{transform:scale(.98)}
+input,select,textarea{font-size:16px}
+#loginScreen{min-height:100dvh}
+@media(max-width:760px){
+ .sidebar{position:sticky;top:0;z-index:10;padding:8px 10px;background:#0b1620f5;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+ .brand{display:flex;justify-content:center;align-items:center;gap:10px;padding:3px 0 8px;margin:0;border:0}
+ .brand-mark{width:30px;height:30px;font-size:20px;margin:0;border-radius:9px}
+ .brand h1{font-size:19px;letter-spacing:2px}
+ .brand p{display:none}
+ .sidebar nav{scrollbar-width:thin;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+ .nav-btn{min-height:42px;padding:10px 12px}
+ .nav-btn:hover{transform:none}
+ .content{padding:16px 12px max(24px,env(safe-area-inset-bottom))}
+ .topbar{margin-bottom:18px}
+ .topbar h2{font-size:21px}
+ .owner{font-size:11px;padding:7px 10px}
+ .stats{gap:9px;margin-bottom:12px}
+ .stat{padding:13px;border-radius:13px}
+ .stat .label{font-size:12px}
+ .stat .value{font-size:21px;margin-top:9px}
+ .login-card{padding:26px 22px}
+ .login-card h1{font-size:29px}
+ .toolbar input,.toolbar select{min-width:100%;flex-basis:100%}
+ .actions .btn{flex:1 1 auto}
+}
+@media(max-width:380px){.stats{grid-template-columns:1fr 1fr}.stat .value{font-size:19px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
 </style>
 </head>
 <body>
@@ -1177,10 +1229,13 @@ function renderStudents() {
    studentName(student),
    student.phone,
    student.parentPhone,
-   student.grade
+   student.grade,
+   student.subject
   ].join(" ").toLowerCase();
 
-  return searchable.includes(search);
+  const statusFilter = $("studentFilter")?.value || "all";
+  const matchesStatus = statusFilter === "all" || studentStatus(student) === statusFilter;
+  return searchable.includes(search) && matchesStatus;
  });
 
  if (!students.length) {
@@ -1354,6 +1409,10 @@ if ($("studentCancel")) {
     "إضافة طالب جديد";
   }
  });
+}
+
+if ($("studentFilter")) {
+ $("studentFilter").addEventListener("change", renderStudents);
 }
 
 if ($("studentSearch")) {
@@ -2641,6 +2700,12 @@ onAuthStateChanged(auth, user => {
   loadSettings();
  }
 });
+// Install offline shell only; Firebase data still requires connectivity unless already cached by Firebase.
+if ("serviceWorker" in navigator) {
+ window.addEventListener("load", () => {
+  navigator.serviceWorker.register("./sw.js").catch(error => console.warn("PWA:", error));
+ });
+}
 </script>
 </body>
 </html>
