@@ -21,6 +21,34 @@ section{background:#17232c;border-radius:12px;padding:18px;margin-top:18px}
 input{padding:12px;width:100%;margin:8px 0;background:#0c151c;color:white;border:1px solid #64747d;border-radius:8px}
 li{padding:8px}
 small{color:#aab7bf}
+  #studentList {
+  list-style: none;
+  padding: 0;
+}
+
+#studentList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 8px;
+  color: #45d6cf;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid #34444d;
+}
+
+#studentList button {
+  background: #9f2535;
+  color: #ffffff;
+  border: 1px solid #e04b5f;
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: normal;
+  width: auto;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>
@@ -60,6 +88,7 @@ let students=[];
 function show(id){
 document.querySelectorAll("section").forEach(s=>s.hidden=true);
 document.getElementById(id).hidden=false;
+document.getElementById("students").hidden = false;
 }
 async function addStudent(){
 const input=document.getElementById("studentName");
