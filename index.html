@@ -181,6 +181,16 @@ document.getElementById("students").hidden = false;
 async function addStudent() {
   const input = document.getElementById("studentName");
   const name = input.value.trim();
+  const grade = document.getElementById("studentGrade").value;
+const subject = document.getElementById("studentSubject").value.trim();
+const parentPhone = document.getElementById("parentPhone").value.trim();
+const lessonType = document.getElementById("lessonType").value;
+const lessonPrice = document.getElementById("lessonPrice").value;
+const status = document.getElementById("studentStatus").value;
+const academicRating = document.getElementById("academicRating").value;
+const strengths = document.getElementById("studentStrengths").value.trim();
+const improvements = document.getElementById("studentImprovements").value.trim();
+const notes = document.getElementById("studentNotes").value.trim();
   const addButton = document.querySelector("#students button");
 
   if (!name) {
@@ -191,7 +201,21 @@ async function addStudent() {
   addButton.disabled = true;
 
   try {
-    const student = await window.saveStudentToFirebase(name);
+const studentData = {
+  name,
+  grade,
+  subject,
+  parentPhone,
+  lessonType,
+  lessonPrice: lessonPrice === "" ? null : Number(lessonPrice),
+  status,
+  academicRating,
+  strengths,
+  improvements,
+  notes
+};
+
+const student = await window.saveStudentToFirebase(studentData);
 
     students.push(student);
 
@@ -259,12 +283,19 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 window.db = db;
-window.saveStudentToFirebase = async (name) => {
-  const studentRef = await addDoc(collection(db, "students"), {
-    name,
-    createdAt: new Date().toISOString()
-  });
-  return { id: studentRef.id, name };
+window.saveStudentToFirebase = async (studentData) => {
+  if (!auth.currentUser || auth.currentUser.uid !== "3ER6MuYqWtb7Nyawz6bLUiPXWJx1") {
+  throw new Error("Unauthorized");
+}
+const studentRef = await addDoc(collection(db, "students"), {
+  ...studentData,
+  createdAt: new Date().toISOString()
+});
+
+return {
+  id: studentRef.id,
+  ...studentData
+};
 };
 window.deleteStudentFromFirebase = async (studentId) => {
   if (!auth.currentUser || auth.currentUser.uid !== "3ER6MuYqWtb7Nyawz6bLUiPXWJx1") {
@@ -275,7 +306,10 @@ window.deleteStudentFromFirebase = async (studentId) => {
 };
     window.loadStudentsFromFirebase = async () => {
   const snapshot = await getDocs(collection(db, "students"));
-return snapshot.docs.map(studentDoc => ({ id: studentDoc.id, name: studentDoc.data().name }));
+return snapshot.docs.map(studentDoc => ({
+  ...studentDoc.data(),
+  id: studentDoc.id
+}));
 };
     const loginButton = document.getElementById("loginButton");
 const loginMessage = document.getElementById("loginMessage");
