@@ -83,12 +83,11 @@ deleteButton.onclick = () => deleteStudent(student.id);
 li.appendChild(deleteButton);
 document.getElementById("studentList").appendChild(li);
 }
-</script>
   async function deleteStudent(studentId) {
   const student = students.find(s => s.id === studentId);
   if (!student) return;
 
-  if (!confirm(`هل تريد حذف الطالب "${student.name}"؟`)) return;
+if (!confirm(`هل تريد حذف الطالب "${student.name}"؟`)) return;
 
   try {
     await window.deleteStudentFromFirebase(studentId);
@@ -106,6 +105,7 @@ document.getElementById("studentList").appendChild(li);
     alert("تعذر حذف الطالب. حاول مرة أخرى.");
   }
 }
+  </script>
   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -138,6 +138,7 @@ window.deleteStudentFromFirebase = async (studentId) => {
 
   await deleteDoc(doc(db, "students", studentId));
 };
+    window.loadStudentsFromFirebase = async () => {
   const snapshot = await getDocs(collection(db, "students"));
 return snapshot.docs.map(studentDoc => ({ id: studentDoc.id, name: studentDoc.data().name }));
 };
