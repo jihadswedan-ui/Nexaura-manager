@@ -90,27 +90,45 @@ document.querySelectorAll("section").forEach(s=>s.hidden=true);
 document.getElementById(id).hidden=false;
 document.getElementById("students").hidden = false;
 }
-async function addStudent(){
-const input=document.getElementById("studentName");
-const name=input.value.trim();
-if(!name)return alert("أدخل اسم الطالب");
-try {
-const student = await window.saveStudentToFirebase(name);
-students.push(student);
-} catch (error) {
-  alert("تعذر حفظ الطالب في Firebase. حاول مرة أخرى.");
-  return;
-}
-input.value="";
-document.getElementById("studentsCount").textContent=students.length;
-const li=document.createElement("li");
-li.textContent = student.name;
-li.dataset.studentId = student.id;
-  const deleteButton = document.createElement("button");
-deleteButton.textContent = "حذف";
-deleteButton.onclick = () => deleteStudent(student.id);
-li.appendChild(deleteButton);
-document.getElementById("studentList").appendChild(li);
+async function addStudent() {
+  const input = document.getElementById("studentName");
+  const name = input.value.trim();
+  const addButton = document.querySelector("#students button");
+
+  if (!name) {
+    alert("الرجاء إدخال اسم الطالب");
+    return;
+  }
+
+  addButton.disabled = true;
+
+  try {
+    const student = await window.saveStudentToFirebase(name);
+
+    students.push(student);
+
+    const li = document.createElement("li");
+    li.dataset.studentId = student.id;
+
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = student.name;
+    li.appendChild(nameSpan);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "حذف";
+    deleteButton.onclick = () => deleteStudent(student.id);
+    li.appendChild(deleteButton);
+
+    document.getElementById("studentList").appendChild(li);
+    document.getElementById("studentsCount").textContent = students.length;
+
+    input.value = "";
+  } catch (error) {
+    console.error("Error adding student:", error);
+    alert("تعذر إضافة الطالب. حاول مرة أخرى.");
+  } finally {
+    addButton.disabled = false;
+  }
 }
   async function deleteStudent(studentId) {
   const student = students.find(s => s.id === studentId);
