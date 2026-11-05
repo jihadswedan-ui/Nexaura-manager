@@ -1109,11 +1109,9 @@ if (loginForm) {
  loginForm.addEventListener("submit", async event => {
   event.preventDefault();
 
-  const emailField =
-   loginForm.querySelector('[name="email"]');
+const emailField = document.getElementById("loginEmail");
 
-  const passwordField =
-   loginForm.querySelector('[name="password"]');
+const passwordField = document.getElementById("loginPassword");
 
   if (!emailField || !passwordField) {
    notify("تعذر العثور على حقول تسجيل الدخول.", true);
