@@ -71,5 +71,23 @@ li.textContent=name;
 document.getElementById("studentList").appendChild(li);
 }
 </script>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
+  authDomain: "nexaura-management.firebaseapp.com",
+  projectId: "nexaura-management",
+  storageBucket: "nexaura-management.firebasestorage.app",
+  messagingSenderId: "320853910043",
+  appId: "1:320853910043:web:96764e1becd3c466f08ebe"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+</script>
 </body>
 </html>
