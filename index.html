@@ -172,6 +172,7 @@ input::placeholder,textarea::placeholder{color:#8194A1}
 #notice.error{
  background:#45242D;color:#FFD8DC;border-color:#9C4B57
 }
+
 #loginScreen{
  min-height:100vh;display:grid;place-items:center;
  padding:20px;
@@ -242,17 +243,24 @@ footer{
  <div class="login-card">
   <h1>NEXAURA</h1>
   <p class="subtitle">NEXT × AURA | MANAGEMENT SYSTEM</p>
+
   <form id="loginForm">
    <div class="field">
     <label for="loginEmail">البريد الإلكتروني</label>
-    <input id="loginEmail" type="email" autocomplete="username" required>
+    <input id="loginEmail" type="email"
+           autocomplete="username" required>
    </div>
+
    <div class="field">
     <label for="loginPassword">كلمة المرور</label>
-    <input id="loginPassword" type="password" autocomplete="current-password" required>
+    <input id="loginPassword" type="password"
+           autocomplete="current-password" required>
    </div>
-   <button class="btn gold" id="loginButton" type="submit">تسجيل الدخول</button>
+
+   <button class="btn gold" id="loginButton"
+           type="submit">تسجيل الدخول</button>
   </form>
+
   <p id="loginError" role="alert"></p>
  </div>
 </div>
@@ -263,16 +271,43 @@ footer{
    <h1>NEXAURA</h1>
    <p>EDUCATION MANAGEMENT</p>
   </div>
+
   <nav id="navigation">
-   <button class="nav-btn active" data-page="dashboard"><span class="symbol">◈</span> لوحة التحكم</button>
-   <button class="nav-btn" data-page="students"><span class="symbol">♙</span> الطلاب</button>
-   <button class="nav-btn" data-page="lessons"><span class="symbol">▦</span> الدروس</button>
-   <button class="nav-btn" data-page="attendance"><span class="symbol">✓</span> الحضور</button>
-   <button class="nav-btn" data-page="payments"><span class="symbol">₪</span> المدفوعات</button>
-   <button class="nav-btn" data-page="expenses"><span class="symbol">↘</span> المصاريف</button>
-   <button class="nav-btn" data-page="teachers"><span class="symbol">♧</span> المعلمون</button>
-   <button class="nav-btn" data-page="reports"><span class="symbol">▥</span> التقارير</button>
-   <button class="nav-btn" data-page="settings"><span class="symbol">⚙</span> الإعدادات</button>
+   <button class="nav-btn active" data-page="dashboard">
+    <span class="symbol">◈</span> لوحة التحكم
+   </button>
+
+   <button class="nav-btn" data-page="students">
+    <span class="symbol">♙</span> الطلاب
+   </button>
+
+   <button class="nav-btn" data-page="lessons">
+    <span class="symbol">▦</span> الدروس
+   </button>
+
+   <button class="nav-btn" data-page="attendance">
+    <span class="symbol">✓</span> الحضور
+   </button>
+
+   <button class="nav-btn" data-page="payments">
+    <span class="symbol">₪</span> المدفوعات
+   </button>
+
+   <button class="nav-btn" data-page="expenses">
+    <span class="symbol">↘</span> المصاريف
+   </button>
+
+   <button class="nav-btn" data-page="teachers">
+    <span class="symbol">♧</span> المعلمون
+   </button>
+
+   <button class="nav-btn" data-page="reports">
+    <span class="symbol">▥</span> التقارير
+   </button>
+
+   <button class="nav-btn" data-page="settings">
+    <span class="symbol">⚙</span> الإعدادات
+   </button>
   </nav>
  </aside>
 
@@ -280,894 +315,2334 @@ footer{
   <div class="topbar">
    <div>
     <h2 id="pageTitle">لوحة التحكم</h2>
-    <p id="pageSubtitle">نظرة شاملة على أعمال NEXAURA</p>
+    <p id="pageSubtitle">
+     نظرة شاملة على أعمال NEXAURA
+    </p>
    </div>
    <span class="owner">● OWNER ACCESS</span>
   </div>
 
-  <section id="dashboard" class="section active">
-   <div class="stats">
-    <div class="stat"><span class="label">إجمالي الطلاب</span><strong class="value" id="statStudents">0</strong></div>
-    <div class="stat"><span class="label">الطلاب النشطون</span><strong class="value" id="statActive">0</strong></div>
-    <div class="stat"><span class="label">دروس اليوم</span><strong class="value" id="statToday">0</strong></div>
-    <div class="stat"><span class="label">صافي الشهر</span><strong class="value" id="statProfit">₪0</strong></div>
-   </div>
-   <div class="stats">
-    <div class="stat"><span class="label">إيرادات الشهر المسجلة</span><strong class="value" id="statIncome">₪0</strong></div>
-    <div class="stat"><span class="label">مصاريف الشهر</span><strong class="value" id="statExpenses">₪0</strong></div>
-    <div class="stat"><span class="label">المدفوعات المستحقة</span><strong class="value" id="statDue">₪0</strong></div>
-    <div class="stat"><span class="label">إجمالي المعلمين</span><strong class="value" id="statTeachers">0</strong></div>
-   </div>
-   <div class="panel">
-    <h3>الدروس القادمة</h3>
-    <div id="upcomingLessons" class="records"></div>
-   </div>
-  </section>
+<section id="dashboard" class="section active">
+ <div class="stats">
+  <div class="stat">
+   <span class="label">إجمالي الطلاب</span>
+   <strong class="value" id="statStudents">0</strong>
+  </div>
+  <div class="stat">
+   <span class="label">الطلاب النشطون</span>
+   <strong class="value" id="statActive">0</strong>
+  </div>
+  <div class="stat">
+   <span class="label">دروس اليوم</span>
+   <strong class="value" id="statToday">0</strong>
+  </div>
+  <div class="stat">
+   <span class="label">صافي الشهر</span>
+   <strong class="value" id="statProfit">₪0</strong>
+  </div>
+ </div>
 
-  <section id="students" class="section">
-   <div class="section-heading"><h2>إدارة الطلاب</h2></div>
-   <div class="panel">
-    <h3 id="studentFormTitle">إضافة طالب جديد</h3>
-    <form id="studentForm" class="form-grid">
-     <div class="field"><label>اسم الطالب *</label><input name="name" required></div>
-     <div class="field"><label>الصف</label>
-      <select name="grade">
-       <option value="">اختر الصف</option>
-       <option value="1">الأول</option><option value="2">الثاني</option>
-       <option value="3">الثالث</option><option value="4">الرابع</option>
-       <option value="5">الخامس</option><option value="6">السادس</option>
-       <option value="7">السابع</option><option value="8">الثامن</option>
-       <option value="9">التاسع</option><option value="10">العاشر</option>
-       <option value="11">الحادي عشر</option><option value="12">الثاني عشر</option>
-      </select>
-     </div>
-     <div class="field"><label>المادة</label><input name="subject"></div>
-     <div class="field"><label>هاتف ولي الأمر</label><input name="parentPhone" type="tel"></div>
-     <div class="field"><label>نوع التعليم</label>
-      <select name="lessonType"><option value="group">جماعي</option><option value="individual">فردي</option></select>
-     </div>
-     <div class="field"><label>سعر الحصة ₪</label><input name="lessonPrice" type="number" min="0" step=".01"></div>
-     <div class="field"><label>الحالة</label>
-      <select name="status"><option value="active">نشط</option><option value="inactive">غير نشط</option></select>
-     </div>
-     <div class="field"><label>التقييم الأكاديمي</label>
-      <select name="academicRating">
-       <option value="">غير محدد</option>
-       <option value="excellent">ممتاز</option>
-       <option value="very-good">جيد جدًا</option>
-       <option value="good">جيد</option>
-       <option value="needs-support">يحتاج إلى متابعة</option>
-      </select>
-     </div>
-     <div class="field full"><label>نقاط القوة</label><textarea name="strengths"></textarea></div>
-     <div class="field full"><label>نقاط تحتاج إلى تحسين</label><textarea name="improvements"></textarea></div>
-     <div class="field full"><label>ملاحظات المعلم</label><textarea name="notes"></textarea></div>
-     <div class="actions full">
-      <button class="btn gold" type="submit" id="studentSave">إضافة الطالب</button>
-      <button class="btn ghost" type="button" id="studentCancel" hidden>إلغاء التعديل</button>
-     </div>
-    </form>
-   </div>
-   <div class="panel">
-    <h3>سجل الطلاب</h3>
-    <div class="toolbar">
-     <input id="studentSearch" placeholder="ابحث باسم الطالب أو المادة أو الهاتف...">
-     <select id="studentFilter">
-      <option value="all">جميع الطلاب</option>
-      <option value="active">النشطون</option>
-      <option value="inactive">غير النشطين</option>
-     </select>
-    </div>
-    <div id="studentRecords" class="records"></div>
-   </div>
-  </section>
+ <div class="stats">
+  <div class="stat">
+   <span class="label">إيرادات الشهر المسجلة</span>
+   <strong class="value" id="statIncome">₪0</strong>
+  </div>
+  <div class="stat">
+   <span class="label">مصاريف الشهر</span>
+   <strong class="value" id="statExpenses">₪0</strong>
+  </div>
+  <div class="stat">
+   <span class="label">المدفوعات المستحقة</span>
+   <strong class="value" id="statDue">₪0</strong>
+  </div>
+  <div class="stat">
+   <span class="label">إجمالي المعلمين</span>
+   <strong class="value" id="statTeachers">0</strong>
+  </div>
+ </div>
 
-  <section id="lessons" class="section">
-   <div class="panel">
-    <h3 id="lessonFormTitle">جدولة درس</h3>
-    <form id="lessonForm" class="form-grid">
-     <div class="field"><label>عنوان الدرس *</label><input name="title" required placeholder="مثال: English Group A"></div>
-     <div class="field"><label>التاريخ *</label><input name="date" type="date" required></div>
-     <div class="field"><label>وقت البداية *</label><input name="time" type="time" required></div>
-     <div class="field"><label>المدة بالدقائق</label><input name="duration" type="number" min="15" value="60" required></div>
-     <div class="field"><label>نوع الدرس</label>
-      <select name="type"><option value="group">جماعي</option><option value="individual">فردي</option></select>
-     </div>
-     <div class="field"><label>المعلم</label><select name="teacherId" id="lessonTeacher"></select></div>
-     <div class="field full"><label>الطلاب (يمكن اختيار أكثر من طالب)</label>
-      <select name="studentIds" id="lessonStudents" multiple size="6"></select>
-      <small>على الكمبيوتر: Ctrl أو Command لتحديد عدة طلاب.</small>
-     </div>
-     <div class="field"><label>الحالة</label>
-      <select name="status">
-       <option value="scheduled">مجدول</option>
-       <option value="completed">مكتمل</option>
-       <option value="cancelled">ملغي</option>
-      </select>
-     </div>
-     <div class="field"><label>ملاحظات</label><input name="notes"></div>
-     <div class="actions full">
-      <button class="btn gold" type="submit" id="lessonSave">حفظ الدرس</button>
-      <button class="btn ghost" type="button" id="lessonCancel" hidden>إلغاء التعديل</button>
-     </div>
-    </form>
-   </div>
-   <div class="panel">
-    <h3>جدول الدروس</h3>
-    <div class="toolbar">
-     <input type="date" id="lessonDateFilter">
-     <button class="btn ghost" id="clearLessonDate">عرض الكل</button>
-    </div>
-    <div id="lessonRecords" class="records"></div>
-   </div>
-  </section>
+ <div class="panel">
+  <h3>الدروس القادمة</h3>
+  <div id="upcomingLessons" class="records"></div>
+ </div>
+</section>
 
-  <section id="attendance" class="section">
-   <div class="panel">
-    <h3>تسجيل الحضور والغياب</h3>
-    <p class="muted">اختر درسًا ثم سجّل حالة كل طالب. يتم حفظ الحضور داخل سجل الدرس في Firebase.</p>
-    <div class="field">
-     <label>اختر الدرس</label>
-     <select id="attendanceLesson"></select>
-    </div>
-    <div id="attendanceEditor" style="margin-top:18px"></div>
-   </div>
-  </section>
+<section id="students" class="section">
+ <div class="section-heading">
+  <h2>إدارة الطلاب</h2>
+ </div>
 
-  <section id="payments" class="section">
-   <div class="panel">
-    <h3 id="paymentFormTitle">تسجيل دفعة أو مستحقات</h3>
-    <form id="paymentForm" class="form-grid">
-     <div class="field"><label>الطالب *</label><select name="studentId" id="paymentStudent" required></select></div>
-     <div class="field"><label>التاريخ *</label><input name="date" type="date" required></div>
-     <div class="field"><label>المبلغ المطلوب ₪ *</label><input name="amount" type="number" min="0" step=".01" required></div>
-     <div class="field"><label>المبلغ المدفوع ₪ *</label><input name="paid" type="number" min="0" step=".01" required></div>
-     <div class="field full"><label>الوصف</label><input name="description" placeholder="مثال: رسوم شهر نوفمبر"></div>
-     <div class="actions full">
-      <button class="btn gold" type="submit" id="paymentSave">حفظ المدفوعات</button>
-      <button class="btn ghost" type="button" id="paymentCancel" hidden>إلغاء التعديل</button>
-     </div>
-    </form>
-   </div>
-   <div class="panel">
-    <h3>سجل المدفوعات والمستحقات</h3>
-    <div id="paymentRecords" class="records"></div>
-   </div>
-  </section>
+ <div class="panel">
+  <h3 id="studentFormTitle">إضافة طالب جديد</h3>
 
-  <section id="expenses" class="section">
-   <div class="panel">
-    <h3 id="expenseFormTitle">تسجيل مصروف</h3>
-    <form id="expenseForm" class="form-grid">
-     <div class="field"><label>عنوان المصروف *</label><input name="title" required></div>
-     <div class="field"><label>التاريخ *</label><input name="date" type="date" required></div>
-     <div class="field"><label>المبلغ ₪ *</label><input name="amount" type="number" min="0" step=".01" required></div>
-     <div class="field"><label>التصنيف</label>
-      <select name="category">
-       <option value="rent">إيجار</option>
-       <option value="supplies">مستلزمات</option>
-       <option value="utilities">فواتير</option>
-       <option value="salary">أجور المعلمين</option>
-       <option value="marketing">تسويق</option>
-       <option value="other">أخرى</option>
-      </select>
-     </div>
-     <div class="field full"><label>ملاحظات</label><textarea name="notes"></textarea></div>
-     <div class="actions full">
-      <button class="btn gold" type="submit" id="expenseSave">حفظ المصروف</button>
-      <button class="btn ghost" type="button" id="expenseCancel" hidden>إلغاء التعديل</button>
-     </div>
-    </form>
+  <form id="studentForm" class="form-grid">
+   <div class="field">
+    <label>اسم الطالب *</label>
+    <input name="name" required>
    </div>
-   <div class="panel">
-    <h3>سجل المصاريف</h3>
-    <div id="expenseRecords" class="records"></div>
-   </div>
-  </section>
 
-  <section id="teachers" class="section">
-   <div class="panel">
-    <h3 id="teacherFormTitle">إضافة معلم</h3>
-    <form id="teacherForm" class="form-grid">
-     <div class="field"><label>اسم المعلم *</label><input name="name" required></div>
-     <div class="field"><label>المادة</label><input name="subject"></div>
-     <div class="field"><label>الهاتف</label><input name="phone" type="tel"></div>
-     <div class="field"><label>أجر الحصة ₪</label><input name="rate" type="number" min="0" step=".01"></div>
-     <div class="field"><label>الحالة</label>
-      <select name="status"><option value="active">نشط</option><option value="inactive">غير نشط</option></select>
-     </div>
-     <div class="field"><label>ملاحظات</label><input name="notes"></div>
-     <div class="actions full">
-      <button class="btn gold" type="submit" id="teacherSave">حفظ المعلم</button>
-      <button class="btn ghost" type="button" id="teacherCancel" hidden>إلغاء التعديل</button>
-     </div>
-    </form>
+   <div class="field">
+    <label>الصف</label>
+    <select name="grade">
+     <option value="">اختر الصف</option>
+     <option value="1">الأول</option>
+     <option value="2">الثاني</option>
+     <option value="3">الثالث</option>
+     <option value="4">الرابع</option>
+     <option value="5">الخامس</option>
+     <option value="6">السادس</option>
+     <option value="7">السابع</option>
+     <option value="8">الثامن</option>
+     <option value="9">التاسع</option>
+     <option value="10">العاشر</option>
+     <option value="11">الحادي عشر</option>
+     <option value="12">الثاني عشر</option>
+    </select>
    </div>
-   <div class="panel">
-    <h3>سجل المعلمين</h3>
-    <div id="teacherRecords" class="records"></div>
-   </div>
-  </section>
 
-  <section id="reports" class="section">
-   <div class="panel">
-    <h3>التقرير المالي الشهري</h3>
-    <div class="field" style="max-width:250px">
-     <label>الشهر</label><input type="month" id="reportMonth">
-    </div>
-    <div class="stats" style="margin-top:20px">
-     <div class="stat"><span class="label">المبالغ المطلوبة</span><strong id="reportBilled" class="value">₪0</strong></div>
-     <div class="stat"><span class="label">المبالغ المدفوعة</span><strong id="reportPaid" class="value">₪0</strong></div>
-     <div class="stat"><span class="label">المصاريف</span><strong id="reportExpenses" class="value">₪0</strong></div>
-     <div class="stat"><span class="label">صافي التدفق النقدي</span><strong id="reportNet" class="value">₪0</strong></div>
-    </div>
-    <div class="metric-row">
-     <div class="record">الدروس المكتملة: <span class="highlight" id="reportCompleted">0</span></div>
-     <div class="record">الدروس الملغاة: <span class="highlight" id="reportCancelled">0</span></div>
-    </div>
-    <p class="muted" style="margin-top:15px">
-     تُحسب الإيرادات من المدفوعات المسجلة بتاريخها، والمصاريف من سجل المصاريف.
-     لا تُحسب أجور المعلمين تلقائيًا؛ سجّل المبلغ المدفوع لهم ضمن المصاريف.
-    </p>
+   <div class="field">
+    <label>المادة التعليمية</label>
+    <input name="subject"
+           placeholder="مثال: اللغة الإنجليزية">
    </div>
-  </section>
 
-  <section id="settings" class="section">
-   <div class="panel">
-    <h3>إعدادات المؤسسة</h3>
-    <form id="settingsForm" class="form-grid">
-     <div class="field"><label>اسم المؤسسة</label><input name="instituteName" value="NEXAURA"></div>
-     <div class="field"><label>الموقع</label><input name="location" value="الناصرة"></div>
-     <div class="field"><label>رقم الهاتف</label><input name="phone" type="tel"></div>
-     <div class="field"><label>العملة</label><input value="ILS — ₪" disabled></div>
-     <div class="actions full">
-      <button class="btn gold" type="submit" id="settingsSave">حفظ الإعدادات</button>
-     </div>
-    </form>
+   <div class="field">
+    <label>هاتف ولي الأمر</label>
+    <input name="parentPhone" type="tel">
    </div>
-   <div class="panel">
-    <h3>الحساب والأمان</h3>
-    <p class="muted" id="accountEmail"></p>
-    <button class="btn danger" id="logoutButton">تسجيل الخروج</button>
-   </div>
-  </section>
 
-  <footer>NEXAURA MANAGER · NEXT × AURA · الناصرة</footer>
- </main>
+   <div class="field">
+    <label>نوع التعليم</label>
+    <select name="lessonType">
+     <option value="group">جماعي</option>
+     <option value="individual">فردي</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>سعر الحصة ₪</label>
+    <input name="lessonPrice"
+           type="number" min="0" step=".01">
+   </div>
+
+   <div class="field">
+    <label>حالة الطالب</label>
+    <select name="status">
+     <option value="active">نشط</option>
+     <option value="inactive">غير نشط</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>التقييم الأكاديمي</label>
+    <select name="academicRating">
+     <option value="">غير محدد</option>
+     <option value="excellent">ممتاز</option>
+     <option value="very-good">جيد جدًا</option>
+     <option value="good">جيد</option>
+     <option value="needs-support">يحتاج إلى متابعة</option>
+    </select>
+   </div>
+
+   <div class="field full">
+    <label>نقاط القوة</label>
+    <textarea name="strengths"></textarea>
+   </div>
+
+   <div class="field full">
+    <label>نقاط تحتاج إلى تحسين</label>
+    <textarea name="improvements"></textarea>
+   </div>
+
+   <div class="field full">
+    <label>ملاحظات المعلم</label>
+    <textarea name="notes"></textarea>
+   </div>
+
+   <div class="actions full">
+    <button class="btn gold" type="submit"
+            id="studentSave">إضافة الطالب</button>
+    <button class="btn ghost" type="button"
+            id="studentCancel" hidden>إلغاء التعديل</button>
+   </div>
+  </form>
+ </div>
+
+ <div class="panel">
+  <h3>سجل الطلاب</h3>
+
+  <div class="toolbar">
+   <input id="studentSearch"
+          placeholder="ابحث باسم الطالب أو المادة أو الهاتف...">
+
+   <select id="studentFilter">
+    <option value="all">جميع الطلاب</option>
+    <option value="active">النشطون</option>
+    <option value="inactive">غير النشطين</option>
+   </select>
+  </div>
+
+  <div id="studentRecords" class="records"></div>
+ </div>
+</section>
+
+<section id="lessons" class="section">
+ <div class="panel">
+  <h3 id="lessonFormTitle">جدولة درس جديد</h3>
+
+  <form id="lessonForm" class="form-grid">
+   <div class="field">
+    <label>عنوان الدرس *</label>
+    <input name="title" required
+           placeholder="مثال: English Group A">
+   </div>
+
+   <div class="field">
+    <label>تاريخ الدرس *</label>
+    <input name="date" type="date" required>
+   </div>
+
+   <div class="field">
+    <label>وقت بداية الدرس *</label>
+    <input name="time" type="time" required>
+   </div>
+
+   <div class="field">
+    <label>مدة الدرس بالدقائق</label>
+    <input name="duration" type="number"
+           min="15" value="60" required>
+   </div>
+
+   <div class="field">
+    <label>نوع الدرس</label>
+    <select name="type">
+     <option value="group">جماعي</option>
+     <option value="individual">فردي</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>المعلم المسؤول</label>
+    <select name="teacherId" id="lessonTeacher">
+     <option value="">بدون معلم محدد</option>
+    </select>
+   </div>
+
+   <div class="field full">
+    <label>الطلاب المشاركون في الدرس</label>
+    <small>يمكنك تحديد أكثر من طالب.</small>
+    <select name="studentIds" id="lessonStudents"
+            multiple size="6"></select>
+   </div>
+
+   <div class="field">
+    <label>حالة الدرس</label>
+    <select name="status">
+     <option value="scheduled">مجدول</option>
+     <option value="completed">مكتمل</option>
+     <option value="cancelled">ملغي</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>ملاحظات الدرس</label>
+    <input name="notes">
+   </div>
+
+   <div class="actions full">
+    <button class="btn gold" type="submit"
+            id="lessonSave">حفظ الدرس</button>
+    <button class="btn ghost" type="button"
+            id="lessonCancel" hidden>إلغاء التعديل</button>
+   </div>
+  </form>
+ </div>
+
+ <div class="panel">
+  <h3>جدول الدروس</h3>
+
+  <div class="toolbar">
+   <input type="date" id="lessonDateFilter">
+   <button class="btn ghost" type="button"
+           id="clearLessonDate">عرض جميع الدروس</button>
+  </div>
+
+  <div id="lessonRecords" class="records"></div>
+ </div>
+</section>
+
+<section id="attendance" class="section">
+ <div class="panel">
+  <h3>تسجيل الحضور والغياب</h3>
+
+  <p class="muted">
+   اختر الدرس المطلوب، ثم سجّل حالة حضور كل طالب.
+   سيتم حفظ المعلومات في Firebase.
+  </p>
+
+  <div class="field">
+   <label>اختر الدرس</label>
+   <select id="attendanceLesson">
+    <option value="">اختر الدرس</option>
+   </select>
+  </div>
+
+  <div id="attendanceEditor"
+       style="margin-top:18px"></div>
+ </div>
+</section>
+
+<section id="payments" class="section">
+ <div class="panel">
+  <h3 id="paymentFormTitle">تسجيل دفعة أو مستحقات</h3>
+
+  <form id="paymentForm" class="form-grid">
+   <div class="field">
+    <label>اسم الطالب *</label>
+    <select name="studentId" id="paymentStudent" required>
+     <option value="">اختر الطالب</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>التاريخ *</label>
+    <input name="date" type="date" required>
+   </div>
+
+   <div class="field">
+    <label>المبلغ المطلوب ₪ *</label>
+    <input name="amount" type="number"
+           min="0" step=".01" required>
+   </div>
+
+   <div class="field">
+    <label>المبلغ المدفوع ₪ *</label>
+    <input name="paid" type="number"
+           min="0" step=".01" required>
+   </div>
+
+   <div class="field full">
+    <label>وصف الدفعة</label>
+    <input name="description"
+           placeholder="مثال: رسوم شهر نوفمبر">
+   </div>
+
+   <div class="actions full">
+    <button class="btn gold" type="submit"
+            id="paymentSave">حفظ الدفعة</button>
+
+    <button class="btn ghost" type="button"
+            id="paymentCancel" hidden>
+     إلغاء التعديل
+    </button>
+   </div>
+  </form>
+ </div>
+
+ <div class="panel">
+  <h3>سجل المدفوعات والمستحقات</h3>
+  <div id="paymentRecords" class="records"></div>
+ </div>
+</section>
+
+<section id="expenses" class="section">
+ <div class="panel">
+  <h3 id="expenseFormTitle">تسجيل مصروف جديد</h3>
+
+  <form id="expenseForm" class="form-grid">
+   <div class="field">
+    <label>عنوان المصروف *</label>
+    <input name="title" required
+           placeholder="مثال: شراء مستلزمات تعليمية">
+   </div>
+
+   <div class="field">
+    <label>تاريخ المصروف *</label>
+    <input name="date" type="date" required>
+   </div>
+
+   <div class="field">
+    <label>المبلغ ₪ *</label>
+    <input name="amount" type="number"
+           min="0" step=".01" required>
+   </div>
+
+   <div class="field">
+    <label>تصنيف المصروف</label>
+    <select name="category">
+     <option value="rent">إيجار</option>
+     <option value="supplies">مستلزمات</option>
+     <option value="utilities">فواتير</option>
+     <option value="salary">أجور المعلمين</option>
+     <option value="marketing">تسويق</option>
+     <option value="other">مصاريف أخرى</option>
+    </select>
+   </div>
+
+   <div class="field full">
+    <label>ملاحظات إضافية</label>
+    <textarea name="notes"
+              placeholder="اكتب أي تفاصيل عن المصروف"></textarea>
+   </div>
+
+   <div class="actions full">
+    <button class="btn gold" type="submit"
+            id="expenseSave">حفظ المصروف</button>
+
+    <button class="btn ghost" type="button"
+            id="expenseCancel" hidden>
+     إلغاء التعديل
+    </button>
+   </div>
+  </form>
+ </div>
+
+ <div class="panel">
+  <h3>سجل المصاريف</h3>
+  <div id="expenseRecords" class="records"></div>
+ </div>
+</section>
+
+<section id="teachers" class="section">
+ <div class="panel">
+  <h3 id="teacherFormTitle">إضافة معلم جديد</h3>
+
+  <form id="teacherForm" class="form-grid">
+   <div class="field">
+    <label>اسم المعلم *</label>
+    <input name="name" required
+           placeholder="اسم المعلم الكامل">
+   </div>
+
+   <div class="field">
+    <label>المادة التعليمية</label>
+    <input name="subject"
+           placeholder="مثال: الرياضيات">
+   </div>
+
+   <div class="field">
+    <label>رقم الهاتف</label>
+    <input name="phone" type="tel">
+   </div>
+
+   <div class="field">
+    <label>أجر الحصة ₪</label>
+    <input name="rate" type="number"
+           min="0" step=".01">
+   </div>
+
+   <div class="field">
+    <label>حالة المعلم</label>
+    <select name="status">
+     <option value="active">نشط</option>
+     <option value="inactive">غير نشط</option>
+    </select>
+   </div>
+
+   <div class="field">
+    <label>ملاحظات</label>
+    <input name="notes">
+   </div>
+
+   <div class="actions full">
+    <button class="btn gold" type="submit"
+            id="teacherSave">حفظ المعلم</button>
+
+    <button class="btn ghost" type="button"
+            id="teacherCancel" hidden>
+     إلغاء التعديل
+    </button>
+   </div>
+  </form>
+ </div>
+
+ <div class="panel">
+  <h3>سجل المعلمين</h3>
+  <div id="teacherRecords" class="records"></div>
+ </div>
+</section>
+
+<section id="reports" class="section">
+ <div class="panel">
+  <h3>التقرير المالي الشهري</h3>
+
+  <div class="field" style="max-width:250px">
+   <label>اختر الشهر</label>
+   <input type="month" id="reportMonth">
+  </div>
+
+  <div class="stats" style="margin-top:20px">
+   <div class="stat">
+    <span class="label">المبالغ المطلوبة</span>
+    <strong id="reportBilled" class="value">₪0</strong>
+   </div>
+
+   <div class="stat">
+    <span class="label">المبالغ المدفوعة</span>
+    <strong id="reportPaid" class="value">₪0</strong>
+   </div>
+
+   <div class="stat">
+    <span class="label">المصاريف</span>
+    <strong id="reportExpenses" class="value">₪0</strong>
+   </div>
+
+   <div class="stat">
+    <span class="label">صافي التدفق النقدي</span>
+    <strong id="reportNet" class="value">₪0</strong>
+   </div>
+  </div>
+
+  <div class="metric-row">
+   <div class="record">
+    الدروس المكتملة:
+    <span class="highlight" id="reportCompleted">0</span>
+   </div>
+
+   <div class="record">
+    الدروس الملغاة:
+    <span class="highlight" id="reportCancelled">0</span>
+   </div>
+  </div>
+
+  <p class="muted" style="margin-top:15px">
+   تُحسب الإيرادات من المدفوعات المسجلة بتاريخها،
+   والمصاريف من سجل المصاريف.
+
+   لا تُحسب أجور المعلمين تلقائيًا؛
+   سجّل المبلغ المدفوع لهم ضمن المصاريف.
+  </p>
+ </div>
+</section>
+
+<section id="settings" class="section">
+ <div class="panel">
+  <h3>إعدادات المؤسسة</h3>
+
+  <form id="settingsForm" class="form-grid">
+   <div class="field">
+    <label>اسم المؤسسة</label>
+    <input name="instituteName" value="NEXAURA">
+   </div>
+
+   <div class="field">
+    <label>الموقع</label>
+    <input name="location" value="الناصرة">
+   </div>
+
+   <div class="field">
+    <label>رقم الهاتف</label>
+    <input name="phone" type="tel"
+           value="0548129930">
+   </div>
+
+   <div class="field">
+    <label>العملة</label>
+    <input value="ILS — ₪" disabled>
+   </div>
+
+   <div class="actions full">
+    <button class="btn gold" type="submit"
+            id="settingsSave">
+     حفظ الإعدادات
+    </button>
+   </div>
+  </form>
+ </div>
+
+ <div class="panel">
+  <h3>الحساب والأمان</h3>
+
+  <p class="muted" id="accountEmail"></p>
+
+  <button class="btn danger" type="button"
+          id="logoutButton">
+   تسجيل الخروج
+  </button>
+ </div>
+</section>
+
+<footer>
+ NEXAURA MANAGER · NEXT × AURA · الناصرة
+</footer>
+
+</main>
 </div>
 
-<div id="notice" hidden role="status" aria-live="polite"></div>
+<div id="notice" hidden role="status"
+     aria-live="polite"></div>
 
 <script type="module">
 import {initializeApp} from
 "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
 import {
- getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut
+ getAuth,
+ signInWithEmailAndPassword,
+ onAuthStateChanged,
+ signOut
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
 import {
- getFirestore,collection,doc,addDoc,updateDoc,deleteDoc,
- onSnapshot,setDoc
+ getFirestore,
+ collection,
+ doc,
+ addDoc,
+ updateDoc,
+ deleteDoc,
+ onSnapshot,
+ setDoc
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-const firebaseConfig={
- apiKey:"AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
- authDomain:"nexaura-management.firebaseapp.com",
- projectId:"nexaura-management",
- storageBucket:"nexaura-management.firebasestorage.app",
- messagingSenderId:"320853910043",
- appId:"1:320853910043:web:96764e1becd3c466f08ebe"
+const firebaseConfig = {
+ apiKey: "AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
+ authDomain: "nexaura-management.firebaseapp.com",
+ projectId: "nexaura-management",
+ storageBucket: "nexaura-management.firebasestorage.app",
+ messagingSenderId: "320853910043",
+ appId: "1:320853910043:web:96764e1becd3c466f08ebe"
 };
 
-const OWNER_UID="3ER6MuYqWtb7Nyawz6bLUiPXWJx1";
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
+const OWNER_UID = "3ER6MuYqWtb7Nyawz6bLUiPXWJx1";
 
-const $=id=>document.getElementById(id);
-const collections=["students","lessons","payments","expenses","teachers"];
-const store={
- students:[],lessons:[],payments:[],expenses:[],teachers:[]
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+
+const $ = id => document.getElementById(id);
+
+const collections = [
+ "students",
+ "lessons",
+ "payments",
+ "expenses",
+ "teachers"
+];
+
+const store = {
+ students: [],
+ lessons: [],
+ payments: [],
+ expenses: [],
+ teachers: []
 };
-const editIds={};
-let subscriptions=[];
-let sessionVersion=0;
+
+const editIds = {};
+let subscriptions = [];
+let sessionVersion = 0;
 let noticeTimer;
 
-const money=n=>"₪"+Number(n||0).toLocaleString("en-US",{
- maximumFractionDigits:2
-});
-const num=n=>Number(n)||0;
-const dateNow=()=>{
- const d=new Date();
- return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),
- String(d.getDate()).padStart(2,"0")].join("-");
-};
-const monthNow=()=>dateNow().slice(0,7);
-const text=(v,fallback="غير محدد")=>
- v===null||v===undefined||v===""?fallback:String(v);
-const nameOf=(kind,id)=>
- store[kind].find(x=>x.id===id)?.name||"غير محدد";
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",
- '"':"&quot;","'":"&#39;"
-}[c]));
+const money = n =>
+ "₪" + Number(n || 0).toLocaleString("en-US", {
+  maximumFractionDigits: 2
+ });
 
-function notify(message,error=false){
- const el=$("notice");
- el.textContent=message;
- el.classList.toggle("error",error);
- el.hidden=false;
+const num = n => Number(n) || 0;
+
+const dateNow = () => {
+ const d = new Date();
+ return [
+  d.getFullYear(),
+  String(d.getMonth() + 1).padStart(2, "0"),
+  String(d.getDate()).padStart(2, "0")
+ ].join("-");
+};
+
+const monthNow = () => dateNow().slice(0, 7);
+
+const text = (v, fallback = "غير محدد") =>
+ v === null || v === undefined || v === ""
+  ? fallback
+  : String(v);
+
+const nameOf = (kind, id) =>
+ store[kind].find(x => x.id === id)?.name || "غير محدد";
+
+const esc = s =>
+ String(s ?? "").replace(/[&<>"']/g, c => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;"
+ }[c]));
+
+function notify(message, isError = false) {
+ const el = $("notice");
+ if (!el) return;
+
  clearTimeout(noticeTimer);
- noticeTimer=setTimeout(()=>el.hidden=true,4500);
-}
-function authorized(){
- return auth.currentUser?.uid===OWNER_UID;
-}
-function requireOwner(){
- if(!authorized())throw Error("غير مخوّل بتنفيذ العملية");
-}
-function errorMessage(e){
- console.error(e);
- if(e.code==="permission-denied"){
-  return "رفض Firebase العملية. راجع قواعد Firestore.";
- }
- return e.message||"حدث خطأ. حاول مجددًا.";
-}
-function showPage(page){
- document.querySelectorAll(".section").forEach(s=>
-  s.classList.toggle("active",s.id===page)
- );
- document.querySelectorAll(".nav-btn").forEach(b=>
-  b.classList.toggle("active",b.dataset.page===page)
- );
- const names={
-  dashboard:"لوحة التحكم",students:"إدارة الطلاب",
-  lessons:"جدول الدروس",attendance:"الحضور والغياب",
-  payments:"المدفوعات",expenses:"المصاريف",
-  teachers:"إدارة المعلمين",reports:"التقارير",
-  settings:"الإعدادات"
- };
- $("pageTitle").textContent=names[page]||"NEXAURA";
- $("pageSubtitle").textContent="NEXAURA Management System";
- window.scrollTo({top:0,behavior:"smooth"});
-}
-document.querySelectorAll(".nav-btn").forEach(b=>
- b.addEventListener("click",()=>showPage(b.dataset.page))
-);
+ el.textContent = message;
+ el.classList.toggle("error", isError);
+ el.hidden = false;
 
-function getData(form){
- const result={};
- new FormData(form).forEach((v,k)=>{
-  if(k!=="studentIds")result[k]=String(v).trim();
- });
- return result;
+ noticeTimer = setTimeout(() => {
+  el.hidden = true;
+ }, 4500);
 }
-function setData(form,data){
- for(const el of form.elements){
-  if(!el.name||el.name==="studentIds")continue;
-  if(Object.hasOwn(data,el.name)){
-   el.value=data[el.name]??"";
-  }
+
+function showPage(page) {
+ const section = document.getElementById(page);
+
+ if (!section || !section.classList.contains("section")) {
+  return;
  }
+
+ document.querySelectorAll(".section").forEach(el => {
+  el.classList.toggle("active", el.id === page);
+ });
+
+ document.querySelectorAll("[data-page]").forEach(el => {
+  el.classList.toggle(
+   "active",
+   el.dataset.page === page
+  );
+ });
+
+ if (page === "dashboard") renderDashboard();
+ if (page === "reports") renderReports();
 }
-function detail(label,value){
- return `<div class="detail"><small>${esc(label)}</small>${esc(text(value))}</div>`;
+
+document.querySelectorAll("[data-page]").forEach(el => {
+ el.addEventListener("click", event => {
+  event.preventDefault();
+  showPage(el.dataset.page);
+ });
+});
+
+function stopSubscriptions() {
+ subscriptions.forEach(unsubscribe => unsubscribe());
+ subscriptions = [];
 }
-function record(title,tag,details,buttons,tagClass=""){
- return `<article class="record">
-  <div class="record-head">
-   <span class="record-title">${esc(title)}</span>
-   <span class="tag ${tagClass}">${esc(tag)}</span>
+
+function clearStore() {
+ collections.forEach(kind => {
+  store[kind] = [];
+ });
+
+ Object.keys(editIds).forEach(key => {
+  delete editIds[key];
+ });
+}
+
+function startSubscriptions() {
+ stopSubscriptions();
+
+ const version = ++sessionVersion;
+
+ collections.forEach(kind => {
+  const unsubscribe = onSnapshot(
+   collection(db, kind),
+   snapshot => {
+    if (version !== sessionVersion) return;
+
+    store[kind] = snapshot.docs.map(item => ({
+     id: item.id,
+     ...item.data()
+    }));
+
+    renderAll();
+   },
+   error => {
+    if (version !== sessionVersion) return;
+
+    console.error("Firestore error:", kind, error);
+    notify(
+     "تعذر تحميل بيانات " + kind +
+     ". تحقق من اتصال الإنترنت وصلاحيات Firebase.",
+     true
+    );
+   }
+  );
+
+  subscriptions.push(unsubscribe);
+ });
+}
+
+function showLogin() {
+ $("loginScreen").hidden = false;
+ $("app").hidden = true;
+}
+
+function showApp(user) {
+ $("loginScreen").hidden = true;
+ $("app").hidden = false;
+
+ if ($("accountEmail")) {
+  $("accountEmail").textContent =
+   "البريد الإلكتروني: " + (user.email || "");
+ }
+
+ showPage("dashboard");
+}
+
+onAuthStateChanged(auth, async user => {
+ sessionVersion++;
+ stopSubscriptions();
+ clearStore();
+
+ if (!user) {
+  showLogin();
+  return;
+ }
+
+ if (user.uid !== OWNER_UID) {
+  notify("هذا الحساب غير مصرح له بالدخول.", true);
+
+  try {
+   await signOut(auth);
+  } catch (error) {
+   console.error(error);
+  }
+
+  showLogin();
+  return;
+ }
+
+ showApp(user);
+ startSubscriptions();
+});
+
+const loginForm = $("loginForm");
+
+if (loginForm) {
+ loginForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const emailField =
+   loginForm.querySelector('[name="email"]');
+
+  const passwordField =
+   loginForm.querySelector('[name="password"]');
+
+  if (!emailField || !passwordField) {
+   notify("تعذر العثور على حقول تسجيل الدخول.", true);
+   return;
+  }
+
+  const email = emailField.value.trim();
+  const password = passwordField.value;
+
+  try {
+   await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+   );
+
+   passwordField.value = "";
+   notify("تم تسجيل الدخول بنجاح.");
+  } catch (error) {
+   console.error(error);
+   notify(
+    "تعذر تسجيل الدخول. تحقق من البريد وكلمة المرور.",
+    true
+   );
+  }
+ });
+}
+
+const logoutButton = $("logoutButton");
+
+if (logoutButton) {
+ logoutButton.addEventListener("click", async () => {
+  try {
+   await signOut(auth);
+   notify("تم تسجيل الخروج.");
+  } catch (error) {
+   console.error(error);
+   notify("تعذر تسجيل الخروج.", true);
+  }
+ });
+}
+
+function studentName(student) {
+ return student.name ||
+        student.fullName ||
+        "طالب بدون اسم";
+}
+
+function studentStatus(student) {
+ return student.status || "active";
+}
+
+function renderStudents() {
+ const container = $("studentRecords");
+ if (!container) return;
+
+ const search = (
+  $("studentSearch")?.value || ""
+ ).trim().toLowerCase();
+
+ const students = store.students.filter(student => {
+  const searchable = [
+   studentName(student),
+   student.phone,
+   student.parentPhone,
+   student.grade
+  ].join(" ").toLowerCase();
+
+  return searchable.includes(search);
+ });
+
+ if (!students.length) {
+  container.innerHTML =
+   '<p class="muted">لا يوجد طلاب لعرضهم.</p>';
+  return;
+ }
+
+ container.innerHTML = students.map(student => `
+  <div class="record">
+   <div>
+    <strong>${esc(studentName(student))}</strong>
+    <p class="muted">
+     الصف: ${esc(text(student.grade))}
+    </p>
+    <p class="muted">
+     الهاتف: ${esc(text(student.phone))}
+    </p>
+    <p class="muted">
+     هاتف ولي الأمر:
+     ${esc(text(student.parentPhone))}
+    </p>
+    <p class="muted">
+     الحالة:
+     ${studentStatus(student) === "active"
+      ? "نشط" : "غير نشط"}
+    </p>
+   </div>
+
+   <div class="actions">
+    <button class="btn ghost"
+            type="button"
+            data-edit-student="${esc(student.id)}">
+     تعديل
+    </button>
+
+    <button class="btn danger"
+            type="button"
+            data-delete-student="${esc(student.id)}">
+     حذف
+    </button>
+   </div>
   </div>
-  <div class="details">${details}</div>
-  <div class="actions">${buttons}</div>
- </article>`;
-}
-function buttons(kind,id){
- const safe=esc(id);
- return `<button type="button" class="btn small" data-action="edit"
- data-kind="${kind}" data-id="${safe}">تعديل</button>
- <button type="button" class="btn danger small" data-action="delete"
- data-kind="${kind}" data-id="${safe}">حذف</button>`;
-}
-function empty(message="لا توجد سجلات بعد"){
- return `<div class="empty">${esc(message)}</div>`;
+ `).join("");
 }
 
-async function saveRecord(kind,data,id=null){
- requireOwner();
- if(id){
-  await updateDoc(doc(db,kind,id),{
-   ...data,updatedAt:new Date().toISOString()
-  });
- }else{
-  await addDoc(collection(db,kind),{
-   ...data,createdAt:new Date().toISOString()
-  });
- }
-}
-async function removeRecord(kind,id){
- requireOwner();
- await deleteDoc(doc(db,kind,id));
-}
-function resetForm(kind){
- const form=$(kind+"Form");
- form.reset();
- editIds[kind]=null;
- const cancel=$(kind+"Cancel");
- if(cancel)cancel.hidden=true;
- const title=$(kind+"FormTitle");
- if(title){
-  const titles={
-   student:"إضافة طالب جديد",lesson:"جدولة درس",
-   payment:"تسجيل دفعة أو مستحقات",
-   expense:"تسجيل مصروف",teacher:"إضافة معلم"
-  };
-  title.textContent=titles[kind];
- }
- if(kind==="lesson")$("lessonStudents").selectedIndex=-1;
- if(kind==="lesson"||kind==="payment"||kind==="expense"){
-  form.elements.date.value=dateNow();
- }
-}
-function startEdit(kind,id){
- const collectionName=kind==="student"?"students":
- kind==="lesson"?"lessons":kind==="payment"?"payments":
- kind==="expense"?"expenses":"teachers";
- const item=store[collectionName].find(x=>x.id===id);
- if(!item)return;
- const form=$(kind+"Form");
- resetForm(kind);
- editIds[kind]=id;
- setData(form,item);
- if(kind==="lesson"){
-  const selected=item.studentIds||[];
-  [...$("lessonStudents").options].forEach(o=>
-   o.selected=selected.includes(o.value)
+const studentForm = $("studentForm");
+
+if (studentForm) {
+ studentForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(
+   new FormData(studentForm).entries()
   );
- }
- $(kind+"Cancel").hidden=false;
- $(kind+"FormTitle").textContent="تعديل السجل";
- showPage(collectionName);
- form.scrollIntoView({behavior:"smooth",block:"start"});
-}
-function registerForm(kind,collectionName,validate,transform){
- const form=$(kind+"Form");
- form.addEventListener("submit",async e=>{
-  e.preventDefault();
-  if(!authorized())return;
-  const button=$(kind+"Save");
-  const data=getData(form);
-  const result=transform?transform(data,form):data;
-  const issue=validate?validate(result):null;
-  if(issue){notify(issue,true);return;}
-  button.disabled=true;
-  try{
-   await saveRecord(collectionName,result,editIds[kind]);
-   resetForm(kind);
-   notify("تم حفظ البيانات بنجاح");
-  }catch(err){notify(errorMessage(err),true);}
-  finally{button.disabled=false;}
- });
- $(kind+"Cancel").addEventListener("click",()=>resetForm(kind));
- form.addEventListener("keydown",e=>{
-  if(e.key==="Enter"&&!e.isComposing&&
-     e.target.tagName!=="TEXTAREA"&&
-     !(e.target.tagName==="SELECT"&&e.target.multiple)){
-   e.preventDefault();
-   if(!buttonDisabled(form))form.requestSubmit();
+
+  data.name = String(data.name || "").trim();
+
+  if (!data.name) {
+   notify("يرجى إدخال اسم الطالب.", true);
+   return;
+  }
+
+  try {
+   if (editIds.students) {
+    await updateDoc(
+     doc(db, "students", editIds.students),
+     data
+    );
+
+    notify("تم تحديث بيانات الطالب.");
+   } else {
+    await addDoc(
+     collection(db, "students"),
+     data
+    );
+
+    notify("تمت إضافة الطالب بنجاح.");
+   }
+
+   studentForm.reset();
+   delete editIds.students;
+
+   if ($("studentFormTitle")) {
+    $("studentFormTitle").textContent =
+     "إضافة طالب جديد";
+   }
+
+   if ($("studentCancel")) {
+    $("studentCancel").hidden = true;
+   }
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حفظ بيانات الطالب.", true);
   }
  });
 }
-function buttonDisabled(form){
- return !!form.querySelector('button[type="submit"]:disabled');
-}
 
-registerForm("student","students",
- d=>!d.name?"اسم الطالب مطلوب":null,
- d=>({...d,lessonPrice:d.lessonPrice===""?null:num(d.lessonPrice)})
-);
-registerForm("teacher","teachers",
- d=>!d.name?"اسم المعلم مطلوب":null,
- d=>({...d,rate:d.rate===""?null:num(d.rate)})
-);
-registerForm("lesson","lessons",
- d=>!d.title||!d.date||!d.time?"عنوان الدرس وتاريخه ووقته مطلوبة":null,
- (d,form)=>({
-  ...d,duration:num(d.duration),
-  studentIds:[...form.elements.studentIds.selectedOptions].map(o=>o.value),
-  attendance:editIds.lesson?
-   (store.lessons.find(x=>x.id===editIds.lesson)?.attendance||{}):{}
- })
-);
-registerForm("payment","payments",
- d=>{
-  if(!d.studentId||!d.date)return "اختر الطالب والتاريخ";
-  if(d.amount<0||d.paid<0||d.paid>d.amount)
-   return "المبلغ المدفوع يجب أن يكون بين صفر والمبلغ المطلوب";
-  return null;
- },
- d=>({...d,amount:num(d.amount),paid:num(d.paid)})
-);
-registerForm("expense","expenses",
- d=>!d.title||!d.date?"العنوان والتاريخ مطلوبان":null,
- d=>({...d,amount:num(d.amount)})
-);
+document.addEventListener("click", async event => {
+ const editButton =
+  event.target.closest("[data-edit-student]");
 
-document.addEventListener("click",async e=>{
- const btn=e.target.closest("[data-action]");
- if(!btn)return;
- const {action,kind,id}=btn.dataset;
- if(action==="edit"){
-  startEdit(kind,id);
+ if (editButton) {
+  const id = editButton.dataset.editStudent;
+  const student = store.students.find(x => x.id === id);
+
+  if (!student || !studentForm) return;
+
+  editIds.students = id;
+
+  Object.entries(student).forEach(([key, value]) => {
+   const field = studentForm.elements.namedItem(key);
+
+   if (field && "value" in field &&
+       typeof value !== "object") {
+    field.value = value ?? "";
+   }
+  });
+
+  if ($("studentFormTitle")) {
+   $("studentFormTitle").textContent =
+    "تعديل بيانات الطالب";
+  }
+
+  if ($("studentCancel")) {
+   $("studentCancel").hidden = false;
+  }
+
+  showPage("students");
+  studentForm.scrollIntoView({
+   behavior: "smooth",
+   block: "start"
+  });
+
   return;
  }
- if(action==="delete"){
-  if(!confirm("هل تريد حذف هذا السجل نهائيًا؟"))return;
-  btn.disabled=true;
-  try{
-   await removeRecord(kind,id);
-   const singular={
-    students:"student",lessons:"lesson",
-    payments:"payment",expenses:"expense",teachers:"teacher"
-   }[kind];
-   if(editIds[singular]===id)resetForm(singular);
-   notify("تم حذف السجل");
-  }catch(err){
-   notify(errorMessage(err),true);
-   btn.disabled=false;
+
+ const deleteButton =
+  event.target.closest("[data-delete-student]");
+
+ if (deleteButton) {
+  const id = deleteButton.dataset.deleteStudent;
+
+  const student = store.students.find(x => x.id === id);
+  if (!student) return;
+
+  if (!confirm(
+   "هل تريد حذف الطالب " +
+   studentName(student) + "؟"
+  )) return;
+
+  try {
+   await deleteDoc(doc(db, "students", id));
+   notify("تم حذف الطالب.");
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حذف الطالب.", true);
   }
  }
 });
 
-function refreshSelects(){
- const configs=[
-  ["paymentStudent",store.students,"اختر الطالب"],
-  ["lessonTeacher",store.teachers,"بدون معلم محدد"],
-  ["lessonStudents",store.students,null]
- ];
- configs.forEach(([id,items,placeholder])=>{
-  const el=$(id);
-  const previous=el.multiple?
-   [...el.selectedOptions].map(o=>o.value):el.value;
-  el.replaceChildren();
-  if(placeholder!==null){
-   el.add(new Option(placeholder,""));
-  }
-  items.forEach(item=>el.add(new Option(item.name||"بدون اسم",item.id)));
-  if(el.multiple){
-   [...el.options].forEach(o=>o.selected=previous.includes(o.value));
-  }else{
-   el.value=previous;
+if ($("studentCancel")) {
+ $("studentCancel").addEventListener("click", () => {
+  studentForm?.reset();
+  delete editIds.students;
+
+  $("studentCancel").hidden = true;
+
+  if ($("studentFormTitle")) {
+   $("studentFormTitle").textContent =
+    "إضافة طالب جديد";
   }
  });
- const attendance=$("attendanceLesson");
- const previous=attendance.value;
- attendance.replaceChildren(new Option("اختر الدرس",""));
- [...store.lessons].sort((a,b)=>
-  (b.date+b.time).localeCompare(a.date+a.time)
- ).forEach(l=>attendance.add(
-  new Option(`${l.date} | ${l.time} | ${l.title}`,l.id)
- ));
- attendance.value=previous;
 }
 
-const ratingNames={
- excellent:"ممتاز","very-good":"جيد جدًا",
- good:"جيد","needs-support":"يحتاج إلى متابعة"
-};
-function renderStudents(){
- const q=$("studentSearch").value.trim().toLowerCase();
- const filter=$("studentFilter").value;
- const list=store.students.filter(s=>{
-  const matches=[s.name,s.subject,s.parentPhone].some(v=>
-   String(v||"").toLowerCase().includes(q)
+if ($("studentSearch")) {
+ $("studentSearch").addEventListener(
+  "input",
+  renderStudents
+ );
+}
+
+function lessonDateTime(lesson) {
+ return `${lesson.date || ""} ${lesson.time || ""}`;
+}
+
+function lessonStatusLabel(status) {
+ return {
+  scheduled: "مجدول",
+  completed: "مكتمل",
+  cancelled: "ملغي"
+ }[status] || "مجدول";
+}
+
+function updateLessonOptions() {
+ const studentSelect = $("lessonStudents");
+ const teacherSelect = $("lessonTeacher");
+ const paymentSelect = $("paymentStudent");
+
+ if (studentSelect) {
+  const selected = Array.from(
+   studentSelect.selectedOptions
+  ).map(option => option.value);
+
+  studentSelect.innerHTML = store.students.map(s => `
+   <option value="${esc(s.id)}">
+    ${esc(studentName(s))}
+   </option>
+  `).join("");
+
+  Array.from(studentSelect.options).forEach(option => {
+   option.selected = selected.includes(option.value);
+  });
+ }
+
+ if (teacherSelect) {
+  const selected = teacherSelect.value;
+
+  teacherSelect.innerHTML =
+   '<option value="">بدون معلم محدد</option>' +
+   store.teachers.map(t => `
+    <option value="${esc(t.id)}">
+     ${esc(t.name)}
+    </option>
+   `).join("");
+
+  teacherSelect.value = selected;
+ }
+
+ if (paymentSelect) {
+  const selected = paymentSelect.value;
+
+  paymentSelect.innerHTML =
+   '<option value="">اختر الطالب</option>' +
+   store.students.map(s => `
+    <option value="${esc(s.id)}">
+     ${esc(studentName(s))}
+    </option>
+   `).join("");
+
+  paymentSelect.value = selected;
+ }
+}
+
+function renderLessons() {
+ const container = $("lessonRecords");
+ if (!container) return;
+
+ const filterDate = $("lessonDateFilter")?.value || "";
+
+ const lessons = [...store.lessons]
+  .filter(lesson =>
+   !filterDate || lesson.date === filterDate
+  )
+  .sort((a, b) =>
+   lessonDateTime(a).localeCompare(lessonDateTime(b))
   );
-  return matches&&(filter==="all"||s.status===filter);
- });
- $("studentRecords").innerHTML=list.length?list.map(s=>record(
-  s.name||"بدون اسم",s.status==="inactive"?"غير نشط":"نشط",
-  detail("الصف",s.grade?`الصف ${s.grade}`:"")+
-  detail("المادة",s.subject)+
-  detail("هاتف ولي الأمر",s.parentPhone)+
-  detail("نوع التعليم",s.lessonType==="individual"?"فردي":"جماعي")+
-  detail("سعر الحصة",s.lessonPrice==null?"":money(s.lessonPrice))+
-  detail("التقييم",ratingNames[s.academicRating]||"")+
-  detail("نقاط القوة",s.strengths)+
-  detail("نقاط التحسين",s.improvements)+
-  detail("ملاحظات",s.notes),
-  buttons("students",s.id),
-  s.status==="inactive"?"off":""
- )).join(""):empty("لا يوجد طلاب مطابقون");
-}
-$("studentSearch").addEventListener("input",renderStudents);
-$("studentFilter").addEventListener("change",renderStudents);
 
-const lessonStatus={
- scheduled:"مجدول",completed:"مكتمل",cancelled:"ملغي"
-};
-function renderLessons(){
- const filter=$("lessonDateFilter").value;
- const list=[...store.lessons].filter(l=>!filter||l.date===filter)
- .sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
- $("lessonRecords").innerHTML=list.length?list.map(l=>record(
-  l.title,lessonStatus[l.status]||"مجدول",
-  detail("التاريخ",l.date)+detail("الوقت",l.time)+
-  detail("المدة",`${l.duration||60} دقيقة`)+
-  detail("النوع",l.type==="individual"?"فردي":"جماعي")+
-  detail("المعلم",nameOf("teachers",l.teacherId))+
-  detail("الطلاب",(l.studentIds||[]).map(id=>nameOf("students",id)).join("، "))+
-  detail("ملاحظات",l.notes),
-  buttons("lessons",l.id),
-  l.status==="cancelled"?"off":l.status==="completed"?"purple":""
- )).join(""):empty("لا توجد دروس في هذا النطاق");
+ if (!lessons.length) {
+  container.innerHTML =
+   '<p class="muted">لا توجد دروس لعرضها.</p>';
+  return;
+ }
+
+ container.innerHTML = lessons.map(lesson => {
+  const studentNames = (lesson.studentIds || [])
+   .map(id => {
+    const student = store.students.find(s => s.id === id);
+    return student ? studentName(student) : "طالب محذوف";
+   }).join("، ");
+
+  return `
+   <div class="record">
+    <div>
+     <strong>${esc(lesson.title)}</strong>
+
+     <p class="muted">
+      التاريخ: ${esc(text(lesson.date))}
+      | الساعة: ${esc(text(lesson.time))}
+     </p>
+
+     <p class="muted">
+      المدة: ${esc(text(lesson.duration))} دقيقة
+     </p>
+
+     <p class="muted">
+      النوع:
+      ${lesson.type === "individual" ? "فردي" : "جماعي"}
+     </p>
+
+     <p class="muted">
+      المعلم:
+      ${esc(nameOf("teachers", lesson.teacherId))}
+     </p>
+
+     <p class="muted">
+      الطلاب: ${esc(studentNames || "لم يتم تحديد طلاب")}
+     </p>
+
+     <p class="muted">
+      الحالة: ${lessonStatusLabel(lesson.status)}
+     </p>
+    </div>
+
+    <div class="actions">
+     <button class="btn ghost" type="button"
+             data-edit-lesson="${esc(lesson.id)}">
+      تعديل
+     </button>
+
+     <button class="btn danger" type="button"
+             data-delete-lesson="${esc(lesson.id)}">
+      حذف
+     </button>
+    </div>
+   </div>
+  `;
+ }).join("");
 }
-$("lessonDateFilter").addEventListener("change",renderLessons);
-$("clearLessonDate").addEventListener("click",()=>{
- $("lessonDateFilter").value="";
- renderLessons();
+
+const lessonForm = $("lessonForm");
+
+if (lessonForm) {
+ lessonForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(
+   new FormData(lessonForm).entries()
+  );
+
+  data.studentIds = Array.from(
+   $("lessonStudents")?.selectedOptions || []
+  ).map(option => option.value);
+
+  data.title = String(data.title || "").trim();
+  data.duration = num(data.duration);
+
+  if (!data.title || !data.date || !data.time) {
+   notify("يرجى تعبئة بيانات الدرس المطلوبة.", true);
+   return;
+  }
+
+  if (data.studentIds.length === 0) {
+   notify("يرجى اختيار طالب واحد على الأقل.", true);
+   return;
+  }
+
+  try {
+   if (editIds.lessons) {
+    await updateDoc(
+     doc(db, "lessons", editIds.lessons),
+     data
+    );
+
+    notify("تم تحديث الدرس بنجاح.");
+  } else {
+    await addDoc(collection(db, "lessons"), data);
+    notify("تمت جدولة الدرس بنجاح.");
+   }
+
+   lessonForm.reset();
+   delete editIds.lessons;
+
+   if ($("lessonFormTitle")) {
+    $("lessonFormTitle").textContent = "جدولة درس جديد";
+   }
+
+   if ($("lessonCancel")) {
+    $("lessonCancel").hidden = true;
+   }
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حفظ الدرس.", true);
+  }
+ });
+}
+
+document.addEventListener("click", async event => {
+ const editButton = event.target.closest("[data-edit-lesson]");
+
+ if (editButton) {
+  const lesson = store.lessons.find(
+   x => x.id === editButton.dataset.editLesson
+  );
+
+  if (!lesson || !lessonForm) return;
+
+  editIds.lessons = lesson.id;
+
+  Object.entries(lesson).forEach(([key, value]) => {
+   if (key === "studentIds") return;
+
+   const field = lessonForm.elements.namedItem(key);
+
+   if (field && "value" in field &&
+       typeof value !== "object") {
+    field.value = value ?? "";
+   }
+  });
+
+  Array.from($("lessonStudents").options).forEach(option => {
+   option.selected = (lesson.studentIds || [])
+    .includes(option.value);
+  });
+
+  if ($("lessonFormTitle")) {
+   $("lessonFormTitle").textContent = "تعديل الدرس";
+  }
+
+  if ($("lessonCancel")) {
+   $("lessonCancel").hidden = false;
+  }
+
+  showPage("lessons");
+  lessonForm.scrollIntoView({
+   behavior: "smooth",
+   block: "start"
+  });
+
+  return;
+ }
+
+ const deleteButton = event.target.closest(
+  "[data-delete-lesson]"
+ );
+
+ if (deleteButton) {
+  const id = deleteButton.dataset.deleteLesson;
+
+  if (!confirm("هل تريد حذف هذا الدرس نهائيًا؟")) {
+   return;
+  }
+
+  try {
+   await deleteDoc(doc(db, "lessons", id));
+   notify("تم حذف الدرس.");
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حذف الدرس.", true);
+  }
+ }
 });
 
-function renderPayments(){
- const list=[...store.payments].sort((a,b)=>
-  String(b.date).localeCompare(String(a.date))
- );
- $("paymentRecords").innerHTML=list.length?list.map(p=>{
-  const due=Math.max(0,num(p.amount)-num(p.paid));
-  return record(
-   nameOf("students",p.studentId),
-   due?"مستحق "+money(due):"مدفوع بالكامل",
-   detail("التاريخ",p.date)+
-   detail("المطلوب",money(p.amount))+
-   detail("المدفوع",money(p.paid))+
-   detail("المتبقي",money(due))+
-   detail("الوصف",p.description),
-   buttons("payments",p.id),
-   due?"off":""
-  );
- }).join(""):empty();
-}
-const categories={
- rent:"إيجار",supplies:"مستلزمات",utilities:"فواتير",
- salary:"أجور المعلمين",marketing:"تسويق",other:"أخرى"
-};
-function renderExpenses(){
- const list=[...store.expenses].sort((a,b)=>
-  String(b.date).localeCompare(String(a.date))
- );
- $("expenseRecords").innerHTML=list.length?list.map(x=>record(
-  x.title,money(x.amount),
-  detail("التاريخ",x.date)+
-  detail("التصنيف",categories[x.category]||x.category)+
-  detail("ملاحظات",x.notes),
-  buttons("expenses",x.id),"off"
- )).join(""):empty();
-}
-function renderTeachers(){
- $("teacherRecords").innerHTML=store.teachers.length?
- store.teachers.map(t=>record(
-  t.name,t.status==="inactive"?"غير نشط":"نشط",
-  detail("المادة",t.subject)+
-  detail("الهاتف",t.phone)+
-  detail("أجر الحصة",t.rate==null?"":money(t.rate))+
-  detail("ملاحظات",t.notes),
-  buttons("teachers",t.id),
-  t.status==="inactive"?"off":""
- )).join(""):empty();
+if ($("lessonCancel")) {
+ $("lessonCancel").addEventListener("click", () => {
+  lessonForm?.reset();
+  delete editIds.lessons;
+
+  $("lessonCancel").hidden = true;
+
+  if ($("lessonFormTitle")) {
+   $("lessonFormTitle").textContent = "جدولة درس جديد";
+  }
+ });
 }
 
-function renderAttendance(){
- const lesson=store.lessons.find(x=>x.id===$("attendanceLesson").value);
- if(!lesson){
-  $("attendanceEditor").innerHTML=empty("اختر درسًا لتسجيل الحضور");
-  return;
- }
- const ids=lesson.studentIds||[];
- if(!ids.length){
-  $("attendanceEditor").innerHTML=empty("لا يوجد طلاب مرتبطون بهذا الدرس");
-  return;
- }
- const wrap=$("attendanceEditor");
- wrap.replaceChildren();
- const form=document.createElement("form");
- form.className="records";
- ids.forEach(id=>{
-  const row=document.createElement("div");
-  row.className="record";
-  const label=document.createElement("label");
-  label.className="field";
-  label.textContent=nameOf("students",id);
-  const select=document.createElement("select");
-  select.name=id;
-  [
-   ["","لم يتم التسجيل"],["present","حاضر"],
-   ["absent","غائب"],["late","متأخر"],
-   ["excused","غياب بعذر"]
-  ].forEach(([v,t])=>select.add(new Option(t,v)));
-  select.value=lesson.attendance?.[id]||"";
-  label.append(select);
-  row.append(label);
-  form.append(row);
+if ($("lessonDateFilter")) {
+ $("lessonDateFilter").addEventListener(
+  "change",
+  renderLessons
+ );
+}
+
+if ($("clearLessonDate")) {
+ $("clearLessonDate").addEventListener("click", () => {
+  $("lessonDateFilter").value = "";
+  renderLessons();
  });
- const save=document.createElement("button");
- save.type="submit";save.className="btn gold";
- save.textContent="حفظ الحضور";
- form.append(save);
- form.addEventListener("submit",async e=>{
-  e.preventDefault();
-  save.disabled=true;
-  const attendance={...(lesson.attendance||{})};
-  for(const id of ids)attendance[id]=form.elements.namedItem(id).value;
-  try{
-   requireOwner();
-   await updateDoc(doc(db,"lessons",lesson.id),{
-    attendance,updatedAt:new Date().toISOString()
+}
+
+function attendanceLabel(status) {
+ return {
+  present: "حاضر",
+  absent: "غائب",
+  late: "متأخر",
+  excused: "غياب بعذر"
+ }[status] || "لم يتم التسجيل";
+}
+
+function renderAttendance() {
+ const lessonSelect = $("attendanceLesson");
+ const editor = $("attendanceEditor");
+
+ if (!lessonSelect || !editor) return;
+
+ const selectedId = lessonSelect.value;
+
+ const lessons = [...store.lessons].sort((a, b) =>
+  lessonDateTime(b).localeCompare(lessonDateTime(a))
+ );
+
+ lessonSelect.innerHTML =
+  '<option value="">اختر الدرس</option>' +
+  lessons.map(lesson => `
+   <option value="${esc(lesson.id)}">
+    ${esc(lesson.title || "درس بدون عنوان")}
+    — ${esc(lesson.date || "")}
+    ${esc(lesson.time || "")}
+   </option>
+  `).join("");
+
+ lessonSelect.value = lessons.some(
+  lesson => lesson.id === selectedId
+ ) ? selectedId : "";
+
+ renderAttendanceEditor();
+}
+
+function renderAttendanceEditor() {
+ const lessonId = $("attendanceLesson")?.value;
+ const editor = $("attendanceEditor");
+
+ if (!editor) return;
+
+ if (!lessonId) {
+  editor.innerHTML =
+   '<p class="muted">اختر درسًا لعرض الطلاب.</p>';
+  return;
+ }
+
+ const lesson = store.lessons.find(
+  item => item.id === lessonId
+ );
+
+ if (!lesson) {
+  editor.innerHTML =
+   '<p class="muted">لم يتم العثور على الدرس.</p>';
+  return;
+ }
+
+ const studentIds = Array.isArray(lesson.studentIds)
+  ? lesson.studentIds
+  : [];
+
+ if (!studentIds.length) {
+  editor.innerHTML =
+   '<p class="muted">لا يوجد طلاب مسجلون في هذا الدرس.</p>';
+  return;
+ }
+
+ const attendance = lesson.attendance || {};
+
+ editor.innerHTML = `
+  <div class="panel">
+   <h3>${esc(lesson.title || "الدرس")}</h3>
+
+   <p class="muted">
+    ${esc(lesson.date || "")}
+    — ${esc(lesson.time || "")}
+   </p>
+
+   <div class="records">
+    ${studentIds.map(id => {
+     const student = store.students.find(
+      item => item.id === id
+     );
+
+     const status = attendance[id] || "";
+
+     return `
+      <div class="record">
+       <div>
+        <strong>
+         ${esc(student ? studentName(student) : "طالب محذوف")}
+        </strong>
+       </div>
+
+       <div class="field">
+        <label>حالة الحضور</label>
+        <select data-attendance-student="${esc(id)}">
+         <option value=""
+          ${status === "" ? "selected" : ""}>
+          لم يتم التسجيل
+         </option>
+
+         <option value="present"
+          ${status === "present" ? "selected" : ""}>
+          حاضر
+         </option>
+
+         <option value="absent"
+          ${status === "absent" ? "selected" : ""}>
+          غائب
+         </option>
+
+         <option value="late"
+          ${status === "late" ? "selected" : ""}>
+          متأخر
+         </option>
+
+         <option value="excused"
+          ${status === "excused" ? "selected" : ""}>
+          غياب بعذر
+         </option>
+        </select>
+       </div>
+      </div>
+     `;
+    }).join("")}
+   </div>
+
+   <div class="actions" style="margin-top:18px">
+    <button class="btn gold" type="button"
+            id="saveAttendance">
+     حفظ الحضور والغياب
+    </button>
+   </div>
+  </div>
+ `;
+}
+
+if ($("attendanceLesson")) {
+ $("attendanceLesson").addEventListener(
+  "change",
+  renderAttendanceEditor
+ );
+}
+
+document.addEventListener("click", async event => {
+ const saveButton = event.target.closest(
+  "#saveAttendance"
+ );
+
+ if (!saveButton) return;
+
+ const lessonId = $("attendanceLesson")?.value;
+
+ if (!lessonId) {
+  notify("يرجى اختيار الدرس أولًا.", true);
+  return;
+ }
+
+ const lesson = store.lessons.find(
+  item => item.id === lessonId
+ );
+
+ if (!lesson) {
+  notify("لم يتم العثور على الدرس.", true);
+  return;
+ }
+
+ const attendance = {
+  ...(lesson.attendance || {})
+ };
+
+ document.querySelectorAll(
+  "[data-attendance-student]"
+ ).forEach(select => {
+  const studentId = select.dataset.attendanceStudent;
+
+  if (select.value) {
+   attendance[studentId] = select.value;
+  } else {
+   delete attendance[studentId];
+  }
+ });
+
+ saveButton.disabled = true;
+
+ try {
+  await updateDoc(
+   doc(db, "lessons", lessonId),
+   {attendance}
+  );
+
+  notify("تم حفظ الحضور والغياب بنجاح.");
+ } catch (error) {
+  console.error(error);
+  notify("تعذر حفظ الحضور والغياب.", true);
+ } finally {
+  saveButton.disabled = false;
+ }
+});
+
+function paymentBalance(payment) {
+ return num(payment.amount) - num(payment.paid);
+}
+
+function renderPayments() {
+ const container = $("paymentRecords");
+ if (!container) return;
+
+ const payments = [...store.payments].sort((a, b) =>
+  String(b.date || "").localeCompare(String(a.date || ""))
+ );
+
+ if (!payments.length) {
+  container.innerHTML =
+   '<p class="muted">لا توجد مدفوعات مسجلة بعد.</p>';
+  return;
+ }
+
+ container.innerHTML = payments.map(payment => {
+  const student = store.students.find(
+   s => s.id === payment.studentId
+  );
+
+  const remaining = paymentBalance(payment);
+
+  return `
+   <div class="record">
+    <div>
+     <strong>
+      ${esc(student ? studentName(student) : "طالب محذوف")}
+     </strong>
+
+     <p class="muted">
+      التاريخ: ${esc(text(payment.date))}
+     </p>
+
+     <p class="muted">
+      الوصف: ${esc(text(payment.description))}
+     </p>
+
+     <p>المبلغ المطلوب:
+      <strong>${money(payment.amount)}</strong>
+     </p>
+
+     <p>المبلغ المدفوع:
+      <strong>${money(payment.paid)}</strong>
+     </p>
+
+     <p>المبلغ المتبقي:
+      <strong>${money(Math.max(0, remaining))}</strong>
+     </p>
+
+     <p class="muted">
+      الحالة:
+      ${remaining <= 0 ? "مدفوع بالكامل" :
+       num(payment.paid) > 0 ? "مدفوع جزئيًا" :
+       "غير مدفوع"}
+     </p>
+    </div>
+
+    <div class="actions">
+     <button class="btn ghost" type="button"
+             data-edit-payment="${esc(payment.id)}">
+      تعديل
+     </button>
+
+     <button class="btn danger" type="button"
+             data-delete-payment="${esc(payment.id)}">
+      حذف
+     </button>
+    </div>
+   </div>
+  `;
+ }).join("");
+}
+
+const paymentForm = $("paymentForm");
+
+if (paymentForm) {
+ paymentForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(
+   new FormData(paymentForm).entries()
+  );
+
+  data.amount = num(data.amount);
+  data.paid = num(data.paid);
+
+  if (!data.studentId || !data.date) {
+   notify("يرجى اختيار الطالب والتاريخ.", true);
+   return;
+  }
+
+  if (
+   data.amount < 0 ||
+   data.paid < 0 ||
+   data.paid > data.amount
+  ) {
+   notify(
+    "المبالغ غير صحيحة. يجب ألا يتجاوز المدفوع المبلغ المطلوب.",
+    true
+   );
+   return;
+  }
+
+  try {
+   if (editIds.payments) {
+    await updateDoc(
+     doc(db, "payments", editIds.payments),
+     data
+    );
+
+    notify("تم تعديل سجل الدفعة.");
+   } else {
+    await addDoc(
+     collection(db, "payments"),
+     data
+    );
+
+    notify("تم حفظ الدفعة بنجاح.");
+   }
+
+   paymentForm.reset();
+   delete editIds.payments;
+
+   if ($("paymentFormTitle")) {
+    $("paymentFormTitle").textContent =
+     "تسجيل دفعة أو مستحقات";
+   }
+
+   if ($("paymentCancel")) {
+    $("paymentCancel").hidden = true;
+   }
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حفظ الدفعة.", true);
+  }
+ });
+}
+
+document.addEventListener("click", async event => {
+ const editButton = event.target.closest(
+  "[data-edit-payment]"
+ );
+
+ if (editButton) {
+  const payment = store.payments.find(
+   p => p.id === editButton.dataset.editPayment
+  );
+
+  if (!payment || !paymentForm) return;
+
+  editIds.payments = payment.id;
+
+  Object.entries(payment).forEach(([key, value]) => {
+   const field = paymentForm.elements.namedItem(key);
+
+   if (field && "value" in field &&
+       typeof value !== "object") {
+    field.value = value ?? "";
+   }
+  });
+
+  if ($("paymentFormTitle")) {
+   $("paymentFormTitle").textContent =
+    "تعديل سجل الدفعة";
+  }
+
+  if ($("paymentCancel")) {
+   $("paymentCancel").hidden = false;
+  }
+
+  showPage("payments");
+  paymentForm.scrollIntoView({
+   behavior: "smooth",
+   block: "start"
+  });
+
+  return;
+ }
+
+ const deleteButton = event.target.closest(
+  "[data-delete-payment]"
+ );
+
+ if (deleteButton) {
+  const id = deleteButton.dataset.deletePayment;
+
+  if (!confirm("هل تريد حذف سجل الدفعة نهائيًا؟")) {
+   return;
+  }
+
+  try {
+   await deleteDoc(doc(db, "payments", id));
+   notify("تم حذف سجل الدفعة.");
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حذف الدفعة.", true);
+  }
+ }
+});
+
+if ($("paymentCancel")) {
+ $("paymentCancel").addEventListener("click", () => {
+  paymentForm?.reset();
+  delete editIds.payments;
+
+  $("paymentCancel").hidden = true;
+
+  if ($("paymentFormTitle")) {
+   $("paymentFormTitle").textContent =
+    "تسجيل دفعة أو مستحقات";
+  }
+ });
+}
+
+function renderExpenses() {
+ const container = $("expenseRecords");
+ if (!container) return;
+
+ const categoryNames = {
+  rent: "إيجار",
+  supplies: "مستلزمات",
+  utilities: "فواتير",
+  salary: "أجور المعلمين",
+  marketing: "تسويق",
+  other: "مصاريف أخرى"
+ };
+
+ const expenses = [...store.expenses].sort((a, b) =>
+  String(b.date || "").localeCompare(String(a.date || ""))
+ );
+
+ if (!expenses.length) {
+  container.innerHTML =
+   '<p class="muted">لا توجد مصاريف مسجلة.</p>';
+  return;
+ }
+
+ container.innerHTML = expenses.map(expense => `
+  <div class="record">
+   <div>
+    <strong>${esc(expense.title)}</strong>
+
+    <p class="muted">
+     التاريخ: ${esc(text(expense.date))}
+    </p>
+
+    <p class="muted">
+     التصنيف:
+     ${esc(categoryNames[expense.category] || "أخرى")}
+    </p>
+
+    <p>
+     المبلغ:
+     <strong>${money(expense.amount)}</strong>
+    </p>
+
+    <p class="muted">
+     ${esc(text(expense.notes, ""))}
+    </p>
+   </div>
+
+   <div class="actions">
+    <button class="btn ghost" type="button"
+            data-edit-expense="${esc(expense.id)}">
+     تعديل
+    </button>
+
+    <button class="btn danger" type="button"
+            data-delete-expense="${esc(expense.id)}">
+     حذف
+    </button>
+   </div>
+  </div>
+ `).join("");
+}
+
+const expenseForm = $("expenseForm");
+
+if (expenseForm) {
+ expenseForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(
+   new FormData(expenseForm).entries()
+  );
+
+  data.title = String(data.title || "").trim();
+  data.amount = Number(data.amount);
+
+  if (
+   !data.title ||
+   !data.date ||
+   !Number.isFinite(data.amount) ||
+   data.amount < 0
+  ) {
+   notify("يرجى إدخال بيانات مصروف صحيحة.", true);
+   return;
+  }
+
+  try {
+   if (editIds.expenses) {
+    await updateDoc(
+     doc(db, "expenses", editIds.expenses),
+     data
+    );
+    notify("تم تعديل المصروف.");
+   } else {
+    await addDoc(collection(db, "expenses"), data);
+    notify("تم تسجيل المصروف.");
+   }
+
+   expenseForm.reset();
+   delete editIds.expenses;
+
+   if ($("expenseFormTitle")) {
+    $("expenseFormTitle").textContent =
+     "تسجيل مصروف جديد";
+   }
+
+   if ($("expenseCancel")) {
+    $("expenseCancel").hidden = true;
+   }
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حفظ المصروف.", true);
+  }
+ });
+}
+
+function renderTeachers() {
+ const container = $("teacherRecords");
+ if (!container) return;
+
+ if (!store.teachers.length) {
+  container.innerHTML =
+   '<p class="muted">لا يوجد معلمون مسجلون.</p>';
+  return;
+ }
+
+ container.innerHTML = store.teachers.map(teacher => `
+  <div class="record">
+   <div>
+    <strong>${esc(teacher.name)}</strong>
+
+    <p class="muted">
+     المادة: ${esc(text(teacher.subject))}
+    </p>
+
+    <p class="muted">
+     الهاتف: ${esc(text(teacher.phone))}
+    </p>
+
+    <p>
+     أجر الحصة:
+     <strong>${money(teacher.rate)}</strong>
+    </p>
+
+    <p class="muted">
+     الحالة:
+     ${teacher.status === "inactive"
+      ? "غير نشط" : "نشط"}
+    </p>
+   </div>
+
+   <div class="actions">
+    <button class="btn ghost" type="button"
+            data-edit-teacher="${esc(teacher.id)}">
+     تعديل
+    </button>
+
+    <button class="btn danger" type="button"
+            data-delete-teacher="${esc(teacher.id)}">
+     حذف
+    </button>
+   </div>
+  </div>
+ `).join("");
+}
+
+const teacherForm = $("teacherForm");
+
+if (teacherForm) {
+ teacherForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(
+   new FormData(teacherForm).entries()
+  );
+
+  data.name = String(data.name || "").trim();
+  data.rate = Number(data.rate || 0);
+
+  if (
+   !data.name ||
+   !Number.isFinite(data.rate) ||
+   data.rate < 0
+  ) {
+   notify("يرجى إدخال بيانات المعلم بشكل صحيح.", true);
+   return;
+  }
+
+  try {
+   if (editIds.teachers) {
+    await updateDoc(
+     doc(db, "teachers", editIds.teachers),
+     data
+    );
+    notify("تم تحديث بيانات المعلم.");
+   } else {
+    await addDoc(collection(db, "teachers"), data);
+    notify("تمت إضافة المعلم.");
+   }
+
+   teacherForm.reset();
+   delete editIds.teachers;
+
+   if ($("teacherFormTitle")) {
+    $("teacherFormTitle").textContent =
+     "إضافة معلم جديد";
+   }
+
+   if ($("teacherCancel")) {
+    $("teacherCancel").hidden = true;
+   }
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حفظ بيانات المعلم.", true);
+  }
+ });
+}
+
+document.addEventListener("click", async event => {
+ for (const kind of ["expenses", "teachers"]) {
+  const singular = kind === "expenses"
+   ? "expense" : "teacher";
+
+  const editButton = event.target.closest(
+   `[data-edit-${singular}]`
+  );
+
+  if (editButton) {
+   const id = editButton.dataset[
+    kind === "expenses" ? "editExpense" : "editTeacher"
+   ];
+
+   const record = store[kind].find(x => x.id === id);
+   const form = kind === "expenses"
+    ? expenseForm : teacherForm;
+
+   if (!record || !form) return;
+
+   editIds[kind] = id;
+
+   Object.entries(record).forEach(([key, value]) => {
+    const field = form.elements.namedItem(key);
+
+    if (field && "value" in field &&
+        typeof value !== "object") {
+     field.value = value ?? "";
+    }
    });
-   notify("تم حفظ الحضور");
-  }catch(err){notify(errorMessage(err),true);}
-  finally{save.disabled=false;}
- });
- wrap.append(form);
-}
-$("attendanceLesson").addEventListener("change",renderAttendance);
 
-function monthSum(items,field,month){
- return items.filter(x=>String(x.date||"").startsWith(month))
- .reduce((sum,x)=>sum+num(x[field]),0);
-}
-function renderDashboard(){
- const month=monthNow();
- const income=monthSum(store.payments,"paid",month);
- const expenses=monthSum(store.expenses,"amount",month);
- const due=store.payments.reduce((s,p)=>
-  s+Math.max(0,num(p.amount)-num(p.paid)),0);
- const today=dateNow();
- const todays=store.lessons.filter(l=>l.date===today&&l.status!=="cancelled");
- $("statStudents").textContent=store.students.length;
- $("statActive").textContent=store.students.filter(s=>s.status!=="inactive").length;
- $("statToday").textContent=todays.length;
- $("statProfit").textContent=money(income-expenses);
- $("statIncome").textContent=money(income);
- $("statExpenses").textContent=money(expenses);
- $("statDue").textContent=money(due);
- $("statTeachers").textContent=store.teachers.length;
+   const prefix = kind === "expenses"
+    ? "expense" : "teacher";
 
- const upcoming=[...store.lessons].filter(l=>
-  l.status==="scheduled"&&`${l.date}T${l.time}`>=
-  `${today}T${new Date().toTimeString().slice(0,5)}`
- ).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))
- .slice(0,5);
- $("upcomingLessons").innerHTML=upcoming.length?
- upcoming.map(l=>record(l.title,l.date,
-  detail("الوقت",l.time)+
-  detail("عدد الطلاب",(l.studentIds||[]).length),
-  ""
- )).join(""):empty("لا توجد دروس قادمة");
-}
-function renderReports(){
- const month=$("reportMonth").value||monthNow();
- const billed=monthSum(store.payments,"amount",month);
- const paid=monthSum(store.payments,"paid",month);
- const expenses=monthSum(store.expenses,"amount",month);
- $("reportBilled").textContent=money(billed);
- $("reportPaid").textContent=money(paid);
- $("reportExpenses").textContent=money(expenses);
- $("reportNet").textContent=money(paid-expenses);
- const monthly=store.lessons.filter(l=>
-  String(l.date||"").startsWith(month)
- );
- $("reportCompleted").textContent=monthly.filter(l=>
-  l.status==="completed").length;
- $("reportCancelled").textContent=monthly.filter(l=>
-  l.status==="cancelled").length;
-}
-$("reportMonth").addEventListener("change",renderReports);
+   if ($(prefix + "FormTitle")) {
+    $(prefix + "FormTitle").textContent =
+     kind === "expenses"
+      ? "تعديل المصروف" : "تعديل بيانات المعلم";
+   }
 
-const settingsRef=doc(db,"settings","institute");
-$("settingsForm").addEventListener("submit",async e=>{
- e.preventDefault();
- const button=$("settingsSave");
- button.disabled=true;
- try{
-  requireOwner();
-  await setDoc(settingsRef,{
-   ...getData($("settingsForm")),
-   updatedAt:new Date().toISOString()
-  },{merge:true});
-  notify("تم حفظ الإعدادات");
- }catch(err){notify(errorMessage(err),true);}
- finally{button.disabled=false;}
+   if ($(prefix + "Cancel")) {
+    $(prefix + "Cancel").hidden = false;
+   }
+
+   showPage(kind);
+   form.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+   });
+
+   return;
+  }
+
+  const deleteButton = event.target.closest(
+   `[data-delete-${singular}]`
+  );
+
+  if (deleteButton) {
+   const id = deleteButton.dataset[
+    kind === "expenses"
+     ? "deleteExpense" : "deleteTeacher"
+   ];
+
+   if (!confirm("هل تريد حذف هذا السجل نهائيًا؟")) {
+    return;
+   }
+
+   try {
+    await deleteDoc(doc(db, kind, id));
+    notify("تم حذف السجل.");
+   } catch (error) {
+    console.error(error);
+    notify("تعذر حذف السجل.", true);
+   }
+
+   return;
+  }
+ }
 });
 
-function renderAll(){
- refreshSelects();
+[
+ ["expenseCancel", expenseForm, "expenses",
+  "expenseFormTitle", "تسجيل مصروف جديد"],
+ ["teacherCancel", teacherForm, "teachers",
+  "teacherFormTitle", "إضافة معلم جديد"]
+].forEach(([buttonId, form, kind, titleId, title]) => {
+ const button = $(buttonId);
+
+ if (!button) return;
+
+ button.addEventListener("click", () => {
+  form?.reset();
+  delete editIds[kind];
+  button.hidden = true;
+
+  if ($(titleId)) {
+   $(titleId).textContent = title;
+  }
+ });
+});
+
+function setValue(id, value) {
+ const element = $(id);
+ if (element) element.textContent = value;
+}
+
+function sumValues(items, field) {
+ return items.reduce(
+  (total, item) => total + num(item[field]),
+  0
+ );
+}
+
+function monthlyItems(items, month) {
+ return items.filter(item =>
+  String(item.date || "").startsWith(month)
+ );
+}
+
+function renderDashboard() {
+ const students = store.students;
+ const lessons = store.lessons;
+ const payments = store.payments;
+ const expenses = store.expenses;
+
+ const activeStudents = students.filter(
+  s => studentStatus(s) === "active"
+ ).length;
+
+ const inactiveStudents =
+  students.length - activeStudents;
+
+ const today = dateNow();
+ const month = monthNow();
+
+ const todayLessons = lessons.filter(
+  lesson => lesson.date === today &&
+   lesson.status !== "cancelled"
+ );
+
+ const upcomingLessons = lessons.filter(
+  lesson =>
+   lessonDateTime(lesson) >=
+   `${today} 00:00` &&
+   lesson.status === "scheduled"
+ );
+
+ const monthPayments = monthlyItems(payments, month);
+ const monthExpenses = monthlyItems(expenses, month);
+
+ const income = sumValues(monthPayments, "paid");
+ const costs = sumValues(monthExpenses, "amount");
+
+ const outstanding = payments.reduce(
+  (total, payment) =>
+   total + Math.max(0, paymentBalance(payment)),
+  0
+ );
+
+ const completed = lessons.filter(
+  lesson => lesson.status === "completed"
+ ).length;
+
+ const cancelled = lessons.filter(
+  lesson => lesson.status === "cancelled"
+ ).length;
+
+ const metrics = {
+  totalStudents: students.length,
+  activeStudents: activeStudents,
+  inactiveStudents: inactiveStudents,
+  todayLessons: todayLessons.length,
+  upcomingLessons: upcomingLessons.length,
+  monthlyIncome: money(income),
+  monthlyExpenses: money(costs),
+  monthlyNet: money(income - costs),
+  outstandingPayments: money(outstanding),
+  completedLessons: completed,
+  cancelledLessons: cancelled
+ };
+
+ Object.entries(metrics).forEach(([id, value]) => {
+  setValue(id, value);
+ });
+
+ // Support common dashboard element IDs.
+ const aliases = {
+  statStudents: students.length,
+  statActive: activeStudents,
+  statInactive: inactiveStudents,
+  statToday: todayLessons.length,
+  statUpcoming: upcomingLessons.length,
+  statIncome: money(income),
+  statExpenses: money(costs),
+  statNet: money(income - costs),
+  statOutstanding: money(outstanding),
+  statCompleted: completed,
+  statCancelled: cancelled
+ };
+
+ Object.entries(aliases).forEach(([id, value]) => {
+  setValue(id, value);
+ });
+}
+
+function renderReports() {
+ const month = $("reportMonth")?.value || monthNow();
+
+ const payments = monthlyItems(
+  store.payments,
+  month
+ );
+
+ const expenses = monthlyItems(
+  store.expenses,
+  month
+ );
+
+ const lessons = monthlyItems(
+  store.lessons,
+  month
+ );
+
+ const billed = sumValues(payments, "amount");
+ const paid = sumValues(payments, "paid");
+ const costs = sumValues(expenses, "amount");
+
+ const completed = lessons.filter(
+  lesson => lesson.status === "completed"
+ ).length;
+
+ const cancelled = lessons.filter(
+  lesson => lesson.status === "cancelled"
+ ).length;
+
+ setValue("reportBilled", money(billed));
+ setValue("reportPaid", money(paid));
+ setValue("reportExpenses", money(costs));
+ setValue("reportNet", money(paid - costs));
+ setValue("reportCompleted", completed);
+ setValue("reportCancelled", cancelled);
+}
+
+if ($("reportMonth")) {
+ $("reportMonth").value = monthNow();
+
+ $("reportMonth").addEventListener(
+  "change",
+  renderReports
+ );
+}
+
+function renderAll() {
  renderStudents();
  renderLessons();
+ renderAttendance();
  renderPayments();
  renderExpenses();
  renderTeachers();
- renderAttendance();
+ updateLessonOptions();
  renderDashboard();
  renderReports();
 }
 
-function stopListening(){
- subscriptions.forEach(unsub=>unsub());
- subscriptions=[];
-}
-function listenToData(){
- const version=sessionVersion;
- collections.forEach(kind=>{
-  const unsub=onSnapshot(collection(db,kind),snapshot=>{
-   if(version!==sessionVersion||!authorized())return;
-   store[kind]=snapshot.docs.map(d=>({...d.data(),id:d.id}));
-   renderAll();
-  },err=>{
-   if(version===sessionVersion)notify(
-    `تعذر تحميل ${kind}: ${errorMessage(err)}`,true
-   );
-  });
-  subscriptions.push(unsub);
- });
- const unsub=onSnapshot(settingsRef,snapshot=>{
-  if(version!==sessionVersion||!authorized())return;
-  if(snapshot.exists())setData($("settingsForm"),snapshot.data());
- },err=>{
-  if(version===sessionVersion)notify(errorMessage(err),true);
- });
- subscriptions.push(unsub);
-}
-
-$("loginForm").addEventListener("submit",async e=>{
- e.preventDefault();
- const button=$("loginButton");
- button.disabled=true;
- $("loginError").textContent="";
- try{
-  await signInWithEmailAndPassword(
-   auth,$("loginEmail").value.trim(),$("loginPassword").value
-  );
- }catch(err){
-  console.error(err);
-  $("loginError").textContent="تعذر تسجيل الدخول. تحقق من البيانات.";
- }finally{button.disabled=false;}
-});
-$("logoutButton").addEventListener("click",async()=>{
- try{await signOut(auth);}
- catch(err){notify(errorMessage(err),true);}
-});
-
-onAuthStateChanged(auth,async user=>{
- sessionVersion++;
- stopListening();
- const owner=user?.uid===OWNER_UID;
- $("app").hidden=!owner;
- $("loginScreen").hidden=owner;
- if(!owner){
-  collections.forEach(k=>store[k]=[]);
-  renderAll();
-  if(user){
-   $("loginError").textContent="هذا الحساب غير مخوّل بالدخول.";
-   await signOut(auth);
-  }
-  return;
- }
- $("accountEmail").textContent=user.email||"";
- $("loginPassword").value="";
- $("reportMonth").value=monthNow();
- resetForm("student");
- resetForm("lesson");
- resetForm("payment");
- resetForm("expense");
- resetForm("teacher");
- listenToData();
-});
-
-$("reportMonth").value=monthNow();
-resetForm("lesson");
-resetForm("payment");
-resetForm("expense");
 renderAll();
+
+const settingsForm = $("settingsForm");
+
+let settingsUnsubscribe = null;
+
+function loadSettings() {
+ if (settingsUnsubscribe) {
+  settingsUnsubscribe();
+  settingsUnsubscribe = null;
+ }
+
+ settingsUnsubscribe = onSnapshot(
+  doc(db, "settings", "institute"),
+  snapshot => {
+   if (!snapshot.exists() || !settingsForm) return;
+
+   const settings = snapshot.data();
+
+   Object.entries(settings).forEach(([key, value]) => {
+    const field = settingsForm.elements.namedItem(key);
+
+    if (field && "value" in field) {
+     field.value = value ?? "";
+    }
+   });
+  },
+  error => {
+   console.error("Settings error:", error);
+   notify("تعذر تحميل إعدادات المؤسسة.", true);
+  }
+ );
+}
+
+if (settingsForm) {
+ settingsForm.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(
+   new FormData(settingsForm).entries()
+  );
+
+  data.instituteName =
+   String(data.instituteName || "").trim();
+
+  data.location =
+   String(data.location || "").trim();
+
+  data.phone =
+   String(data.phone || "").trim();
+
+  if (!data.instituteName) {
+   notify("يرجى إدخال اسم المؤسسة.", true);
+   return;
+  }
+
+  const saveButton = $("settingsSave");
+
+  if (saveButton) saveButton.disabled = true;
+
+  try {
+   await setDoc(
+    doc(db, "settings", "institute"),
+    data,
+    {merge: true}
+   );
+
+   notify("تم حفظ إعدادات المؤسسة بنجاح.");
+  } catch (error) {
+   console.error(error);
+   notify("تعذر حفظ الإعدادات.", true);
+  } finally {
+   if (saveButton) saveButton.disabled = false;
+  }
+ });
+}
+
+// Start settings synchronization when the owner logs in.
+onAuthStateChanged(auth, user => {
+ if (settingsUnsubscribe) {
+  settingsUnsubscribe();
+  settingsUnsubscribe = null;
+ }
+
+ if (user && user.uid === OWNER_UID) {
+  loadSettings();
+ }
+});
 </script>
 </body>
 </html>
