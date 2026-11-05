@@ -61,11 +61,18 @@ function show(id){
 document.querySelectorAll("section").forEach(s=>s.hidden=true);
 document.getElementById(id).hidden=false;
 }
-function addStudent(){
+async function addStudent(){
 const input=document.getElementById("studentName");
 const name=input.value.trim();
 if(!name)return alert("أدخل اسم الطالب");
 students.push(name);
+try {
+  await window.saveStudentToFirebase(name);
+} catch (error) {
+  students.pop();
+  alert("تعذر حفظ الطالب في Firebase. حاول مرة أخرى.");
+  return;
+}
 input.value="";
 document.getElementById("studentsCount").textContent=students.length;
 const li=document.createElement("li");
@@ -76,7 +83,7 @@ document.getElementById("studentList").appendChild(li);
   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
@@ -90,6 +97,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+window.db = db;
+window.saveStudentToFirebase = (name) => addDoc(collection(db, "students"), { name, createdAt: new Date().toISOString() });
+ window.loadStudentsFromFirebase = async () => {
+  const snapshot = await getDocs(collection(db, "students"));
+  return snapshot.docs.map(doc => doc.data().name);
+};
     const loginButton = document.getElementById("loginButton");
 const loginMessage = document.getElementById("loginMessage");
 
@@ -112,6 +125,24 @@ onAuthStateChanged(auth, (user) => {
   const authorized = user && user.uid === "3ER6MuYqWtb7Nyawz6bLUiPXWJx1";
   document.getElementById("dashboard").hidden = !authorized;
   document.getElementById("loginBox").hidden = !!authorized;
+if (authorized) {
+  window.loadStudentsFromFirebase()
+    .then(names => {
+      students = names;
+      document.getElementById("studentsCount").textContent = students.length;
+      const list = document.getElementById("studentList");
+      list.innerHTML = "";
+      students.forEach(name => {
+        const li = document.createElement("li");
+        li.textContent = name;
+        list.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error("Error loading students:", error);
+      alert("تعذر تحميل الطلاب من Firebase");
+    });
+}
   if (user && !authorized) {
     loginMessage.textContent = "هذا الحساب غير مخوّل بالدخول.";
     signOut(auth);
