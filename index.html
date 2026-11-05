@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXAURA Manager</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d12;color:#fff;font-family:Arial,sans-serif}
+header{background:#111b23;padding:22px;text-align:center;border-bottom:2px solid #d9ad55}
+h1{color:#e5bb64;margin:0;letter-spacing:2px}
+header p{color:#45d6cf}
+main{padding:20px;max-width:1000px;margin:auto}
+h2{font-size:21px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:#17232c;border:1px solid #34444d;border-radius:14px;padding:20px}
+.card strong{display:block;font-size:28px;color:#e5bb64;margin-top:12px}
+nav{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+button{background:#123c42;color:#fff;border:1px solid #45d6cf;border-radius:12px;padding:18px;font-size:16px;cursor:pointer}
+section{background:#17232c;border-radius:12px;padding:18px;margin-top:18px}
+input{padding:12px;width:100%;margin:8px 0;background:#0c151c;color:white;border:1px solid #64747d;border-radius:8px}
+li{padding:8px}
+small{color:#aab7bf}
+</style>
+</head>
+<body>
+<header>
+<h1>NEXAURA</h1>
+<p>Manager | نظام الإدارة التعليمية</p>
+</header>
+<main>
+<h2>لوحة التحكم</h2>
+<div class="grid">
+<div class="card">الطلاب المسجلون<strong id="studentsCount">0</strong></div>
+<div class="card">الدروس اليوم<strong>0</strong></div>
+<div class="card">الدخل الشهري<strong>₪0</strong></div>
+<div class="card">المدفوعات المستحقة<strong>₪0</strong></div>
+</div>
+<nav>
+<button onclick="show('students')">إدارة الطلاب</button>
+<button onclick="show('lessons')">جدول الدروس</button>
+<button onclick="show('payments')">المدفوعات</button>
+<button onclick="show('reports')">التقارير</button>
+</nav>
+<section id="students" hidden>
+<h2>إدارة الطلاب</h2>
+<input id="studentName" placeholder="اسم الطالب">
+<button onclick="addStudent()">إضافة طالب</button>
+<ul id="studentList"></ul>
+</section>
+<section id="lessons" hidden><h2>جدول الدروس</h2><p>سيتم إضافة الجدول في المرحلة القادمة.</p></section>
+<section id="payments" hidden><h2>المدفوعات</h2><p>سيتم إضافة إدارة المدفوعات قريبًا.</p></section>
+<section id="reports" hidden><h2>التقارير</h2><p>سيتم إضافة التقارير قريبًا.</p></section>
+<p><small>نسخة تجريبية أولية — البيانات لا تُحفظ بعد.</small></p>
+</main>
+<script>
+let students=[];
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.hidden=true);
+document.getElementById(id).hidden=false;
+}
+function addStudent(){
+const input=document.getElementById("studentName");
+const name=input.value.trim();
+if(!name)return alert("أدخل اسم الطالب");
+students.push(name);
+input.value="";
+document.getElementById("studentsCount").textContent=students.length;
+const li=document.createElement("li");
+li.textContent=name;
+document.getElementById("studentList").appendChild(li);
+}
+</script>
+</body>
+</html>
