@@ -49,6 +49,49 @@ small{color:#aab7bf}
   width: auto;
   flex-shrink: 0;
 }
+  /* NEXAURA Student Form */
+.student-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.student-form input,
+.student-form select,
+.student-form textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  background: #0c151c;
+  color: #ffffff;
+  border: 1px solid #405660;
+  border-radius: 9px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.student-form input:focus,
+.student-form select:focus,
+.student-form textarea:focus {
+  outline: none;
+  border-color: #45d6cf;
+}
+
+.student-form .full-width {
+  grid-column: 1 / -1;
+}
+
+.student-form textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+@media (max-width: 600px) {
+  .student-form {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -73,7 +116,52 @@ small{color:#aab7bf}
 </nav>
 <section id="students" hidden>
 <h2>إدارة الطلاب</h2>
-<input id="studentName" placeholder="اسم الطالب">
+<div class="student-form">
+  <input id="studentName" placeholder="اسم الطالب" required>
+
+  <select id="studentGrade">
+    <option value="">اختر الصف الدراسي</option>
+    <option value="1">الصف الأول</option>
+    <option value="2">الصف الثاني</option>
+    <option value="3">الصف الثالث</option>
+    <option value="4">الصف الرابع</option>
+    <option value="5">الصف الخامس</option>
+    <option value="6">الصف السادس</option>
+    <option value="7">الصف السابع</option>
+    <option value="8">الصف الثامن</option>
+    <option value="9">الصف التاسع</option>
+    <option value="10">الصف العاشر</option>
+    <option value="11">الصف الحادي عشر</option>
+    <option value="12">الصف الثاني عشر</option>
+  </select>
+
+  <input id="studentSubject" placeholder="المادة التعليمية">
+  <input id="parentPhone" type="tel" placeholder="هاتف ولي الأمر">
+
+  <select id="lessonType">
+    <option value="group">تعليم جماعي</option>
+    <option value="individual">تعليم فردي</option>
+  </select>
+
+  <input id="lessonPrice" type="number" min="0" step="0.01" placeholder="سعر الحصة ₪">
+
+  <select id="studentStatus">
+    <option value="active">طالب نشط</option>
+    <option value="inactive">طالب غير نشط</option>
+  </select>
+
+  <select id="academicRating">
+    <option value="">التقييم الأكاديمي</option>
+    <option value="excellent">ممتاز</option>
+    <option value="very-good">جيد جدًا</option>
+    <option value="good">جيد</option>
+    <option value="needs-support">يحتاج إلى متابعة</option>
+  </select>
+
+  <textarea id="studentStrengths" class="full-width" placeholder="نقاط القوة"></textarea>
+  <textarea id="studentImprovements" class="full-width" placeholder="نقاط تحتاج إلى تحسين"></textarea>
+  <textarea id="studentNotes" class="full-width" placeholder="ملاحظات المعلم"></textarea>
+</div>
 <button onclick="addStudent()">إضافة طالب</button>
 <ul id="studentList"></ul>
 </section>
