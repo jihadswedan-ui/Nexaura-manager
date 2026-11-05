@@ -52,7 +52,7 @@ small{color:#aab7bf}
 <section id="lessons" hidden><h2>جدول الدروس</h2><p>سيتم إضافة الجدول في المرحلة القادمة.</p></section>
 <section id="payments" hidden><h2>المدفوعات</h2><p>سيتم إضافة إدارة المدفوعات قريبًا.</p></section>
 <section id="reports" hidden><h2>التقارير</h2><p>سيتم إضافة التقارير قريبًا.</p></section>
-<p><small>نسخة تجريبية أولية — البيانات لا تُحفظ بعد.</small></p>
+<p><small>بيانات الطلاب محفوظة في Firebase وتتم مزامنتها بين الأجهزة. ميزات الدروس والمدفوعات والتقارير قيد التطوير.</small></p>
 </main>
   </div>
 <script>
@@ -65,25 +65,51 @@ async function addStudent(){
 const input=document.getElementById("studentName");
 const name=input.value.trim();
 if(!name)return alert("أدخل اسم الطالب");
-students.push(name);
 try {
-  await window.saveStudentToFirebase(name);
+const student = await window.saveStudentToFirebase(name);
+students.push(student);
 } catch (error) {
-  students.pop();
   alert("تعذر حفظ الطالب في Firebase. حاول مرة أخرى.");
   return;
 }
 input.value="";
 document.getElementById("studentsCount").textContent=students.length;
 const li=document.createElement("li");
-li.textContent=name;
+li.textContent = student.name;
+li.dataset.studentId = student.id;
+  const deleteButton = document.createElement("button");
+deleteButton.textContent = "حذف";
+deleteButton.onclick = () => deleteStudent(student.id);
+li.appendChild(deleteButton);
 document.getElementById("studentList").appendChild(li);
 }
 </script>
+  async function deleteStudent(studentId) {
+  const student = students.find(s => s.id === studentId);
+  if (!student) return;
+
+  if (!confirm(`هل تريد حذف الطالب "${student.name}"؟`)) return;
+
+  try {
+    await window.deleteStudentFromFirebase(studentId);
+
+    students = students.filter(s => s.id !== studentId);
+
+    const li = Array.from(document.querySelectorAll("#studentList li"))
+      .find(item => item.dataset.studentId === studentId);
+
+    if (li) li.remove();
+
+    document.getElementById("studentsCount").textContent = students.length;
+  } catch (error) {
+    console.error("Error deleting student:", error);
+    alert("تعذر حذف الطالب. حاول مرة أخرى.");
+  }
+}
   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA7x0FM4yFuMK9Utc_IHct-iIOLoErIBzo",
@@ -98,10 +124,22 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 window.db = db;
-window.saveStudentToFirebase = (name) => addDoc(collection(db, "students"), { name, createdAt: new Date().toISOString() });
- window.loadStudentsFromFirebase = async () => {
+window.saveStudentToFirebase = async (name) => {
+  const studentRef = await addDoc(collection(db, "students"), {
+    name,
+    createdAt: new Date().toISOString()
+  });
+  return { id: studentRef.id, name };
+};
+window.deleteStudentFromFirebase = async (studentId) => {
+  if (!auth.currentUser || auth.currentUser.uid !== "3ER6MuYqWtb7Nyawz6bLUiPXWJx1") {
+    throw new Error("Unauthorized");
+  }
+
+  await deleteDoc(doc(db, "students", studentId));
+};
   const snapshot = await getDocs(collection(db, "students"));
-  return snapshot.docs.map(doc => doc.data().name);
+return snapshot.docs.map(studentDoc => ({ id: studentDoc.id, name: studentDoc.data().name }));
 };
     const loginButton = document.getElementById("loginButton");
 const loginMessage = document.getElementById("loginMessage");
@@ -128,15 +166,20 @@ onAuthStateChanged(auth, (user) => {
 if (authorized) {
   window.loadStudentsFromFirebase()
     .then(names => {
-      students = names;
+students = names;
       document.getElementById("studentsCount").textContent = students.length;
       const list = document.getElementById("studentList");
       list.innerHTML = "";
-      students.forEach(name => {
-        const li = document.createElement("li");
-        li.textContent = name;
-        list.appendChild(li);
-      });
+students.forEach(student => {
+  const li = document.createElement("li");
+  li.textContent = student.name;
+  li.dataset.studentId = student.id;
+  const deleteButton = document.createElement("button");
+deleteButton.textContent = "حذف";
+deleteButton.onclick = () => deleteStudent(student.id);
+li.appendChild(deleteButton);
+  list.appendChild(li);
+});
     })
     .catch(error => {
       console.error("Error loading students:", error);
